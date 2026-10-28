@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ระบบแผนที่ 3 มิติ บางระกำ หมู่ 15</title>
+  <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700&display=swap">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+    <div id="map"></div>
+
+    <!-- 1. แถบควบคุมมุมมองด้านซ้าย -->
+    <div class="nav-toolbar">
+      <button id="btn-home" class="nav-btn" title="กลับมุมมองเริ่มต้น (Home)">
+        <svg viewBox="0 0 24 24"><path d="M3 10.5L12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1v-9.5z"/></svg>
+      </button>
+      <div class="nav-sep"></div>
+      <button id="btn-zoom-in" class="nav-btn" title="ซูมเข้า">
+        <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+      </button>
+      <button id="btn-zoom-out" class="nav-btn" border-top title="ซูมออก">
+        <svg viewBox="0 0 24 24"><path d="M5 12h14"/></svg>
+      </button>
+      <div class="nav-sep"></div>
+      <button id="btn-pan" class="nav-btn" title="โหมดเลื่อนแผนที่ (คลิกซ้ายลากเพื่อเลื่อน)">
+        <svg viewBox="0 0 24 24"><path d="M12 2v20M2 12h20M12 2l-3 3M12 2l3 3M12 22l-3-3M12 22l3-3M2 12l3-3M2 12l3 3M22 12l-3-3M22 12l-3 3"/></svg>
+      </button>
+      <button id="btn-rotate" class="nav-btn active corner-mark" title="โหมดหมุน 3D รอบทิศ (คลิกซ้ายลากเพื่อหมุนทุกด้าน)">
+        <svg viewBox="0 0 24 24">
+          <path d="M6.5 17.5A8 8 0 1 1 19.5 14" stroke-linecap="round"/>
+          <polyline points="20 9 19.5 14.5 14 14"/>
+          <circle cx="12" cy="12" r="1.2" fill="currentColor" stroke="none"/>
+        </svg>
+      </button>
+      <div class="nav-sep"></div>
+      <button id="btn-compass" class="nav-compass" title="รีเซ็ตทิศเหนือ">
+        <svg id="compass-svg" viewBox="0 0 32 32">
+          <polygon points="16,4 21,16 11,16" fill="#444" stroke="#444" stroke-width="1"/>
+          <polygon points="16,28 21,16 11,16" fill="#fff" stroke="#444" stroke-width="1"/>
+        </svg>
+      </button>
+      <div class="nav-sep"></div>
+      <button id="btn-2d" class="nav-btn nav-text" title="สลับเป็นมุมมอง 2 มิติ (มองจากด้านบน)">2D</button>
+    </div>
+
+    <!-- 2. หน้าต่างลอยสำหรับแสดงเครื่องมือ -->
+    <div id="floating-panel" class="floating-panel">
+      
+      <!-- เนื้อหาหน้าต่าง Layers & Legend -->
+      <div id="view-layers" class="panel-view">
+        <div class="panel-tabs">
+          <button id="tab-btn-layers" class="tab-btn active">Layers</button>
+          <button id="tab-btn-legend" class="tab-btn">Legend</button>
+          <button class="panel-close" data-close title="ปิด">✕</button>
+        </div>
+
+        <!-- แท็บ Layers -->
+        <div id="tab-content-layers" class="tab-content">
+          <div class="layer-list">
+            <div class="layer-item">
+              <label class="chk-wrap">
+                <input type="checkbox" id="chk-bld3d" checked>
+                <span class="chk-box"></span>
+                <span class="layer-title">อาคาร 3 มิติ (สีขาว)</span>
+              </label>
+              <button class="zoom-layer-btn" data-zoom="all" title="ซูมไปที่ชั้นข้อมูล">
+                <svg viewBox="0 0 20 20"><rect x="2" y="3" width="12" height="10" rx="1"/><circle cx="12" cy="12" r="4" fill="#fff"/><line x1="15" y1="15" x2="18" y2="18"/></svg>
+              </button>
+            </div>
+
+            <div class="layer-item">
+              <label class="chk-wrap">
+                <input type="checkbox" id="chk-pins">
+                <span class="chk-box"></span>
+                <span class="layer-title">หมุดหลักฐานอ้างอิง / ป้ายชื่ออาคาร</span>
+              </label>
+              <button class="zoom-layer-btn" data-zoom="all" title="ซูมไปที่ชั้นข้อมูล">
+                <svg viewBox="0 0 20 20"><rect x="2" y="3" width="12" height="10" rx="1"/><circle cx="12" cy="12" r="4" fill="#fff"/><line x1="15" y1="15" x2="18" y2="18"/></svg>
+              </button>
+            </div>
+
+            <div class="layer-item">
+              <label class="chk-wrap">
+                <input type="checkbox" id="chk-shadow" checked>
+                <span class="chk-box"></span>
+                <span class="layer-title">เงาอาคาร (ตามแสงอาทิตย์)</span>
+              </label>
+              <button class="zoom-layer-btn" data-zoom="all" title="ซูมไปที่ชั้นข้อมูล">
+                <svg viewBox="0 0 20 20"><rect x="2" y="3" width="12" height="10" rx="1"/><circle cx="12" cy="12" r="4" fill="#fff"/><line x1="15" y1="15" x2="18" y2="18"/></svg>
+              </button>
+            </div>
+
+            <!-- แม่ข่ายแบบจำลองระดับน้ำท่วม + Tree ย่อย -->
+            <div class="layer-item">
+              <label class="chk-wrap">
+                <input type="checkbox" id="chk-flood-group" checked>
+                <span class="chk-box"></span>
+                <span class="layer-title">แบบจำลองระดับน้ำท่วม_บางระกำ หมู่ 15</span>
+              </label>
+              <button class="zoom-layer-btn" data-zoom="all" title="ซูมไปที่ชั้นข้อมูล">
+                <svg viewBox="0 0 20 20"><rect x="2" y="3" width="12" height="10" rx="1"/><circle cx="12" cy="12" r="4" fill="#fff"/><line x1="15" y1="15" x2="18" y2="18"/></svg>
+              </button>
+            </div>
+
+            <div class="layer-children" id="flood-sublayers">
+              <div class="layer-item">
+                <label class="chk-wrap">
+                  <input type="checkbox" class="fld-lvl-chk" value="0.5">
+                  <span class="chk-box"></span>
+                  <i class="lvl-sw" style="background:#E6F2FC"></i>
+                  <span class="layer-title">ระดับน้ำท่วม 0 - 50 cm. (0.5 ม.)</span>
+                </label>
+                <button class="zoom-layer-btn" data-min="0" data-max="0.5"><svg viewBox="0 0 20 20"><rect x="2" y="3" width="12" height="10" rx="1"/><circle cx="12" cy="12" r="4" fill="#fff"/><line x1="15" y1="15" x2="18" y2="18"/></svg></button>
+              </div>
+              <div class="layer-item">
+                <label class="chk-wrap">
+                  <input type="checkbox" class="fld-lvl-chk" value="1.0" checked>
+                  <span class="chk-box"></span>
+                  <i class="lvl-sw" style="background:#C4DEF5"></i>
+                  <span class="layer-title">ระดับน้ำท่วม 0 - 100 cm. (1.0 ม.)</span>
+                </label>
+                <button class="zoom-layer-btn" data-min="0.5" data-max="1.0"><svg viewBox="0 0 20 20"><rect x="2" y="3" width="12" height="10" rx="1"/><circle cx="12" cy="12" r="4" fill="#fff"/><line x1="15" y1="15" x2="18" y2="18"/></svg></button>
+              </div>
+              <div class="layer-item">
+                <label class="chk-wrap">
+                  <input type="checkbox" class="fld-lvl-chk" value="1.5">
+                  <span class="chk-box"></span>
+                  <i class="lvl-sw" style="background:#9CC5EC"></i>
+                  <span class="layer-title">ระดับน้ำท่วม 0 - 150 cm. (1.5 ม.)</span>
+                </label>
+                <button class="zoom-layer-btn" data-min="1.0" data-max="1.5"><svg viewBox="0 0 20 20"><rect x="2" y="3" width="12" height="10" rx="1"/><circle cx="12" cy="12" r="4" fill="#fff"/><line x1="15" y1="15" x2="18" y2="18"/></svg></button>
+              </div>
+              <div class="layer-item">
+                <label class="chk-wrap">
+                  <input type="checkbox" class="fld-lvl-chk" value="2.0">
+                  <span class="chk-box"></span>
+                  <i class="lvl-sw" style="background:#6AA6E0"></i>
+                  <span class="layer-title">ระดับน้ำท่วม 0 - 200 cm. (2.0 ม.)</span>
+                </label>
+                <button class="zoom-layer-btn" data-min="1.5" data-max="2.0"><svg viewBox="0 0 20 20"><rect x="2" y="3" width="12" height="10" rx="1"/><circle cx="12" cy="12" r="4" fill="#fff"/><line x1="15" y1="15" x2="18" y2="18"/></svg></button>
+              </div>
+              <div class="layer-item">
+                <label class="chk-wrap">
+                  <input type="checkbox" class="fld-lvl-chk" value="2.5">
+                  <span class="chk-box"></span>
+                  <i class="lvl-sw" style="background:#3F85CF"></i>
+                  <span class="layer-title">ระดับน้ำท่วม 0 - 250 cm. (2.5 ม.)</span>
+                </label>
+                <button class="zoom-layer-btn" data-min="2.0" data-max="2.5"><svg viewBox="0 0 20 20"><rect x="2" y="3" width="12" height="10" rx="1"/><circle cx="12" cy="12" r="4" fill="#fff"/><line x1="15" y1="15" x2="18" y2="18"/></svg></button>
+              </div>
+              <div class="layer-item">
+                <label class="chk-wrap">
+                  <input type="checkbox" class="fld-lvl-chk" value="3.0">
+                  <span class="chk-box"></span>
+                  <i class="lvl-sw" style="background:#1F5FA8"></i>
+                  <span class="layer-title">ระดับน้ำท่วม 0 - 300 cm. (3.0 ม.)</span>
+                </label>
+                <button class="zoom-layer-btn" data-min="2.5" data-max="3.0"><svg viewBox="0 0 20 20"><rect x="2" y="3" width="12" height="10" rx="1"/><circle cx="12" cy="12" r="4" fill="#fff"/><line x1="15" y1="15" x2="18" y2="18"/></svg></button>
+              </div>
+              <div class="layer-item">
+                <label class="chk-wrap">
+                  <input type="checkbox" class="fld-lvl-chk" value="3.5">
+                  <span class="chk-box"></span>
+                  <i class="lvl-sw" style="background:#0B3A75"></i>
+                  <span class="layer-title">ระดับน้ำท่วม 0 - 350 cm. (3.5 ม.)</span>
+                </label>
+                <button class="zoom-layer-btn" data-min="3.0" data-max="99"><svg viewBox="0 0 20 20"><rect x="2" y="3" width="12" height="10" rx="1"/><circle cx="12" cy="12" r="4" fill="#fff"/><line x1="15" y1="15" x2="18" y2="18"/></svg></button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- แท็บ Legend & สรุปจำนวนอาคาร -->
+        <div id="tab-content-legend" class="tab-content hidden">
+          <div class="pad-box">
+            <div class="sec-title">สัญลักษณ์ระดับน้ำท่วม (ม.)</div>
+            <div id="legend"></div>
+            <hr class="sep-line">
+            <div id="summary"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- เนื้อหาหน้าต่าง ค้นหา & กรอง -->
+      <div id="view-search" class="panel-view hidden">
+        <div class="panel-header">
+          <span>ค้นหาและกรองอาคาร</span>
+          <button class="panel-close" data-close>✕</button>
+        </div>
+        <div class="pad-box">
+          <label class="field-lbl">รหัสอาคาร</label>
+          <input id="search" type="text" placeholder="เช่น B-0062, B-0074 (กด Enter เพื่อซูม)">
+          <label class="field-lbl">กรองระดับน้ำท่วมขั้นต่ำ</label>
+          <select id="minlevel">
+            <option value="0">แสดงทุกระดับน้ำ</option>
+            <option value="0.5">ตั้งแต่ 0.5 ม. ขึ้นไป</option>
+            <option value="1">ตั้งแต่ 1.0 ม. ขึ้นไป</option>
+            <option value="1.5">ตั้งแต่ 1.5 ม. ขึ้นไป</option>
+            <option value="2">ตั้งแต่ 2.0 ม. ขึ้นไป</option>
+          </select>
+          <button id="reset" type="button" class="btn-full">ล้างตัวกรองทั้งหมด</button>
+        </div>
+      </div>
+
+      <!-- เนื้อหาหน้าต่าง แผนที่ฐาน Basemap -->
+      <div id="view-basemap" class="panel-view hidden">
+        <div class="panel-header">
+          <span>เลือกแผนที่ฐาน (Basemap)</span>
+          <button class="panel-close" data-close>✕</button>
+        </div>
+        <div class="pad-box basemap-grid">
+          <div class="bm-card active" data-bm="sat">
+            <div class="bm-thumb sat-thumb"></div>
+            <span>ภาพถ่ายดาวเทียม</span>
+          </div>
+          <div class="bm-card" data-bm="osm">
+            <div class="bm-thumb osm-thumb"></div>
+            <span>แผนที่ถนน (OSM)</span>
+          </div>
+          <div class="bm-card" data-bm="light">
+            <div class="bm-thumb light-thumb"></div>
+            <span>แผนที่เรียบ (Voyager)</span>
+          </div>
+          <div class="bm-card" data-bm="street">
+            <div class="bm-thumb street-thumb"></div>
+            <span>แผนที่ถนน (Esri)</span>
+          </div>
+          <div class="bm-card" data-bm="topo">
+            <div class="bm-thumb topo-thumb"></div>
+            <span>แผนที่ภูมิประเทศ</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- เนื้อหาหน้าต่าง แสงเงา & จำลองระดับน้ำอิสระ -->
+      <div id="view-sun" class="panel-view hidden">
+        <div class="panel-header">
+          <span>แสงอาทิตย์ &amp; เงา 3 มิติ</span>
+          <button class="panel-close" data-close>✕</button>
+        </div>
+        <div class="pad-box">
+          <div class="daylight">
+            <div class="dl-title">แสงอาทิตย์ (Daylight)</div>
+            <div class="dl-time-wrap"><div class="dl-time" id="dl-time">15:00 <small>ICT</small></div></div>
+            <div class="dl-row">
+              <div class="dl-track">
+                <input type="range" id="sun-time" min="0" max="1440" step="5" value="900" aria-label="เวลาในวัน">
+                <div class="dl-ticks"><span>00:00</span><span>06:00</span><span>12:00</span><span>18:00</span><span>00:00</span></div>
+              </div>
+              <button id="btn-daylight-play" type="button" class="dl-play" title="เล่น/หยุดแสงตลอดวัน">▶</button>
+            </div>
+          </div>
+          <button id="btn-autospin" type="button" class="btn-full">🔄 หมุนมุมกล้อง 360° อัตโนมัติ</button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 3. แถบไอคอนเครื่องมือด้านขวา -->
+    <div class="right-action-bar">
+      <button class="action-btn" data-panel="view-search" title="ค้นหา / กรองอาคาร">
+        <svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><line x1="15.5" y1="15.5" x2="21" y2="21"/></svg>
+      </button>
+      <button class="action-btn active" data-panel="view-layers" title="ชั้นข้อมูล (Layers & Legend)">
+        <svg viewBox="0 0 24 24">
+          <polygon points="12 3 2 8.5 12 14 22 8.5 12 3"/>
+          <polyline points="2 12.5 12 18 22 12.5"/>
+          <polyline points="2 16.5 12 22 22 16.5"/>
+        </svg>
+      </button>
+      <button class="action-btn" data-panel="view-basemap" title="แผนที่ฐาน (Basemap)">
+        <svg viewBox="0 0 24 24">
+          <rect x="3" y="3" width="7.5" height="7.5"/>
+          <rect x="13.5" y="3" width="7.5" height="7.5"/>
+          <rect x="3" y="13.5" width="7.5" height="7.5"/>
+          <rect x="13.5" y="13.5" width="7.5" height="7.5"/>
+          <path d="M3 7l4-4M14 9l6-6M3 18l5-4M14 20l7-5" stroke-width="1"/>
+        </svg>
+      </button>
+      <button class="action-btn" data-panel="view-sun" title="แสงอาทิตย์ &amp; เงา">
+        <svg viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="4.2"/>
+          <path d="M12 2v3M12 19v3M4.93 4.93l2.12 2.12M16.95 16.95l2.12 2.12M2 12h3M19 12h3M4.93 19.07l2.12-2.12M16.95 7.05l2.12-2.12"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

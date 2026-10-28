@@ -1,0 +1,350 @@
+/* ==========================================================
+   ธีม "เสาวัดระดับน้ำ" — ปุ่มทุกปุ่มมีรูปทรงหยดน้ำ (มุมล่างซ้ายแหลม)
+   และเมื่อเปิดใช้งาน น้ำจะไหลเติมขึ้นมาจากก้นปุ่ม
+   ========================================================== */
+:root {
+  --ink: #12303f;          /* น้ำลึกกลางลำน้ำ */
+  --water: #1f8aa6;        /* น้ำท่วม */
+  --water-soft: #d9edf2;
+  --paper: #f4f7f7;
+  --line: #c9d8dc;
+  --gauge-red: #d4492e;    /* เส้นระดับวิกฤตบนเสาวัดน้ำ */
+  --drop: 18px 18px 18px 4px;
+  --fill-ease: cubic-bezier(.3, .7, .2, 1);
+}
+
+* { box-sizing: border-box; }
+html, body {
+  height: 100%; margin: 0;
+  font-family: "Sarabun", "Noto Sans Thai", "Segoe UI", system-ui, sans-serif;
+  font-size: 14px; color: var(--ink); overflow: hidden;
+}
+#app { position: relative; width: 100%; height: 100%; }
+#map { width: 100%; height: 100%; cursor: grab; }
+#map:active { cursor: grabbing; }
+.hidden { display: none !important; }
+
+button { font-family: inherit; }
+button:focus-visible, .chk-wrap:focus-within .chk-box, input:focus-visible, select:focus-visible {
+  outline: 2px solid var(--water);
+  outline-offset: 2px;
+}
+
+/* ---------- พื้นปุ่มแบบ "น้ำเติมจากก้นปุ่ม" ใช้ร่วมกัน ---------- */
+.nav-btn, .action-btn, .nav-compass, .btn-full, .tab-btn {
+  background-image: linear-gradient(var(--water), var(--water));
+  background-repeat: no-repeat;
+  background-position: bottom;
+  background-size: 100% 0%;
+  transition: background-size .5s var(--fill-ease), color .25s, box-shadow .25s;
+}
+.nav-btn.active, .action-btn.active, .btn-full:hover {
+  background-size: 100% 100%;
+  color: #fff;
+}
+
+/* ================= 1. แถบนำทางด้านซ้าย ================= */
+.nav-toolbar {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+.nav-btn {
+  width: 40px;
+  height: 40px;
+  background-color: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--drop);
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--ink);
+  position: relative;
+  box-shadow: 0 2px 6px rgba(18, 48, 63, .22);
+}
+.nav-btn svg { width: 19px; height: 19px; fill: none; stroke: currentColor; stroke-width: 1.8; position: relative; }
+.nav-btn:hover:not(.active) { background-size: 100% 22%; }
+.nav-btn.active { border-color: var(--water); }
+.nav-btn.corner-mark::after { content: none; }
+.nav-btn.disabled { opacity: .4; pointer-events: none; }
+.nav-text { font-weight: 700; font-size: 14px; letter-spacing: .02em; }
+.nav-sep { height: 5px; }
+
+.nav-compass {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background-color: var(--ink);
+  border: 2px solid var(--paper);
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(18, 48, 63, .35);
+}
+.nav-compass:hover { background-size: 100% 30%; }
+.nav-compass svg { width: 30px; height: 30px; transition: transform .05s linear; }
+/* เข็มทิศ: หัวเข็มชี้เหนือสีแดงเหมือนเส้นวิกฤตบนเสา */
+#compass-svg polygon:first-child { fill: var(--gauge-red); stroke: var(--gauge-red); }
+#compass-svg polygon:last-child { fill: var(--paper); stroke: var(--paper); }
+
+/* ================= 2. แถบเครื่องมือด้านขวา ================= */
+.right-action-bar {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.action-btn {
+  width: 46px;
+  height: 46px;
+  background-color: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--drop);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--ink);
+  padding: 0;
+  box-shadow: 0 2px 6px rgba(18, 48, 63, .22);
+}
+.action-btn svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.7; position: relative; }
+.action-btn:hover:not(.active) { background-size: 100% 22%; }
+.action-btn.active { border-color: var(--water); }
+
+/* ================= 3. หน้าต่าง Layers & Legend ================= */
+.floating-panel {
+  position: absolute;
+  top: 16px;
+  right: 72px;
+  width: 322px;
+  max-height: calc(100vh - 32px);
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 16px 16px 16px 4px;
+  box-shadow: 0 8px 28px rgba(18, 48, 63, .28);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.panel-tabs {
+  display: flex;
+  height: 44px;
+  background: var(--ink);
+}
+.tab-btn {
+  flex: 1;
+  border: none;
+  background-color: transparent;
+  font-size: 15px;
+  font-weight: 600;
+  color: #9fc0cb;
+  cursor: pointer;
+  position: relative;
+}
+.tab-btn:hover { color: #fff; }
+.tab-btn.active {
+  color: #fff;
+  background-size: 100% 100%;
+  background-image: linear-gradient(rgba(31, 138, 166, .55), rgba(31, 138, 166, .55));
+}
+/* คลื่นน้ำใต้แท็บที่เลือก */
+.tab-btn.active::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 6px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='6' viewBox='0 0 24 6'%3E%3Cpath d='M0 6 Q6 0 12 3 T24 6 Z' fill='%23f4f7f7'/%3E%3C/svg%3E") repeat-x bottom / 24px 6px;
+}
+.panel-close {
+  width: 44px;
+  border: none;
+  background: transparent;
+  font-size: 15px;
+  color: #9fc0cb;
+  cursor: pointer;
+}
+.panel-close:hover { background: var(--gauge-red); color: #fff; }
+
+.panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 44px;
+  padding: 0 0 0 16px;
+  background: var(--ink);
+  font-weight: 600;
+  font-size: 15px;
+  color: #fff;
+}
+
+.tab-content { overflow-y: auto; max-height: calc(100vh - 90px); }
+.layer-list { padding: 12px 14px; }
+.layer-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 0;
+  gap: 8px;
+}
+/* รายการย่อยระดับน้ำ: เส้นนำเป็นขีดแบบเสาวัดน้ำ */
+.layer-children {
+  margin-left: 8px;
+  padding-left: 14px;
+  border-left: 3px solid var(--water-soft);
+  background: repeating-linear-gradient(to bottom, transparent 0 11px, var(--water) 11px 12px) left / 6px 100% no-repeat;
+}
+
+/* ช่องติ๊ก: วงกลมที่น้ำเติมเต็มเมื่อเลือก */
+.chk-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  flex: 1;
+  min-width: 0;
+}
+.chk-wrap input { position: absolute; opacity: 0; pointer-events: none; }
+.chk-box {
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--water);
+  border-radius: 50% 50% 50% 3px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff linear-gradient(var(--water), var(--water)) no-repeat bottom / 100% 0%;
+  flex-shrink: 0;
+  transition: background-size .4s var(--fill-ease);
+}
+.chk-wrap input:checked + .chk-box { background-size: 100% 100%; }
+.chk-wrap input:checked + .chk-box::after {
+  content: "";
+  width: 4px;
+  height: 8px;
+  border: solid #fff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+  margin-top: -2px;
+}
+.lvl-sw { width: 14px; height: 14px; flex-shrink: 0; border-radius: 7px 7px 7px 2px; border: 1px solid #12303f55; }
+.layer-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--ink);
+}
+
+.zoom-layer-btn {
+  background: transparent;
+  border: none;
+  color: #7f9ba5;
+  cursor: pointer;
+  padding: 3px;
+  display: flex;
+  align-items: center;
+  border-radius: 8px 8px 8px 2px;
+}
+.zoom-layer-btn svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.4; }
+.zoom-layer-btn:hover { color: #fff; background: var(--water); }
+
+/* ส่วนประกอบอื่นๆ ใน Panel */
+.pad-box { padding: 14px; }
+.sec-title { font-weight: 700; margin-bottom: 8px; color: var(--ink); }
+.sep-line { border: none; border-top: 1px solid var(--line); margin: 12px 0; }
+.lg { display: flex; gap: 8px; align-items: center; font-size: 13px; margin-bottom: 5px; }
+.lg i { width: 20px; height: 14px; border-radius: 7px 7px 7px 2px; border: 1px solid #12303f33; }
+.sm-num { font-size: 26px; font-weight: 700; color: var(--water); margin: 4px 0; }
+.sm-num small { font-size: 12px; font-weight: 400; color: #5d7681; }
+.sm-row { display: flex; align-items: center; gap: 6px; margin-top: 5px; font-size: 12.5px; }
+.sm-row i { width: 12px; height: 12px; border-radius: 6px 6px 6px 2px; border: 1px solid #12303f33; }
+.sm-row span { flex: 1; }
+.sm-bar { height: 5px; background: var(--water-soft); border-radius: 3px; margin-top: 2px; }
+.sm-bar div { height: 100%; border-radius: 3px; background: var(--water); }
+
+.field-lbl { display: block; font-size: 13px; color: #4b6772; margin: 8px 0 4px; }
+#search, #minlevel {
+  width: 100%; padding: 8px 10px; font: inherit; color: var(--ink);
+  background: #fff; border: 1px solid var(--line); border-radius: 10px 10px 10px 3px; margin-bottom: 6px;
+}
+.btn-full {
+  width: 100%; padding: 10px; margin-top: 8px; font: inherit; font-weight: 600;
+  background-color: var(--ink); color: #fff; border: none;
+  border-radius: var(--drop); cursor: pointer;
+}
+.btn-full.disabled { opacity: .4; pointer-events: none; }
+
+.basemap-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.bm-card {
+  border: 2px solid var(--line); border-radius: 14px 14px 14px 4px; padding: 6px;
+  text-align: center; cursor: pointer; font-size: 12.5px; background: #fff;
+  transition: border-color .2s, transform .2s;
+}
+.bm-card:hover { border-color: var(--water); }
+.bm-card.active { border-color: var(--water); background: var(--water-soft); font-weight: 700; color: var(--ink); }
+.bm-thumb { height: 60px; border-radius: 9px 9px 9px 2px; margin-bottom: 6px; background-size: cover; background-position: center; }
+.sat-thumb { background: linear-gradient(135deg, #1d3b2a, #3b5e47, #2b4435); }
+.osm-thumb { background: linear-gradient(135deg, #f2efe9, #dcd7c9, #b5d0d0); }
+.light-thumb { background: linear-gradient(135deg, #f6f4ee, #e6e2d6, #aad3df); }
+.street-thumb { background: linear-gradient(135deg, #f5f1e6, #e8dfc8, #a8cfe0); }
+.topo-thumb { background: linear-gradient(135deg, #dfe8c8, #c8d9a8, #e6d9b8); }
+
+.slider-group { margin-bottom: 12px; font-size: 13px; }
+.slider-group input { width: 100%; margin-top: 4px; accent-color: var(--water); }
+
+/* ---------- Daylight: แถบเวลาในวัน ---------- */
+.daylight { margin-bottom: 16px; padding-bottom: 14px; border-bottom: 1px solid var(--line); }
+.dl-title { font-weight: 700; margin-bottom: 4px; }
+.dl-time-wrap { position: relative; height: 22px; margin: 0 56px 0 9px; }
+.dl-time {
+  position: absolute;
+  left: calc(var(--p, .625) * (100% - 18px) + 9px - 9px);
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.dl-time small { color: var(--water); font-size: 10px; font-weight: 700; }
+.dl-row { display: flex; align-items: flex-start; gap: 12px; }
+.dl-track { flex: 1; min-width: 0; }
+#sun-time { -webkit-appearance: none; appearance: none; width: 100%; height: 24px; margin: 0; background: transparent; cursor: pointer; }
+#sun-time::-webkit-slider-runnable-track { height: 2px; background: var(--ink); border-radius: 1px; }
+#sun-time::-moz-range-track { height: 2px; background: var(--ink); border-radius: 1px; }
+#sun-time::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 18px; height: 18px; margin-top: -8px; border-radius: 50%;
+  background: var(--water); border: 2px solid #fff; box-shadow: 0 0 0 5px rgba(31, 138, 166, .3);
+}
+#sun-time::-moz-range-thumb {
+  width: 14px; height: 14px; border-radius: 50%;
+  background: var(--water); border: 2px solid #fff; box-shadow: 0 0 0 5px rgba(31, 138, 166, .3);
+}
+.dl-ticks { display: flex; justify-content: space-between; font-size: 10.5px; color: #4b6772; margin-top: 2px; font-variant-numeric: tabular-nums; }
+.dl-play {
+  width: 40px; height: 40px; flex-shrink: 0; border: none; cursor: pointer; color: #fff; font-size: 15px;
+  background-color: var(--water); border-radius: 50%;
+  box-shadow: 0 2px 6px rgba(18, 48, 63, .3);
+  transition: background-color .2s;
+}
+.dl-play:hover { background-color: var(--ink); }
+.dl-play.playing { background-color: var(--ink); }
+
+@media (max-width: 640px) {
+  .floating-panel { width: 264px; right: 68px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-btn, .action-btn, .nav-compass, .btn-full, .tab-btn, .chk-box, .bm-card { transition: none; }
+}
