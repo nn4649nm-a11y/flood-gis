@@ -1,175 +1,89 @@
 const C = window.CONFIG;
+let MODE = C.MODE;      // อาจถูกปรับเป็น "mock" อัตโนมัติถ้ายังตั้งค่า GeoNode ไม่ครบ
+let missingFlood = 0;   // จำนวนอาคารที่ไม่มีฟิลด์ระดับน้ำท่วม
 
-// กำหนดความสูงอาคารให้สมจริงตามประเภทสิ่งปลูกสร้างในพื้นที่ (บ้าน, วัด, โรงเรียน)
-const TYPE_HEIGHTS = {
-  "วัด": 12,
-  "โรงเรียน": 10,
-  "บ้านพัก": 5.5,    // บ้านชั้นเดียวหรือสองชั้น
-  "ร้านค้า": 5,
-  "โรงเก็บของ": 4
+// ความสูงอาคารไม่ใช้ในแผนที่ 2 มิติ  แผนที่นี้แสดงอาคารเป็นรูปทรงบนพื้น สีตามความถี่น้ำท่วม
+const DEFAULT_ZOOM_PADDING = [70, 70];
+const BASEMAPS = {
+  sat: {
+    url: "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+    opt: { maxNativeZoom: 19, attribution: "© Esri" }
+  },
+  osm: {
+    url: "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+    opt: { maxNativeZoom: 19, attribution: "© OpenStreetMap" }
+  },
+  light: {
+    url: "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png",
+    opt: { maxNativeZoom: 19, subdomains: "abcd", attribution: "© OpenStreetMap © CARTO" }
+  },
+  street: {
+    url: "https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}",
+    opt: { maxNativeZoom: 19, attribution: "© Esri" }
+  },
+  topo: {
+    url: "https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png",
+    opt: { maxNativeZoom: 17, subdomains: "abc", attribution: "© OpenTopoMap (CC-BY-SA)" }
+  }
 };
-
-const ROTATE_SPEED_X = 0.15;
-const ROTATE_SPEED_Y = 0.12;
-const PAN_SPEED = 0.65;
+const ZOOM_ICON = '<svg viewBox="0 0 20 20"><rect x="2" y="3" width="12" height="10" rx="1"/><circle cx="12" cy="12" r="4" fill="#fff"/><line x1="15" y1="15" x2="18" y2="18"/></svg>';
 
 const state = {
-  minLevel: 0,
   query: "",
-  waterLevel: 1.0,
-  waterOpacity: 0.55,
-  orbitMode: true,
-  spinning: false,
-  is2D: false,
-  minutes: 15 * 60,   // เวลาในวัน (นาที) ของแถบ Daylight
-  sunAz: 210,
-  sunAlt: 45,
-  playing: false
+  groupOn: false,       // ระบายสีอาคารตามความถี่น้ำท่วม (ค่าเริ่มต้น: อาคารสีขาวทั้งหมด)
+  activeClass: null,    // ถ้าเลือกระดับน้ำ = เน้นเฉพาะอาคารในช่วงนั้น
+  basemap: "sat"
 };
 
-let DATA = null;
-let spinFrame = null;
+let DATA = null;        // อาคารทั้งหมด (FeatureCollection ของ Polygon)
+let buildingLayer = null;
+let pinLayer = null;
+let waterLayer = null;  // แหล่งน้ำจาก C.WATER_URL (ถ้ามี)
+let boundaryLayer = null; // ขอบเขตหมู่ 15 (ถ้ามีไฟล์)
+let wmsLayer = null;    // ชั้นน้ำท่วมแบบ WMS จาก GeoServer (ถ้าตั้งค่าไว้)
+let pointData = null;   // จุดน้ำท่วม (อาร์เรย์ของ {id, name, type, flood, cls, latlng})
+let pointLayer = null;
+let pointRenderer = null;
+let pinsOn = false;
+const baseLayers = {};
 
-const map = new maplibregl.Map({
-  container: "map",
-  center: [C.CENTER[1], C.CENTER[0]],
+const map = L.map("map", {
+  center: C.CENTER,
   zoom: C.ZOOM,
-  pitch: 60,
-  bearing: -30,
-  maxPitch: 85,
-  antialias: true,
-  style: {
-    version: 8,
-    glyphs: "https://demotiles.maplibre.org/font/{fontstack}/{range}.pbf",
-    sky: {
-      "sky-color": "#81d4fa",
-      "sky-horizon-blend": 0.4,
-      "horizon-color": "#ffffff",
-      "horizon-fog-blend": 0.5,
-      "fog-color": "#e1f5fe",
-      "fog-ground-blend": 0.5
-    },
-    light: {
-      anchor: "map",
-      color: "#ffffff",
-      intensity: 0.8,
-      position: [1.5, 210, 45]
-    },
-    sources: {
-      satellite: {
-        type: "raster",
-        tiles: ["https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"],
-        tileSize: 256,
-        attribution: "© Esri"
-      },
-      osm: {
-        type: "raster",
-        tiles: ["https://tile.openstreetmap.org/{z}/{x}/{y}.png"],
-        tileSize: 256,
-        maxzoom: 19,
-        attribution: "© OpenStreetMap"
-      },
-      light: {
-        type: "raster",
-        tiles: ["https://a.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png"],
-        tileSize: 256,
-        maxzoom: 19,
-        attribution: "© OpenStreetMap © CARTO"
-      },
-      street: {
-        type: "raster",
-        tiles: ["https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}"],
-        tileSize: 256,
-        attribution: "© Esri"
-      },
-      topo: {
-        type: "raster",
-        tiles: ["https://tile.opentopomap.org/{z}/{x}/{y}.png"],
-        tileSize: 256,
-        maxzoom: 17,
-        attribution: "© OpenTopoMap (CC-BY-SA)"
-      }
-    },
-    layers: [
-      { id: "basemap-osm", type: "raster", source: "osm", layout: { visibility: "none" } },
-      { id: "basemap-light", type: "raster", source: "light", layout: { visibility: "none" } },
-      { id: "basemap-street", type: "raster", source: "street", layout: { visibility: "none" } },
-      { id: "basemap-topo", type: "raster", source: "topo", layout: { visibility: "none" } },
-      { id: "basemap-sat", type: "raster", source: "satellite", layout: { visibility: "visible" } }
-    ]
-  }
+  maxZoom: 20,
+  zoomControl: false,
+  preferCanvas: true   // วาดอาคารด้วย canvas เร็วกว่า SVG เมื่อมีอาคารจำนวนมาก
 });
+L.control.scale({ metric: true, imperial: false, position: "bottomleft" }).addTo(map);
 
-map.addControl(new maplibregl.ScaleControl({ unit: "metric" }), "bottom-left");
+Object.keys(BASEMAPS).forEach(key => {
+  baseLayers[key] = L.tileLayer(BASEMAPS[key].url, Object.assign({ maxZoom: 20 }, BASEMAPS[key].opt));
+});
+baseLayers.sat.addTo(map);
 
-function setup3DCameraControl() {
-  const canvas = map.getCanvasContainer();
-  let dragging = false;
-  let btn = 0;
-  let lastX = 0, lastY = 0;
-
-  map.dragPan.disable();
-  map.dragRotate.disable();
-
-  canvas.addEventListener("contextmenu", e => e.preventDefault());
-  canvas.addEventListener("mousedown", e => {
-    stopSpin();
-    dragging = true;
-    btn = e.button;
-    lastX = e.clientX;
-    lastY = e.clientY;
-  });
-
-  window.addEventListener("mousemove", e => {
-    if (!dragging) return;
-    const dx = e.clientX - lastX;
-    const dy = e.clientY - lastY;
-    lastX = e.clientX;
-    lastY = e.clientY;
-
-    const isRotateAction = !state.is2D && ((state.orbitMode && btn === 0) || (!state.orbitMode && btn === 2));
-
-    if (isRotateAction) {
-      const bearing = map.getBearing() - dx * ROTATE_SPEED_X;
-      const pitch = Math.max(0, Math.min(85, map.getPitch() - dy * ROTATE_SPEED_Y));
-      map.jumpTo({ bearing, pitch });
-    } else {
-      map.panBy([-dx * PAN_SPEED, -dy * PAN_SPEED], { animate: false });
-    }
-  });
-
-  window.addEventListener("mouseup", () => { dragging = false; });
-
-  const compassSvg = document.getElementById("compass-svg");
-  map.on("rotate", () => {
-    if (compassSvg) compassSvg.style.transform = `rotate(${-map.getBearing()}deg)`;
-  });
+/* ================= ฟังก์ชันช่วย ================= */
+let toastTimer = null;
+function showMessage(text, ms) {
+  let box = document.getElementById("toast");
+  if (!box) {
+    box = document.createElement("div");
+    box.id = "toast";
+    box.setAttribute("role", "alert");
+    document.getElementById("app").appendChild(box);
+  }
+  box.textContent = text;
+  box.classList.remove("hidden");
+  clearTimeout(toastTimer);
+  if (ms) toastTimer = setTimeout(() => box.classList.add("hidden"), ms);
 }
 
-function stopSpin() {
-  if (state.spinning) {
-    state.spinning = false;
-    cancelAnimationFrame(spinFrame);
-    const btn = document.getElementById("btn-autospin");
-    if (btn) btn.textContent = "🔄 หมุนมุมกล้อง 360° อัตโนมัติ";
-  }
+function escapeHtml(v) {
+  return String(v).replace(/[&<>"']/g, ch => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[ch]));
 }
 
-function toggleSpin() {
-  if (state.is2D) return;
-  if (state.spinning) {
-    stopSpin();
-  } else {
-    state.spinning = true;
-    const btn = document.getElementById("btn-autospin");
-    if (btn) btn.textContent = "⏹️ หยุดหมุนอัตโนมัติ";
-    const loop = () => {
-      if (!state.spinning) return;
-      map.jumpTo({ bearing: map.getBearing() + 0.12 });
-      spinFrame = requestAnimationFrame(loop);
-    };
-    spinFrame = requestAnimationFrame(loop);
-  }
+function toNumber(v, fallback) {
+  const n = parseFloat(v);
+  return Number.isFinite(n) ? n : fallback;
 }
 
 function classIndex(v) {
@@ -177,573 +91,523 @@ function classIndex(v) {
   return C.CLASSES.length - 1;
 }
 function classColor(v) { return C.CLASSES[classIndex(v)].color; }
-// สีผิวน้ำตามระดับที่เลือก: ทุก 0.5 ม. ต่อ 1 ระดับ (7 ระดับ อ่อน → เข้ม)
-function levelColor(v) {
-  const i = Math.max(0, Math.min(C.CLASSES.length - 1, Math.ceil(v / 0.5 - 1e-9) - 1));
-  return C.CLASSES[i].color;
-}
 
-function passes(f) {
-  const p = f.properties;
-  if (p.flood_level < state.minLevel) return false;
-  if (state.query && !String(p.bldg_id).toLowerCase().includes(state.query)) return false;
-  return true;
-}
-
-function getWaterSurfaceGeoJSON(features, height) {
-  let minLng = Infinity, minLat = Infinity, maxLng = -Infinity, maxLat = -Infinity;
-  features.forEach(f => {
-    f.geometry.coordinates[0].forEach(([lng, lat]) => {
-      if (lng < minLng) minLng = lng;
-      if (lat < minLat) minLat = lat;
-      if (lng > maxLng) maxLng = lng;
-      if (lat > maxLat) maxLat = lat;
-    });
-  });
-  const pad = 0.001;
-  minLng -= pad; minLat -= pad; maxLng += pad; maxLat += pad;
-  return {
-    type: "FeatureCollection",
-    features: [{
-      type: "Feature",
-      properties: { height },
-      geometry: {
-        type: "Polygon",
-        coordinates: [[
-          [minLng, minLat], [maxLng, minLat],
-          [maxLng, maxLat], [minLng, maxLat], [minLng, minLat]
-        ]]
-      }
-    }]
-  };
-}
-
-// ---------- แสงอาทิตย์ + เงาอาคาร ----------
-function convexHull(pts) {
-  const p = pts.slice().sort((a, b) => a[0] - b[0] || a[1] - b[1]);
-  const cross = (o, a, b) => (a[0] - o[0]) * (b[1] - o[1]) - (a[1] - o[1]) * (b[0] - o[0]);
-  const lower = [];
-  for (const q of p) { while (lower.length >= 2 && cross(lower[lower.length - 2], lower[lower.length - 1], q) <= 0) lower.pop(); lower.push(q); }
-  const upper = [];
-  for (let i = p.length - 1; i >= 0; i--) { const q = p[i]; while (upper.length >= 2 && cross(upper[upper.length - 2], upper[upper.length - 1], q) <= 0) upper.pop(); upper.push(q); }
-  upper.pop(); lower.pop();
-  return lower.concat(upper);
-}
-
-// เงาทอดไปด้านตรงข้ามดวงอาทิตย์ ยาว = ความสูงอาคาร / tan(มุมเงยดวงอาทิตย์)
-function getShadowGeoJSON(features) {
-  const alt = Math.max(5, state.sunAlt) * Math.PI / 180;
-  const dir = (state.sunAz + 180) * Math.PI / 180;
+/* ================= ข้อมูลอาคาร ================= */
+// แปลงไฟล์ GeoJSON ใดๆ ให้เป็นรูปแบบที่แอปใช้: Polygon และฟิลด์ตาม C.FIELDS
+function normalizeBuildings(raw) {
+  const F = C.FIELDS;
   const out = [];
-  features.forEach(f => {
-    const ring = f.geometry.coordinates[0].slice(0, -1);
-    const len = Math.min(150, f.properties.bldg_height / Math.tan(alt));
-    const dLat = Math.cos(dir) * len / 110574;
-    const dLng = Math.sin(dir) * len / (111320 * Math.cos(ring[0][1] * Math.PI / 180));
-    const hull = convexHull(ring.concat(ring.map(([x, y]) => [x + dLng, y + dLat])));
-    hull.push(hull[0]);
-    out.push({ type: "Feature", properties: {}, geometry: { type: "Polygon", coordinates: [hull] } });
+  missingFlood = 0;
+  ((raw && raw.features) || []).forEach(f => {
+    if (!f || !f.geometry) return;
+    const g = f.geometry;
+    const polys = g.type === "Polygon" ? [g.coordinates] : g.type === "MultiPolygon" ? g.coordinates : [];
+    const src = f.properties || {};
+    polys.forEach((poly, k) => {
+      if (!poly || !poly[0] || poly[0].length < 3) return;
+      const ring = poly[0].map(c => [c[0], c[1]]);   // ตัดค่าความสูง (Z) ทิ้ง
+      const a = ring[0], b = ring[ring.length - 1];
+      if (a[0] !== b[0] || a[1] !== b[1]) ring.push([a[0], a[1]]);
+      if (ring.length < 4) return;
+
+      const baseId = src[F.id] != null ? String(src[F.id]) : "B-" + String(out.length + 1).padStart(4, "0");
+      if (src[F.flood] == null || src[F.flood] === "") missingFlood++;
+      const xs = ring.map(p => p[0]), ys = ring.map(p => p[1]);
+      const ctr = [(Math.min(...ys) + Math.max(...ys)) / 2, (Math.min(...xs) + Math.max(...xs)) / 2];   // [lat, lng] ใช้วางหมุด คำนวณครั้งเดียว
+      const flood = Math.max(0, toNumber(src[F.flood], 0));
+      out.push({
+        type: "Feature",
+        properties: {
+          bldg_id: polys.length > 1 ? `${baseId}-${k + 1}` : baseId,
+          bldg_type: src[F.type] != null ? String(src[F.type]) : "",
+          flood_level: flood,
+          flood_years: src[F.years || "flood_years"] != null ? String(src[F.years || "flood_years"]) : "",   // ปีที่ท่วม เช่น "2011,2013" ใช้กรองรายปี
+          cls: classIndex(flood),
+          ctr
+        },
+        geometry: { type: "Polygon", coordinates: [ring] }
+      });
+    });
   });
   return { type: "FeatureCollection", features: out };
 }
 
-// ตำแหน่งดวงอาทิตย์จริงตามเวลา (อัลกอริทึมดาราศาสตร์แบบย่อ) ที่พิกัดหมู่ 15 วันนี้ เวลาไทย (UTC+7)
-function sunFromMinutes(min) {
-  const lat = C.CENTER[0], lon = C.CENTER[1], rad = Math.PI / 180;
-  const now = new Date();
-  const ms = Date.UTC(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0) + (min - 7 * 60) * 60000;
-  const n = ms / 86400000 + 2440587.5 - 2451545.0;
-  const L = (280.460 + 0.9856474 * n) % 360;
-  const g = ((357.528 + 0.9856003 * n) % 360) * rad;
-  const lambda = (L + 1.915 * Math.sin(g) + 0.020 * Math.sin(2 * g)) * rad;
-  const eps = (23.439 - 0.0000004 * n) * rad;
-  const ra = Math.atan2(Math.cos(eps) * Math.sin(lambda), Math.cos(lambda));
-  const dec = Math.asin(Math.sin(eps) * Math.sin(lambda));
-  const gmst = (280.46061837 + 360.98564736629 * n) % 360;
-  const H = (gmst + lon) * rad - ra;
-  const alt = Math.asin(Math.sin(lat * rad) * Math.sin(dec) + Math.cos(lat * rad) * Math.cos(dec) * Math.cos(H));
-  const az = Math.atan2(Math.sin(H), Math.cos(H) * Math.sin(lat * rad) - Math.tan(dec) * Math.cos(lat * rad)) / rad + 180;
-  return { az: (az % 360 + 360) % 360, alt: alt / rad };
+// GeoNode ถือว่า "ตั้งค่าแล้ว" เมื่อมี OWS_URL และไม่ใช่ค่าตัวอย่าง
+function hasGeonode() {
+  const G = C.GEONODE || {};
+  return !!G.OWS_URL && !/YOUR-GEONODE-HOST/i.test(G.OWS_URL);
 }
 
-function updateSunState() {
-  const p = sunFromMinutes(state.minutes);
-  state.sunAz = p.az;
-  state.sunAlt = p.alt;
-}
-
-const BASEMAP_IDS = ["basemap-sat", "basemap-osm", "basemap-light", "basemap-street", "basemap-topo"];
-
-function mixHex(a, b, t) {
-  const p = h => [1, 3, 5].map(i => parseInt(h.slice(i, i + 2), 16));
-  const x = p(a), y = p(b);
-  return "#" + x.map((v, i) => Math.round(v + (y[i] - v) * t).toString(16).padStart(2, "0")).join("");
-}
-
-// ความสว่างทั้งแมพ: 0 = กลางคืน, 1 = กลางวัน (เปลี่ยนค่อยๆ ช่วงดวงอาทิตย์ -6° ถึง +12°)
-function daylightFactor() {
-  const t = Math.max(0, Math.min(1, (state.sunAlt + 6) / 18));
-  return t * t * (3 - 2 * t);
-}
-
-function applyAmbient() {
-  const d = daylightFactor();
-  BASEMAP_IDS.forEach(id => {
-    if (!map.getLayer(id)) return;
-    map.setPaintProperty(id, "raster-brightness-max", 0.2 + 0.8 * d);
-    map.setPaintProperty(id, "raster-saturation", -0.55 * (1 - d));
-    map.setPaintProperty(id, "raster-contrast", -0.15 * (1 - d));
+// สร้าง URL ดึงข้อมูลเวกเตอร์ (GeoJSON) จาก GeoServer ผ่าน WFS
+function wfsUrl(layer, cql) {
+  const q = new URLSearchParams({
+    service: "WFS", version: "1.0.0", request: "GetFeature",
+    typeName: layer, outputFormat: "application/json", srsName: "EPSG:4326"
   });
-  if (map.getLayer("bld-3d")) {
-    map.setPaintProperty("bld-3d", "fill-extrusion-color", mixHex("#3b4859", "#e8ecef", d));
-  }
-  if (typeof map.setSky === "function") {
-    map.setSky({
-      "sky-color": mixHex("#050b1a", "#81d4fa", d),
-      "horizon-color": mixHex("#16254a", "#ffffff", d),
-      "fog-color": mixHex("#0a1530", "#e1f5fe", d),
-      "sky-horizon-blend": 0.4,
-      "horizon-fog-blend": 0.5,
-      "fog-ground-blend": 0.5
+  if (cql) q.set("CQL_FILTER", cql);
+  return `${C.GEONODE.OWS_URL}?${q}`;
+}
+
+function buildingsUrl() {
+  if (MODE === "geonode") return wfsUrl(C.GEONODE.BUILDINGS_LAYER, C.GEONODE.BUILDINGS_CQL);
+  return C.MOCK_URL;
+}
+
+// ไฟล์ GeoJSON (ถ้าใส่) มาก่อน  ถ้าไม่มีให้ใช้ชื่อ layer บน GeoNode  ไม่มีทั้งคู่ = ข้ามชั้นนี้
+function optionalLayerUrl(fileUrl, layerName) {
+  if (fileUrl) return fileUrl;
+  if (layerName && hasGeonode()) return wfsUrl(layerName);
+  return null;
+}
+
+async function fetchJson(url) {
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(`HTTP ${res.status} (${url})`);
+  return res.json();
+}
+
+function passes(f) {
+  const p = f.properties;
+  if (state.query && !String(p.bldg_id).toLowerCase().includes(state.query)) return false;
+  return true;
+}
+
+function filtered() { return DATA ? DATA.features.filter(passes) : []; }
+
+/* ================= จุดน้ำท่วม (ชั้นแยกจากอาคาร) ================= */
+function pointsUrl() {
+  const G = C.GEONODE || {};
+  if (hasGeonode() && G.FLOOD_POINTS_LAYER) return wfsUrl(G.FLOOD_POINTS_LAYER);
+  return C.FLOOD_POINTS_URL || null;
+}
+
+function normalizePoints(raw) {
+  const F = C.POINT_FIELDS;
+  const out = [];
+  ((raw && raw.features) || []).forEach(f => {
+    const g = f && f.geometry;
+    if (!g) return;
+    const pts = g.type === "Point" ? [g.coordinates] : g.type === "MultiPoint" ? g.coordinates : [];
+    const src = f.properties || {};
+    pts.forEach((c, k) => {
+      if (!c || !Number.isFinite(c[0]) || !Number.isFinite(c[1])) return;
+      const baseId = src[F.id] != null ? String(src[F.id]) : "P-" + String(out.length + 1).padStart(3, "0");
+      const flood = Math.max(0, toNumber(src[F.flood], 0));
+      out.push({
+        id: pts.length > 1 ? `${baseId}-${k + 1}` : baseId,
+        name: src[F.name] != null ? String(src[F.name]) : "",
+        type: src[F.type] != null ? String(src[F.type]) : "",
+        flood,
+        cls: classIndex(flood),
+        latlng: [c[1], c[0]]
+      });
     });
-  }
-}
-
-function applySun() {
-  applyAmbient();
-  const dark = state.sunAlt <= 0;
-  const alt = Math.max(0, state.sunAlt);
-  map.setLight({
-    anchor: "map",
-    color: dark ? "#8fa6c4" : "#ffffff",
-    intensity: dark ? 0.25 : 0.8,
-    position: [1.5, state.sunAz, Math.min(90 - alt, 89)]
   });
-  if (map.getLayer("shadow-2d")) {
-    map.setPaintProperty("shadow-2d", "fill-opacity", dark ? 0 : 0.38 * Math.min(1, alt / 10));
-  }
-  const src = map.getSource("shadows");
-  if (src && DATA) src.setData(getShadowGeoJSON(DATA.features.filter(passes)));
+  return out;
 }
 
-function getBuildingCentroids(features) {
-  return {
-    type: "FeatureCollection",
-    features: features.map(f => {
-      const coords = f.geometry.coordinates[0];
-      let lng = 0, lat = 0;
-      const n = coords.length - 1;
-      for (let i = 0; i < n; i++) { lng += coords[i][0]; lat += coords[i][1]; }
-      return {
-        type: "Feature",
-        properties: f.properties,
-        geometry: { type: "Point", coordinates: [lng / n, lat / n] }
-      };
+function pointPopupHtml(p) {
+  return `<b>${escapeHtml(p.name || p.id)}</b><br>` +
+    `รหัส: ${escapeHtml(p.id)}<br>` +
+    (p.type ? `ประเภท: ${escapeHtml(p.type)}<br>` : "") +
+    `น้ำท่วมสะสม: <b>${escapeHtml(p.flood)} ${C.UNIT||'ครั้ง'}</b>`;
+}
+
+function renderPoints() {
+  if (pointLayer) pointLayer.remove();
+  pointLayer = null;
+  if (!pointData || !pointData.length) return;
+  if (!pointRenderer) pointRenderer = L.svg();   // วาดแบบ SVG แยกชั้น จึงอยู่เหนือ canvas ของอาคารเสมอ
+  pointLayer = L.layerGroup(pointData.map(p =>
+    L.circleMarker(p.latlng, {
+      renderer: pointRenderer, radius: 8, color: "#12303f", weight: 1.5,
+      fillColor: classColor(p.flood), fillOpacity: 0.95
     })
+      .bindPopup(pointPopupHtml(p), { maxWidth: 260 })
+      .bindTooltip(`${escapeHtml(p.name || p.id)} (${p.flood} ${C.UNIT||'ครั้ง'})`, { direction: "top", className: "bld-tip" })
+  ));
+  const chk = document.getElementById("chk-flood-points");
+  if (!chk || chk.checked) pointLayer.addTo(map);
+}
+
+/* ================= การวาดอาคาร ================= */
+function buildingStyle(feature) {
+  const p = feature.properties;
+  if (!state.groupOn) {
+    return { color: "#12303f", weight: 1.2, fillColor: "#ffffff", fillOpacity: 0.92 };
+  }
+  const dim = state.activeClass !== null && p.cls !== state.activeClass;
+  return {
+    color: dim ? "#8a9ba3" : "#12303f",
+    weight: dim ? 0.6 : 1.3,
+    fillColor: dim ? "#cfd8dc" : C.CLASSES[p.cls].color,
+    fillOpacity: dim ? 0.35 : 0.9
   };
+}
+
+/* เลือกปี: 'all' = จำนวนครั้งสะสม, ปีใดปีหนึ่ง = ท่วม(1)/ไม่ท่วม(0) ในปีนั้น */
+window.setFloodYear = function (y) {
+  if (!DATA) return false;
+  state.year = y;
+  DATA.features.forEach(f => {
+    const p = f.properties;
+    if (p.flood_total == null) { p.flood_total = p.flood_level; p.flood_yrs = String(p.flood_years || "").split(",").filter(Boolean); }
+    p.flood_level = y === "all" ? p.flood_total : (p.flood_yrs.includes(String(y)) ? 1 : 0);
+    p.cls = classIndex(p.flood_level);
+  });
+  renderBuildings();
+  updateSummary();
+  return true;
+};
+
+function popupHtml(p) {
+  return `<b>รหัสอาคาร: ${escapeHtml(p.bldg_id)}</b><br>` +
+    `ประเภท: ${escapeHtml(p.bldg_type || "ไม่ระบุ")}<br>` +
+    (state.year && state.year !== "all"
+      ? `ปี ${state.year}: <b>${p.flood_level ? "ท่วม" : "ไม่ท่วม"}</b><br>` : "") +
+    `ท่วมสะสม: <b>${escapeHtml(p.flood_total != null ? p.flood_total : p.flood_level)} ${C.UNIT||'ครั้ง'}</b>` +
+    (p.flood_years ? `<br><small>ปีที่ท่วม: ${escapeHtml(p.flood_years.split(",").join(", ") || "-")}</small>` : "");
+}
+
+function renderBuildings() {
+  if (!DATA) return;
+  const list = filtered();
+  if (buildingLayer) buildingLayer.remove();
+  buildingLayer = L.geoJSON({ type: "FeatureCollection", features: list }, {
+    style: buildingStyle,
+    onEachFeature: (f, layer) => layer.bindPopup(popupHtml(f.properties), { maxWidth: 260 })
+  });
+  if (document.getElementById("chk-bld").checked) buildingLayer.addTo(map);
+
+  if (pinLayer) pinLayer.remove();
+  pinLayer = L.layerGroup(list.map(f => {
+    return L.circleMarker(f.properties.ctr, { radius: 4, color: "#fff", weight: 2, fillColor: "#1f8aa6", fillOpacity: 1 })
+      .bindTooltip(`${escapeHtml(f.properties.bldg_id)} (${f.properties.flood_level} ${C.UNIT||'ครั้ง'})`, { direction: "top", className: "bld-tip" });
+  }));
+  if (pinsOn) pinLayer.addTo(map);
+  updateSummary();
+}
+
+function restyleBuildings() {
+  if (buildingLayer) buildingLayer.setStyle(buildingStyle);
 }
 
 function updateSummary() {
   if (!DATA) return;
-  const box = document.getElementById("summary");
-  if (!box) return;
-  const shown = DATA.features.filter(passes);
+  const shown = filtered();
   const affected = shown.filter(f => f.properties.flood_level > 0).length;
   const counts = C.CLASSES.map(() => 0);
-  shown.forEach(f => counts[classIndex(f.properties.flood_level)]++);
-  const max = Math.max(1, ...counts);
+  shown.forEach(f => counts[f.properties.cls]++);
   const pct = shown.length ? Math.round(affected / shown.length * 100) : 0;
 
-  box.innerHTML =
-    `<div>อาคารที่ได้รับผลกระทบ</div>
-     <div class="sm-num">${affected} <small>หลัง (${pct}% ของที่แสดง)</small></div>
-     <div style="margin-bottom:6px;">แสดง ${shown.length} จากทั้งหมด ${DATA.features.length} หลัง</div>` +
-    C.CLASSES.map((c, i) =>
-      `<div class="sm-row"><i style="background:${c.color}"></i><span>${c.label}</span><b>${counts[i]}</b></div>
-       <div class="sm-bar"><div style="width:${counts[i] / max * 100}%"></div></div>`).join("");
-}
-
-function refreshData() {
-  if (!DATA || !map.getSource("buildings")) return;
-  const filteredFeatures = DATA.features.filter(passes);
-  map.getSource("buildings").setData({ type: "FeatureCollection", features: filteredFeatures });
-  map.getSource("pins").setData(getBuildingCentroids(filteredFeatures));
-  if (map.getSource("shadows")) map.getSource("shadows").setData(getShadowGeoJSON(filteredFeatures));
-  updateSummary();
+  const box = document.getElementById("summary");
+  if (box) {
+    const yr = state.year && state.year !== "all" ? state.year : null;
+    box.innerHTML = `<div class="sm-head"><b>${affected}</b> ${yr ? `หลังถูกน้ำท่วมในปี ${escapeHtml(yr)}` : "หลังเคยถูกน้ำท่วม"}<span>${pct}% ของ ${shown.length} หลัง</span></div>`;
+  }
+  const legendBox = document.getElementById("legend");
+  if (legendBox) {
+    const yr = state.year && state.year !== "all";
+    const rows = yr   // โหมดรายปี: ค่ามีแค่ 0/1 จึงแสดง 2 แถว
+      ? [{ c: C.CLASSES[0], label: "ไม่ท่วม", n: counts[0] }, { c: C.CLASSES[1], label: "ท่วมในปีนี้", n: counts[1] }]
+      : C.CLASSES.map((c, i) => ({ c, label: c.label, n: counts[i] }));
+    legendBox.innerHTML = rows.map(r =>
+      `<div class="lg"><i style="background:${r.c.color}"></i><span>${escapeHtml(r.label)}</span><em>${r.n}</em></div>`).join("");
+  }
 }
 
 function zoomToFeatures(features) {
   if (!features || !features.length) return;
-  const bounds = new maplibregl.LngLatBounds();
-  features.forEach(f => f.geometry.coordinates[0].forEach(c => bounds.extend(c)));
-  map.fitBounds(bounds, { padding: 90, maxZoom: 19, pitch: state.is2D ? 0 : 60, bearing: state.is2D ? 0 : map.getBearing(), duration: 900 });
+  const b = L.geoJSON({ type: "FeatureCollection", features }).getBounds();
+  if (b.isValid()) map.fitBounds(b, { padding: DEFAULT_ZOOM_PADDING, maxZoom: 19 });
 }
 
-function wireUI() {
-  const btnHome = document.getElementById("btn-home");
-  if (btnHome) {
-    btnHome.addEventListener("click", () => {
-      stopSpin();
-      map.easeTo({ center: [C.CENTER[1], C.CENTER[0]], zoom: C.ZOOM, pitch: state.is2D ? 0 : 60, bearing: state.is2D ? 0 : -30, duration: 900 });
-    });
-  }
-  
-  const zoomIn = document.getElementById("btn-zoom-in");
-  if (zoomIn) zoomIn.addEventListener("click", () => map.zoomIn({ duration: 300 }));
-  
-  const zoomOut = document.getElementById("btn-zoom-out");
-  if (zoomOut) zoomOut.addEventListener("click", () => map.zoomOut({ duration: 300 }));
-
-  const btnPan = document.getElementById("btn-pan");
-  const btnRotate = document.getElementById("btn-rotate");
-  if (btnPan && btnRotate) {
-    btnPan.addEventListener("click", () => {
-      state.orbitMode = false;
-      btnPan.classList.add("active");
-      btnRotate.classList.remove("active");
-    });
-    btnRotate.addEventListener("click", () => {
-      state.orbitMode = true;
-      btnRotate.classList.add("active");
-      btnPan.classList.remove("active");
-    });
-  }
-
-  const btn2D = document.getElementById("btn-2d");
-  if (btn2D) {
-    btn2D.addEventListener("click", () => {
-      stopSpin();
-      state.is2D = !state.is2D;
-      if (state.is2D) {
-        map.setMaxPitch(0);
-        map.easeTo({ pitch: 0, bearing: 0, duration: 700 });
-      } else {
-        map.setMaxPitch(85);
-        map.easeTo({ pitch: 60, bearing: -30, duration: 700 });
-      }
-      btn2D.textContent = state.is2D ? "3D" : "2D";
-      btn2D.title = state.is2D ? "สลับเป็นมุมมอง 3 มิติ" : "สลับเป็นมุมมอง 2 มิติ (มองจากด้านบน)";
-      btn2D.classList.toggle("active", state.is2D);
-      document.getElementById("btn-rotate")?.classList.toggle("disabled", state.is2D);
-      document.getElementById("btn-autospin")?.classList.toggle("disabled", state.is2D);
-    });
-  }
-
-  const btnCompass = document.getElementById("btn-compass");
-  if (btnCompass) {
-    btnCompass.addEventListener("click", () => {
-      stopSpin();
-      map.easeTo({ bearing: 0, duration: 600 });
-    });
-  }
-
-  const panel = document.getElementById("floating-panel");
-  const actionBtns = document.querySelectorAll(".action-btn");
-  const views = document.querySelectorAll(".panel-view");
-
-  actionBtns.forEach(btn => {
-    btn.addEventListener("click", () => {
-      const targetId = btn.dataset.panel;
-      const isAlreadyActive = btn.classList.contains("active") && panel && !panel.classList.contains("hidden");
-
-      if (isAlreadyActive) {
-        panel.classList.add("hidden");
-        btn.classList.remove("active");
-      } else {
-        if (panel) panel.classList.remove("hidden");
-        actionBtns.forEach(b => b.classList.remove("active"));
-        btn.classList.add("active");
-        views.forEach(v => v.classList.toggle("hidden", v.id !== targetId));
-      }
-    });
-  });
-
-  document.querySelectorAll("[data-close]").forEach(btn => {
-    btn.addEventListener("click", () => {
-      if (panel) panel.classList.add("hidden");
-      actionBtns.forEach(b => b.classList.remove("active"));
-    });
-  });
-
-  const tabLayers = document.getElementById("tab-btn-layers");
-  const tabLegend = document.getElementById("tab-btn-legend");
-  const contentLayers = document.getElementById("tab-content-layers");
-  const contentLegend = document.getElementById("tab-content-legend");
-
-  if (tabLayers && tabLegend && contentLayers && contentLegend) {
-    tabLayers.addEventListener("click", () => {
-      tabLayers.classList.add("active");
-      tabLegend.classList.remove("active");
-      contentLayers.classList.remove("hidden");
-      contentLegend.classList.add("hidden");
-    });
-    tabLegend.addEventListener("click", () => {
-      tabLegend.classList.add("active");
-      tabLayers.classList.remove("active");
-      contentLegend.classList.remove("hidden");
-      contentLayers.classList.add("hidden");
-    });
-  }
-
-  const chkBldWhite = document.getElementById("chk-bld3d");
-  if (chkBldWhite) {
-    chkBldWhite.addEventListener("change", () => {
-      map.setLayoutProperty("bld-3d", "visibility", chkBldWhite.checked ? "visible" : "none");
-    });
-  }
-
-  const chkPins = document.getElementById("chk-pins");
-  if (chkPins) {
-    chkPins.addEventListener("change", e => {
-      const v = e.target.checked ? "visible" : "none";
-      map.setLayoutProperty("pins-circle", "visibility", v);
-      map.setLayoutProperty("pins-label", "visibility", v);
-    });
-  }
-
-  const chkFloodGroup = document.getElementById("chk-flood-group");
-  const subChks = document.querySelectorAll(".fld-lvl-chk");
-
-  function setWaterSurfaceHeight(lvl) {
-    state.waterLevel = lvl;
-    if (map.getLayer("water-plane-3d")) map.setPaintProperty("water-plane-3d", "fill-extrusion-color", levelColor(lvl));
-    if (map.getSource("water-surface")) {
-      map.getSource("water-surface").setData(getWaterSurfaceGeoJSON(DATA.features, lvl));
-    }
-  }
-
-  if (chkFloodGroup) {
-    chkFloodGroup.addEventListener("change", () => {
-      map.setLayoutProperty("water-plane-3d", "visibility", chkFloodGroup.checked ? "visible" : "none");
-    });
-  }
-
-  subChks.forEach(chk => {
-    chk.addEventListener("change", () => {
-      if (chk.checked) {
-        subChks.forEach(other => { if (other !== chk) other.checked = false; });
-        if (chkFloodGroup) chkFloodGroup.checked = true;
-        map.setLayoutProperty("water-plane-3d", "visibility", "visible");
-        setWaterSurfaceHeight(parseFloat(chk.value));
-      } else {
-        const anyChecked = Array.from(subChks).some(c => c.checked);
-        if (!anyChecked) map.setLayoutProperty("water-plane-3d", "visibility", "none");
-      }
-    });
-  });
-
-  document.querySelectorAll(".zoom-layer-btn").forEach(btn => {
-    btn.addEventListener("click", () => {
-      if (!DATA) return;
-      if (btn.dataset.zoom === "all") {
-        zoomToFeatures(DATA.features.filter(passes));
-      } else {
-        const min = parseFloat(btn.dataset.min);
-        const max = parseFloat(btn.dataset.max);
-        const matches = DATA.features.filter(f => f.properties.flood_level >= min && f.properties.flood_level <= max);
-        zoomToFeatures(matches.length ? matches : DATA.features);
-      }
-    });
-  });
-
-  const search = document.getElementById("search");
-  const minlevel = document.getElementById("minlevel");
-  if (search) {
-    search.addEventListener("input", () => { state.query = search.value.trim().toLowerCase(); refreshData(); });
-    search.addEventListener("keydown", e => { if (e.key === "Enter") zoomToFeatures(DATA.features.filter(passes)); });
-  }
-  if (minlevel) {
-    minlevel.addEventListener("change", () => { state.minLevel = parseFloat(minlevel.value); refreshData(); });
-  }
-
-  const resetBtn = document.getElementById("reset");
-  if (resetBtn) {
-    resetBtn.addEventListener("click", () => {
-      if (search) search.value = "";
-      if (minlevel) minlevel.value = "0";
-      state.query = "";
-      state.minLevel = 0;
-      refreshData();
-      zoomToFeatures(DATA.features);
-    });
-  }
-
-  document.querySelectorAll(".bm-card").forEach(card => {
-    card.addEventListener("click", () => {
-      document.querySelectorAll(".bm-card").forEach(c => c.classList.remove("active"));
-      card.classList.add("active");
-      ["sat", "osm", "light", "street", "topo"].forEach(key => {
-        map.setLayoutProperty("basemap-" + key, "visibility", key === card.dataset.bm ? "visible" : "none");
-      });
-    });
-  });
-
-  // ---------- Daylight: แถบเวลาเดียว ควบคุมทั้งทิศและความสูงของดวงอาทิตย์ ----------
-  const timeSlider = document.getElementById("sun-time");
-  const timeLbl = document.getElementById("dl-time");
-  const playBtn = document.getElementById("btn-daylight-play");
-  let sunQueued = false;
-  const queueSun = () => {
-    if (sunQueued) return;
-    sunQueued = true;
-    requestAnimationFrame(() => { sunQueued = false; applySun(); });
-  };
-  function setTime(min) {
-    state.minutes = min;
-    if (timeSlider) timeSlider.value = min;
-    const hh = String(Math.floor(min / 60) % 24).padStart(2, "0");
-    const mm = String(Math.floor(min % 60)).padStart(2, "0");
-    if (timeLbl) {
-      timeLbl.innerHTML = `${hh}:${mm} <small>ICT</small>`;
-      timeLbl.style.setProperty("--p", min / 1440);
-    }
-    updateSunState();
-    queueSun();
-  }
-  function stopPlay() {
-    state.playing = false;
-    if (playBtn) { playBtn.textContent = "▶"; playBtn.classList.remove("playing"); }
-  }
-  if (timeSlider) {
-    timeSlider.addEventListener("input", () => { stopPlay(); setTime(parseFloat(timeSlider.value)); });
-    setTime(state.minutes);
-  }
-  if (playBtn) {
-    playBtn.addEventListener("click", () => {
-      if (state.playing) { stopPlay(); return; }
-      state.playing = true;
-      playBtn.textContent = "❚❚";
-      playBtn.classList.add("playing");
-      let last = performance.now();
-      const tick = now => {
-        if (!state.playing) return;
-        const dt = (now - last) / 1000;
-        last = now;
-        setTime((state.minutes + dt * 120) % 1440);   // 1 วินาที = 2 ชั่วโมง
-        requestAnimationFrame(tick);
-      };
-      requestAnimationFrame(tick);
-    });
-  }
-
-  const chkShadow = document.getElementById("chk-shadow");
-  if (chkShadow) {
-    chkShadow.addEventListener("change", () => {
-      map.setLayoutProperty("shadow-2d", "visibility", chkShadow.checked ? "visible" : "none");
-    });
-  }
-
-  const autospinBtn = document.getElementById("btn-autospin");
-  if (autospinBtn) autospinBtn.addEventListener("click", toggleSpin);
+/* ================= เมนูความถี่น้ำท่วม (สร้างจาก C.CLASSES) ================= */
+function buildLevelList() {
+  const box = document.getElementById("flood-sublayers");
+  if (!box) return;
+  box.innerHTML = C.CLASSES.map((c, i) => `
+    <div class="layer-item">
+      <label class="chk-wrap">
+        <input type="checkbox" class="fld-lvl-chk" data-class="${i}">
+        <span class="chk-box"></span>
+        <i class="lvl-sw" style="background:${c.color}"></i>
+        <span class="layer-title">${escapeHtml(c.label)}</span>
+      </label>
+      <button class="zoom-layer-btn" data-class="${i}" title="ซูมไปที่อาคารในระดับนี้">${ZOOM_ICON}</button>
+    </div>`).join("");
 }
 
 function buildLegend() {
   const legendBox = document.getElementById("legend");
   if (legendBox) {
     legendBox.innerHTML = C.CLASSES
-      .map(c => `<div class="lg"><i style="background:${c.color}"></i>${c.label}</div>`).join("");
+      .map(c => `<div class="lg"><i style="background:${c.color}"></i><span>${escapeHtml(c.label)}</span></div>`).join("");
   }
 }
 
-map.on("load", async () => {
-  setup3DCameraControl();
+/* ================= ปุ่มและหน้าต่างต่างๆ ================= */
+function wireUI() {
+  const on = (id, evt, fn) => { const el = document.getElementById(id); if (el) el.addEventListener(evt, fn); return el; };
+
+  on("btn-home", "click", () => {
+    if (boundaryLayer) map.fitBounds(boundaryLayer.getBounds(), { padding: [30, 30] });
+    else map.setView(C.CENTER, C.ZOOM);
+  });
+  on("chk-boundary", "change", e => {
+    if (!boundaryLayer) return;
+    if (e.target.checked) boundaryLayer.addTo(map); else boundaryLayer.remove();
+  });
+  on("btn-zoom-in", "click", () => map.zoomIn());
+  on("btn-zoom-out", "click", () => map.zoomOut());
+
+  // ----- หน้าต่างลอย -----
+  const panel = document.getElementById("floating-panel");
+  const actionBtns = document.querySelectorAll("[data-panel]");
+  const views = document.querySelectorAll(".panel-view");
+  actionBtns.forEach(btn => {
+    btn.addEventListener("click", () => {
+      const isOpen = btn.classList.contains("active") && !panel.classList.contains("hidden");
+      if (isOpen) {
+        panel.classList.add("hidden");
+        btn.classList.remove("active");
+      } else {
+        panel.classList.remove("hidden");
+        actionBtns.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        setLayersOpen(false);   // แผงทั้งสองอยู่ตำแหน่งเดียวกัน เปิดทีละแผง
+        views.forEach(v => v.classList.toggle("hidden", v.id !== btn.dataset.panel));
+      }
+    });
+  });
+  document.querySelectorAll("[data-close]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      panel.classList.add("hidden");
+      actionBtns.forEach(b => b.classList.remove("active"));
+    });
+  });
+
+  // ----- แผง Layers: เปิด/ปิดจากปุ่มในแถบซ้าย -----
+  const layersPanel = document.getElementById("layers-panel");
+  const layersBtn = document.getElementById("btn-layers");
+  const setLayersOpen = open => {
+    layersPanel.classList.toggle("hidden", !open);
+    layersBtn.classList.toggle("active", open);
+  };
+  layersBtn.addEventListener("click", () => {
+    const open = layersPanel.classList.contains("hidden");
+    if (open) { panel.classList.add("hidden"); actionBtns.forEach(b => b.classList.remove("active")); }
+    setLayersOpen(open);
+  });
+  document.querySelectorAll("[data-toggle-layers]").forEach(b => b.addEventListener("click", () => setLayersOpen(false)));
+
+  // ----- Legend: กดหัวแผงเพื่อพับเก็บ-เปิด -----
+  document.querySelectorAll(".side-head").forEach(head => {
+    head.addEventListener("click", () => {
+      const sec = document.getElementById(head.dataset.collapse);
+      const collapsed = sec.classList.toggle("collapsed");
+      head.setAttribute("aria-expanded", String(!collapsed));
+    });
+  });
+
+  // ----- เลเยอร์ -----
+  on("chk-bld", "change", e => {
+    if (!buildingLayer) return;
+    if (e.target.checked) buildingLayer.addTo(map); else buildingLayer.remove();
+  });
+  on("chk-pins", "change", e => {
+    pinsOn = e.target.checked;
+    if (!pinLayer) return;
+    if (pinsOn) pinLayer.addTo(map); else pinLayer.remove();
+  });
+
+  // อาคารกับน้ำท่วมแยกกัน: ปุ่มของส่วนหนึ่งไม่กระทบอีกส่วน
+  const chkColor = document.getElementById("chk-flood-color");   // ระบายสีอาคารตามระดับน้ำ
+  const chkWater = document.getElementById("chk-flood-water");   // ผิวน้ำท่วม (WMS)
+  const chkBodies = document.getElementById("chk-water-bodies"); // แหล่งน้ำ (แม่น้ำ/บ่อ)
+
+  chkWater.addEventListener("change", () => {
+    if (!wmsLayer) return;
+    if (chkWater.checked) wmsLayer.addTo(map); else wmsLayer.remove();
+  });
+  chkBodies.addEventListener("change", () => {
+    if (!waterLayer) return;
+    if (chkBodies.checked) { waterLayer.addTo(map); waterLayer.bringToBack(); } else waterLayer.remove();
+  });
+
+  const chkPoints = document.getElementById("chk-flood-points");   // จุดน้ำท่วม
+  chkPoints.addEventListener("change", () => {
+    if (!pointLayer) return;
+    if (chkPoints.checked) pointLayer.addTo(map); else pointLayer.remove();
+  });
+
+  // เลือกความถี่ได้ทีละระดับ: เน้นเฉพาะอาคารในช่วงนั้น  ไม่เลือกเลย = แสดงทุกระดับ
+  const subChks = Array.from(document.querySelectorAll(".fld-lvl-chk"));
+  subChks.forEach(chk => {
+    chk.addEventListener("change", () => {
+      if (chk.checked) {
+        subChks.forEach(o => { if (o !== chk) o.checked = false; });
+        state.activeClass = parseInt(chk.dataset.class, 10);
+        state.groupOn = true;
+        chkColor.checked = true;
+      } else {
+        state.activeClass = null;
+      }
+      restyleBuildings();
+    });
+  });
+  chkColor.addEventListener("change", () => {
+    state.groupOn = chkColor.checked;
+    if (!chkColor.checked) { state.activeClass = null; subChks.forEach(c => { c.checked = false; }); }
+    restyleBuildings();
+  });
+
+  const zoomBtnHandler = btn => btn.addEventListener("click", () => {
+    if (btn.dataset.zoom === "water") {
+      const wb = waterLayer && waterLayer.getBounds();
+      if (wb && wb.isValid()) map.fitBounds(wb, { padding: DEFAULT_ZOOM_PADDING });
+      else if (boundaryLayer) map.fitBounds(boundaryLayer.getBounds(), { padding: [30, 30] });
+      else map.setView(C.CENTER, C.ZOOM);
+      return;
+    }
+    if (btn.dataset.zoom === "points") {
+      if (pointData && pointData.length) map.fitBounds(L.latLngBounds(pointData.map(p => p.latlng)), { padding: DEFAULT_ZOOM_PADDING, maxZoom: 19 });
+      return;
+    }
+    if (!DATA) return;
+    if (btn.dataset.zoom === "all") { zoomToFeatures(filtered()); return; }
+    const cls = parseInt(btn.dataset.class, 10);
+    const m = DATA.features.filter(f => f.properties.cls === cls);
+    zoomToFeatures(m.length ? m : DATA.features);
+  });
+  document.querySelectorAll(".zoom-layer-btn").forEach(zoomBtnHandler);
+
+  // ----- ค้นหา / กรอง -----
+  const search = document.getElementById("search");
+  let searchTimer = null;
+  const applyQuery = () => { state.query = search.value.trim().toLowerCase(); renderBuildings(); };
+  search.addEventListener("input", () => { clearTimeout(searchTimer); searchTimer = setTimeout(applyQuery, 200); });   // หน่วง 200 ms ไม่วาดใหม่ทุกตัวอักษร
+  search.addEventListener("keydown", e => {
+    if (e.key !== "Enter") return;
+    clearTimeout(searchTimer);
+    applyQuery();
+    zoomToFeatures(filtered());
+  });
+  on("reset", "click", () => {
+    clearTimeout(searchTimer);
+    search.value = "";
+    state.query = "";
+    renderBuildings();
+    if (DATA) zoomToFeatures(DATA.features);
+  });
+
+  // ----- แผนที่ฐาน -----
+  document.querySelectorAll(".bm-card").forEach(card => {
+    card.addEventListener("click", () => {
+      document.querySelectorAll(".bm-card").forEach(c => c.classList.remove("active"));
+      card.classList.add("active");
+      const key = card.dataset.bm;
+      Object.keys(baseLayers).forEach(k => { if (k === key) baseLayers[k].addTo(map); else baseLayers[k].remove(); });
+      state.basemap = key;
+    });
+  });
+}
+
+/* ================= เริ่มทำงาน ================= */
+async function init() {
+  buildLevelList();
   buildLegend();
   wireUI();
 
+  const G = C.GEONODE || {};
+
+  // ยังตั้งค่า GeoNode ไม่ครบ -> ใช้ข้อมูลตัวอย่างไปก่อน แทนที่จะพัง
+  if (MODE === "geonode" && !(hasGeonode() && G.BUILDINGS_LAYER)) {
+    MODE = "mock";
+    showMessage("ยังไม่ได้ตั้งค่า GeoNode (OWS_URL / BUILDINGS_LAYER) จึงแสดงข้อมูลอาคารตัวอย่างไปก่อน", 9000);
+  }
+
+  // ชั้นน้ำท่วมแบบ WMS ใช้ได้อิสระจากโหมดอาคาร: ใส่ OWS_URL + FLOOD_WMS_LAYER เมื่อไรก็ขึ้นเมื่อนั้น
+  if (hasGeonode() && G.FLOOD_WMS_LAYER) {
+    wmsLayer = L.tileLayer.wms(G.OWS_URL, {
+      layers: G.FLOOD_WMS_LAYER, format: "image/png", transparent: true, version: "1.1.1",
+      opacity: G.WMS_OPACITY != null ? G.WMS_OPACITY : 0.7
+    }).addTo(map);
+    let wmsWarned = false;
+    wmsLayer.on("tileerror", () => {
+      if (wmsWarned) return;
+      wmsWarned = true;
+      showMessage("โหลดชั้นน้ำท่วม (WMS) ไม่สำเร็จ ตรวจ OWS_URL, FLOOD_WMS_LAYER และ CORS ของ GeoServer", 9000);
+    });
+  }
+
+  const boundaryUrl = optionalLayerUrl(C.BOUNDARY_URL, G.BOUNDARY_LAYER);
+  if (boundaryUrl) {
+    try {
+      const rawB = await fetchJson(boundaryUrl);
+      boundaryLayer = L.geoJSON(rawB, {
+        style: { color: "#d4492e", weight: 3, dashArray: "10 6", fill: false },
+        interactive: false
+      }).addTo(map);
+      const bb = boundaryLayer.getBounds();
+      if (bb.isValid()) map.fitBounds(bb, { padding: [30, 30] });   // เริ่มที่ขอบเขตหมู่ 15
+    } catch (err) {
+      console.warn("โหลดขอบเขตหมู่ 15 ไม่สำเร็จ:", err);
+      showMessage("โหลดไฟล์ขอบเขตหมู่ 15 ไม่สำเร็จ ตรวจ BOUNDARY_URL / GEONODE.BOUNDARY_LAYER ใน config.js");
+    }
+  }
+
+  const waterUrl = optionalLayerUrl(C.WATER_URL, G.WATER_LAYER);
   try {
-    const raw = await (await fetch(C.MOCK_URL)).json();
-    raw.features.forEach(f => {
-      const p = f.properties;
-      p.bldg_height = TYPE_HEIGHTS[p.bldg_type] || 5.5;
-      p.flood_color = classColor(p.flood_level);
-    });
-    DATA = raw;
+    const [rawBuildings, rawWater] = await Promise.all([
+      fetchJson(buildingsUrl()),
+      waterUrl ? fetchJson(waterUrl).catch(err => { console.warn("โหลดขอบเขตน้ำไม่สำเร็จ:", err); return null; }) : null
+    ]);
+    DATA = normalizeBuildings(rawBuildings);
+    if (!DATA.features.length) throw new Error("ไฟล์ไม่มีอาคารที่เป็น Polygon");
 
-    map.addSource("buildings", { type: "geojson", data: DATA });
-    map.addSource("pins", { type: "geojson", data: getBuildingCentroids(DATA.features) });
-    map.addSource("water-surface", {
-      type: "geojson",
-      data: getWaterSurfaceGeoJSON(DATA.features, state.waterLevel)
-    });
+    if (rawWater && rawWater.features && rawWater.features.length) {
+      waterLayer = L.geoJSON(rawWater, { style: { color: "#1f8aa6", weight: 1, fillColor: "#1f8aa6", fillOpacity: 0.4 }, interactive: false }).addTo(map);
+      waterLayer.bringToBack();
+    }
 
-    updateSunState();
-    map.addSource("shadows", { type: "geojson", data: getShadowGeoJSON(DATA.features) });
-    // เงาอาคารบนพื้น (อยู่ใต้ผิวน้ำและตัวอาคาร)
-    map.addLayer({
-      id: "shadow-2d",
-      type: "fill",
-      source: "shadows",
-      paint: { "fill-color": "#0b1f2b", "fill-opacity": 0.38 }
-    });
-
-    // เลเยอร์ผิวน้ำท่วมพื้นที่ (สีฟ้าใสกลมกลืนกับแม่น้ำจริง)
-    map.addLayer({
-      id: "water-plane-3d",
-      type: "fill-extrusion",
-      source: "water-surface",
-      paint: {
-        "fill-extrusion-color": levelColor(state.waterLevel),
-        "fill-extrusion-height": ["get", "height"],
-        "fill-extrusion-base": 0,
-        "fill-extrusion-opacity": state.waterOpacity
-      }
-    });
-
-    // เลเยอร์อาคาร 3 มิติสีขาว
-    map.addLayer({
-      id: "bld-3d",
-      type: "fill-extrusion",
-      source: "buildings",
-      paint: {
-        "fill-extrusion-color": "#e8ecef",
-        "fill-extrusion-height": ["get", "bldg_height"],
-        "fill-extrusion-base": 0,
-        "fill-extrusion-opacity": 1
-      }
-    });
-
-    map.addLayer({
-      id: "pins-circle",
-      type: "circle",
-      source: "pins",
-      layout: { visibility: "none" },
-      paint: {
-        "circle-radius": 5,
-        "circle-color": "#0079c1",
-        "circle-stroke-width": 2,
-        "circle-stroke-color": "#ffffff"
-      }
-    });
-    map.addLayer({
-      id: "pins-label",
-      type: "symbol",
-      source: "pins",
-      layout: {
-        visibility: "none",
-        "text-field": ["concat", ["get", "bldg_id"], " (", ["get", "flood_level"], "ม.)"],
-        "text-size": 11,
-        "text-offset": [0, -1.2],
-        "text-anchor": "bottom"
-      },
-      paint: {
-        "text-color": "#1b2733",
-        "text-halo-color": "#ffffff",
-        "text-halo-width": 1.5
-      }
-    });
-
-    map.on("click", "bld-3d", e => {
-      const p = e.features[0].properties;
-      new maplibregl.Popup()
-        .setLngLat(e.lngLat)
-        .setHTML(`<b>รหัสอาคาร: ${p.bldg_id}</b><br>ประเภท: ${p.bldg_type} (สูง ~${p.bldg_height} ม.)<br>ระดับน้ำท่วม: <b>${p.flood_level} ม.</b>`)
-        .addTo(map);
-    });
-
-    applySun();
-    updateSummary();
-    zoomToFeatures(DATA.features);
+    renderBuildings();
+    if (missingFlood === DATA.features.length) {
+      showMessage(`ไม่พบฟิลด์ความถี่น้ำท่วม "${C.FIELDS.flood}" ในข้อมูลอาคาร ทุกหลังจึงแสดงเป็น 0 ตรวจ FIELDS.flood ใน config.js`, 12000);
+    }
+    // มุมมองเริ่มต้น: ถ้ามีขอบเขตหมู่ 15 จะซูมไปที่ขอบเขตนั้น ไม่เช่นนั้นใช้ C.CENTER / C.ZOOM
+    // ไม่ซูมตามข้อมูลอาคารทั้งหมด เพราะข้อมูลจริงจาก GeoNode อาจครอบคลุมพื้นที่กว้างกว่าหมู่ 15
   } catch (e) {
     console.error("โหลดข้อมูลไม่สำเร็จ:", e);
+    showMessage(MODE === "geonode"
+      ? "โหลดข้อมูลอาคารจาก GeoNode ไม่สำเร็จ: ตรวจ OWS_URL, BUILDINGS_LAYER, CQL และ CORS ของ GeoServer (ดูรายละเอียดใน Console)"
+      : "โหลดข้อมูลอาคารไม่สำเร็จ: ตรวจสอบว่าไฟล์อยู่ใน data/ และเปิดผ่านเซิร์ฟเวอร์ (เช่น Live Server) ไม่ใช่เปิดไฟล์ตรงๆ");
   }
-});
+
+  // จุดน้ำท่วม: โหลดหลังอาคาร เพื่อให้ชั้น SVG ของจุดอยู่เหนือ canvas ของอาคาร
+  const pUrl = pointsUrl();
+  if (pUrl) {
+    try {
+      pointData = normalizePoints(await fetchJson(pUrl));
+      renderPoints();
+    } catch (err) {
+      console.warn("โหลดจุดน้ำท่วมไม่สำเร็จ:", err);
+      showMessage("โหลดจุดน้ำท่วมไม่สำเร็จ ตรวจ FLOOD_POINTS_URL / GEONODE.FLOOD_POINTS_LAYER ใน config.js", 9000);
+    }
+  }
+
+  // ชั้นไหนไม่มีข้อมูล ปิดช่องติ๊กของชั้นนั้น  ถ้าไม่มีเลยให้บอกว่าต้องตั้งค่าอะไร
+  const hasWms = !!wmsLayer;
+  const hasWater = !!waterLayer;
+  const hasPoints = !!(pointData && pointData.length);
+  const chkW = document.getElementById("chk-flood-water");
+  if (chkW) { chkW.disabled = !hasWms; chkW.checked = hasWms; }
+  const chkB = document.getElementById("chk-water-bodies");
+  if (chkB) { chkB.disabled = !hasWater; chkB.checked = hasWater; }
+  const chkP = document.getElementById("chk-flood-points");
+  if (chkP) { chkP.disabled = !hasPoints; chkP.checked = hasPoints; }
+  const hint = document.getElementById("flood-hint");
+  if (hint) hint.classList.toggle("hidden", hasWms || hasWater || hasPoints);
+}
+
+init();

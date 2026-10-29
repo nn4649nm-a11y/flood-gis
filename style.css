@@ -12,7 +12,6 @@
   --drop: 18px 18px 18px 4px;
   --fill-ease: cubic-bezier(.3, .7, .2, 1);
 }
-
 * { box-sizing: border-box; }
 html, body {
   height: 100%; margin: 0;
@@ -20,10 +19,8 @@ html, body {
   font-size: 14px; color: var(--ink); overflow: hidden;
 }
 #app { position: relative; width: 100%; height: 100%; }
-#map { width: 100%; height: 100%; cursor: grab; }
-#map:active { cursor: grabbing; }
+#map { position: relative; z-index: 0; width: 100%; height: 100%; font-family: inherit; }
 .hidden { display: none !important; }
-
 button { font-family: inherit; }
 button:focus-visible, .chk-wrap:focus-within .chk-box, input:focus-visible, select:focus-visible {
   outline: 2px solid var(--water);
@@ -31,14 +28,14 @@ button:focus-visible, .chk-wrap:focus-within .chk-box, input:focus-visible, sele
 }
 
 /* ---------- พื้นปุ่มแบบ "น้ำเติมจากก้นปุ่ม" ใช้ร่วมกัน ---------- */
-.nav-btn, .action-btn, .nav-compass, .btn-full, .tab-btn {
+.nav-btn, .btn-full {
   background-image: linear-gradient(var(--water), var(--water));
   background-repeat: no-repeat;
   background-position: bottom;
   background-size: 100% 0%;
   transition: background-size .5s var(--fill-ease), color .25s, box-shadow .25s;
 }
-.nav-btn.active, .action-btn.active, .btn-full:hover {
+.nav-btn.active, .btn-full:hover {
   background-size: 100% 100%;
   color: #fff;
 }
@@ -72,57 +69,8 @@ button:focus-visible, .chk-wrap:focus-within .chk-box, input:focus-visible, sele
 .nav-btn svg { width: 19px; height: 19px; fill: none; stroke: currentColor; stroke-width: 1.8; position: relative; }
 .nav-btn:hover:not(.active) { background-size: 100% 22%; }
 .nav-btn.active { border-color: var(--water); }
-.nav-btn.corner-mark::after { content: none; }
 .nav-btn.disabled { opacity: .4; pointer-events: none; }
-.nav-text { font-weight: 700; font-size: 14px; letter-spacing: .02em; }
 .nav-sep { height: 5px; }
-
-.nav-compass {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background-color: var(--ink);
-  border: 2px solid var(--paper);
-  padding: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  box-shadow: 0 2px 8px rgba(18, 48, 63, .35);
-}
-.nav-compass:hover { background-size: 100% 30%; }
-.nav-compass svg { width: 30px; height: 30px; transition: transform .05s linear; }
-/* เข็มทิศ: หัวเข็มชี้เหนือสีแดงเหมือนเส้นวิกฤตบนเสา */
-#compass-svg polygon:first-child { fill: var(--gauge-red); stroke: var(--gauge-red); }
-#compass-svg polygon:last-child { fill: var(--paper); stroke: var(--paper); }
-
-/* ================= 2. แถบเครื่องมือด้านขวา ================= */
-.right-action-bar {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  z-index: 10;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-.action-btn {
-  width: 46px;
-  height: 46px;
-  background-color: var(--paper);
-  border: 1px solid var(--line);
-  border-radius: var(--drop);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  color: var(--ink);
-  padding: 0;
-  box-shadow: 0 2px 6px rgba(18, 48, 63, .22);
-}
-.action-btn svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.7; position: relative; }
-.action-btn:hover:not(.active) { background-size: 100% 22%; }
-.action-btn.active { border-color: var(--water); }
 
 /* ================= 3. หน้าต่าง Layers & Legend ================= */
 .floating-panel {
@@ -140,35 +88,6 @@ button:focus-visible, .chk-wrap:focus-within .chk-box, input:focus-visible, sele
   flex-direction: column;
   overflow: hidden;
 }
-.panel-tabs {
-  display: flex;
-  height: 44px;
-  background: var(--ink);
-}
-.tab-btn {
-  flex: 1;
-  border: none;
-  background-color: transparent;
-  font-size: 15px;
-  font-weight: 600;
-  color: #9fc0cb;
-  cursor: pointer;
-  position: relative;
-}
-.tab-btn:hover { color: #fff; }
-.tab-btn.active {
-  color: #fff;
-  background-size: 100% 100%;
-  background-image: linear-gradient(rgba(31, 138, 166, .55), rgba(31, 138, 166, .55));
-}
-/* คลื่นน้ำใต้แท็บที่เลือก */
-.tab-btn.active::after {
-  content: "";
-  position: absolute;
-  left: 0; right: 0; bottom: 0;
-  height: 6px;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='6' viewBox='0 0 24 6'%3E%3Cpath d='M0 6 Q6 0 12 3 T24 6 Z' fill='%23f4f7f7'/%3E%3C/svg%3E") repeat-x bottom / 24px 6px;
-}
 .panel-close {
   width: 44px;
   border: none;
@@ -178,7 +97,6 @@ button:focus-visible, .chk-wrap:focus-within .chk-box, input:focus-visible, sele
   cursor: pointer;
 }
 .panel-close:hover { background: var(--gauge-red); color: #fff; }
-
 .panel-header {
   display: flex;
   align-items: center;
@@ -190,8 +108,6 @@ button:focus-visible, .chk-wrap:focus-within .chk-box, input:focus-visible, sele
   font-size: 15px;
   color: #fff;
 }
-
-.tab-content { overflow-y: auto; max-height: calc(100vh - 90px); }
 .layer-list { padding: 12px 14px; }
 .layer-item {
   display: flex;
@@ -247,7 +163,6 @@ button:focus-visible, .chk-wrap:focus-within .chk-box, input:focus-visible, sele
   text-overflow: ellipsis;
   color: var(--ink);
 }
-
 .zoom-layer-btn {
   background: transparent;
   border: none;
@@ -263,20 +178,10 @@ button:focus-visible, .chk-wrap:focus-within .chk-box, input:focus-visible, sele
 
 /* ส่วนประกอบอื่นๆ ใน Panel */
 .pad-box { padding: 14px; }
-.sec-title { font-weight: 700; margin-bottom: 8px; color: var(--ink); }
-.sep-line { border: none; border-top: 1px solid var(--line); margin: 12px 0; }
 .lg { display: flex; gap: 8px; align-items: center; font-size: 13px; margin-bottom: 5px; }
 .lg i { width: 20px; height: 14px; border-radius: 7px 7px 7px 2px; border: 1px solid #12303f33; }
-.sm-num { font-size: 26px; font-weight: 700; color: var(--water); margin: 4px 0; }
-.sm-num small { font-size: 12px; font-weight: 400; color: #5d7681; }
-.sm-row { display: flex; align-items: center; gap: 6px; margin-top: 5px; font-size: 12.5px; }
-.sm-row i { width: 12px; height: 12px; border-radius: 6px 6px 6px 2px; border: 1px solid #12303f33; }
-.sm-row span { flex: 1; }
-.sm-bar { height: 5px; background: var(--water-soft); border-radius: 3px; margin-top: 2px; }
-.sm-bar div { height: 100%; border-radius: 3px; background: var(--water); }
-
 .field-lbl { display: block; font-size: 13px; color: #4b6772; margin: 8px 0 4px; }
-#search, #minlevel {
+#search {
   width: 100%; padding: 8px 10px; font: inherit; color: var(--ink);
   background: #fff; border: 1px solid var(--line); border-radius: 10px 10px 10px 3px; margin-bottom: 6px;
 }
@@ -286,7 +191,6 @@ button:focus-visible, .chk-wrap:focus-within .chk-box, input:focus-visible, sele
   border-radius: var(--drop); cursor: pointer;
 }
 .btn-full.disabled { opacity: .4; pointer-events: none; }
-
 .basemap-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 .bm-card {
   border: 2px solid var(--line); border-radius: 14px 14px 14px 4px; padding: 6px;
@@ -302,49 +206,91 @@ button:focus-visible, .chk-wrap:focus-within .chk-box, input:focus-visible, sele
 .street-thumb { background: linear-gradient(135deg, #f5f1e6, #e8dfc8, #a8cfe0); }
 .topo-thumb { background: linear-gradient(135deg, #dfe8c8, #c8d9a8, #e6d9b8); }
 
-.slider-group { margin-bottom: 12px; font-size: 13px; }
-.slider-group input { width: 100%; margin-top: 4px; accent-color: var(--water); }
-
-/* ---------- Daylight: แถบเวลาในวัน ---------- */
-.daylight { margin-bottom: 16px; padding-bottom: 14px; border-bottom: 1px solid var(--line); }
-.dl-title { font-weight: 700; margin-bottom: 4px; }
-.dl-time-wrap { position: relative; height: 22px; margin: 0 56px 0 9px; }
-.dl-time {
-  position: absolute;
-  left: calc(var(--p, .625) * (100% - 18px) + 9px - 9px);
-  transform: translateX(-50%);
-  white-space: nowrap;
-  font-weight: 600;
-  font-variant-numeric: tabular-nums;
-}
-.dl-time small { color: var(--water); font-size: 10px; font-weight: 700; }
-.dl-row { display: flex; align-items: flex-start; gap: 12px; }
-.dl-track { flex: 1; min-width: 0; }
-#sun-time { -webkit-appearance: none; appearance: none; width: 100%; height: 24px; margin: 0; background: transparent; cursor: pointer; }
-#sun-time::-webkit-slider-runnable-track { height: 2px; background: var(--ink); border-radius: 1px; }
-#sun-time::-moz-range-track { height: 2px; background: var(--ink); border-radius: 1px; }
-#sun-time::-webkit-slider-thumb {
-  -webkit-appearance: none; width: 18px; height: 18px; margin-top: -8px; border-radius: 50%;
-  background: var(--water); border: 2px solid #fff; box-shadow: 0 0 0 5px rgba(31, 138, 166, .3);
-}
-#sun-time::-moz-range-thumb {
-  width: 14px; height: 14px; border-radius: 50%;
-  background: var(--water); border: 2px solid #fff; box-shadow: 0 0 0 5px rgba(31, 138, 166, .3);
-}
-.dl-ticks { display: flex; justify-content: space-between; font-size: 10.5px; color: #4b6772; margin-top: 2px; font-variant-numeric: tabular-nums; }
-.dl-play {
-  width: 40px; height: 40px; flex-shrink: 0; border: none; cursor: pointer; color: #fff; font-size: 15px;
-  background-color: var(--water); border-radius: 50%;
-  box-shadow: 0 2px 6px rgba(18, 48, 63, .3);
-  transition: background-color .2s;
-}
-.dl-play:hover { background-color: var(--ink); }
-.dl-play.playing { background-color: var(--ink); }
-
 @media (max-width: 640px) {
-  .floating-panel { width: 264px; right: 68px; }
+.floating-panel { width: 264px; right: 68px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .nav-btn, .action-btn, .nav-compass, .btn-full, .tab-btn, .chk-box, .bm-card { transition: none; }
+.nav-btn, .btn-full, .chk-box, .bm-card { transition: none; }
 }
+
+/* ---------- ข้อความแจ้งเตือน และป๊อปอัปอาคาร (Leaflet) ---------- */
+#toast {
+  position: absolute; left: 50%; bottom: 44px; transform: translateX(-50%); z-index: 20;
+  max-width: min(520px, calc(100% - 32px)); padding: 12px 16px;
+  background: var(--ink); color: #fff; font-size: 14px; line-height: 1.5;
+  border-radius: var(--drop); box-shadow: 0 8px 24px rgba(18, 48, 63, .35);
+}
+.bld-tip { font-family: inherit; font-size: 12px; font-weight: 600; color: var(--ink); border-radius: 8px 8px 8px 2px; border: 1px solid var(--line); }
+.leaflet-popup-content-wrapper { border-radius: 14px 14px 14px 4px; box-shadow: 0 6px 20px rgba(18, 48, 63, .3); }
+.leaflet-popup-content { font-family: inherit; font-size: 14px; color: var(--ink); line-height: 1.6; }
+.leaflet-container .leaflet-control-attribution { font-size: 11px; }
+
+/* ---------- UI แบบกะทัดรัด: Layers ข้างแถบปุ่ม / Legend ชิดมุมซ้ายล่าง ---------- */
+html, body { font-size: 13px; }
+.nav-toolbar { top: 12px; left: 12px; gap: 4px; }
+.nav-btn { width: 38px; height: 38px; }
+.nav-btn svg { width: 18px; height: 18px; }
+.nav-sep { height: 4px; }
+.leaflet-top.leaflet-left, .leaflet-control-zoom { display: none; }
+.side-panel {
+  position: absolute; z-index: 10; display: flex; flex-direction: column; min-height: 0;
+  background: var(--paper); border: 1px solid var(--line);
+  border-radius: 14px 14px 14px 4px; box-shadow: 0 6px 20px rgba(18, 48, 63, .26); overflow: hidden;
+}
+#layers-panel { left: 60px; top: 12px; width: 236px; max-height: calc(100% - 300px); min-height: 160px; }
+#legend-panel { left: 8px; bottom: 32px; width: 188px; max-height: 280px; }
+.side-title, .side-head {
+  display: flex; align-items: center; justify-content: space-between; flex-shrink: 0;
+  height: 34px; padding: 0 8px 0 12px; background: var(--ink); color: #fff;
+  font-family: inherit; font-weight: 600; font-size: 13.5px; line-height: 1;
+}
+.side-head { width: 100%; border: none; cursor: pointer; text-align: left; }
+.side-head:hover { background: #1b4558; }
+.side-x { width: 26px; height: 26px; border: none; border-radius: 8px 8px 8px 2px; background: transparent; color: #cfe3ea; font-size: 13px; cursor: pointer; }
+.side-x:hover { background: var(--gauge-red); color: #fff; }
+.chev { width: 7px; height: 7px; border: solid #fff; border-width: 0 2px 2px 0; transform: rotate(45deg); margin: -3px 4px 0 0; transition: transform .25s; }
+.side-panel.collapsed .chev { transform: rotate(-135deg); margin-top: 3px; }
+.side-body { overflow-y: auto; min-height: 0; }
+.side-panel.collapsed .side-body { display: none; }
+
+/* รายการชั้นข้อมูลแบบกระชับ */
+#layers-panel .layer-list { padding: 6px 10px 8px; }
+#layers-panel .layer-item { padding: 3px 0; gap: 4px; }
+#layers-panel .chk-wrap { gap: 7px; }
+#layers-panel .chk-box { width: 15px; height: 15px; border-width: 1.5px; }
+#layers-panel .layer-title { font-size: 12.5px; }
+#layers-panel .zoom-layer-btn { padding: 2px; }
+#layers-panel .zoom-layer-btn svg { width: 15px; height: 15px; }
+#layers-panel .layer-children { margin-left: 6px; padding-left: 10px; }
+#layers-panel .lvl-sw { width: 11px; height: 11px; }
+
+/* Legend + สรุป */
+#legend-panel .side-body { padding: 8px 10px 9px; }
+.sm-head { font-size: 12px; line-height: 1.35; margin-bottom: 6px; }
+.sm-head b { font-size: 20px; color: var(--water); margin-right: 4px; }
+.sm-head span { display: block; color: #5d7681; font-size: 11px; }
+#legend .lg { gap: 7px; font-size: 12px; margin-bottom: 3px; }
+#legend .lg i { width: 15px; height: 11px; flex-shrink: 0; }
+#legend .lg span { flex: 1; }
+#legend .lg em { font-style: normal; font-weight: 700; font-variant-numeric: tabular-nums; }
+.floating-panel { top: 12px; left: 60px; right: auto; width: 252px; }
+.pad-box { padding: 10px 12px; }
+@media (max-width: 640px) {
+#layers-panel { width: 214px; }
+.floating-panel { width: 214px; }
+}
+
+/* หัวข้อส่วนในแผงชั้นข้อมูล: อาคาร / น้ำท่วม */
+.layer-sec { margin: 8px 0 2px; padding-top: 6px; border-top: 1px solid var(--line); font-size: 11.5px; font-weight: 600; color: #5d7681; }
+.layer-hint { margin: 2px 0 4px 24px; font-size: 11.5px; line-height: 1.4; color: #5d7681; }
+.chk-wrap:has(input:disabled) { opacity: .5; cursor: not-allowed; }
+.layer-select{margin:4px 0 2px 26px;width:calc(100% - 26px);font:inherit;font-size:12px;padding:3px 6px;border:1px solid #c9dbe3;border-radius:8px;background:#fff;color:var(--ink,#12303f)}
+.flood-img{image-rendering:pixelated}
+#layers-panel .layer-item:has(#flood-year){flex-wrap:wrap}
+#layers-panel #flood-year{display:block;flex:1 0 100%;width:auto;margin:2px 0 4px 26px;box-sizing:border-box;max-width:calc(100% - 26px)}
+
+.year-chips{flex:1 0 100%;display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin:2px 0 6px 26px;max-width:calc(100% - 26px)}
+.year-chips button{font:inherit;font-size:11px;padding:3px 0;border:1px solid #c9dbe3;border-radius:8px 8px 8px 2px;background:#fff;color:var(--ink,#12303f);cursor:pointer}
+.year-chips button:first-child{grid-column:span 4}
+.year-chips button.on{background:var(--water,#1f8aa6);border-color:var(--water,#1f8aa6);color:#fff}
