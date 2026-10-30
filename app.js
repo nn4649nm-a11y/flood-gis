@@ -436,7 +436,7 @@ function wireUI() {
   });
 
   const chkPoints = document.getElementById("chk-flood-points");   // จุดน้ำท่วม
-  chkPoints.addEventListener("change", () => {
+  if (chkPoints) chkPoints.addEventListener("change", () => {
     if (!pointLayer) return;
     if (chkPoints.checked) pointLayer.addTo(map); else pointLayer.remove();
   });
