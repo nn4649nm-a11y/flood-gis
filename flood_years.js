@@ -9,7 +9,7 @@
     let cur = "all";   // ค่าที่เลือกอยู่: "all" | "freq_1".."freq_6" | "2011".."2025"
 
     sel.innerHTML = `<option value="all">สะสมทุกปี (ความถี่)</option>` +
-      [1,2,3,4,5,6].map(k => `<option value="freq_${k}">ความถี่ ${k===6?"6 ครั้งขึ้นไป":k+" ครั้ง"} เท่านั้น</option>`).join("") +
+      [1, 2, 3, 4, 5, 6].map(k => `<option value="freq_${k}">ความถี่ ${k === 6 ? "6 ครั้งขึ้นไป" : k + " ครั้ง"} เท่านั้น</option>`).join("") +
       `<option value="year" hidden>ปี</option>`;   // ซ่อนในรายการ ใช้แสดงปีที่เลือกจากปุ่ม
     const yearOpt = sel.querySelector('option[value="year"]');
 

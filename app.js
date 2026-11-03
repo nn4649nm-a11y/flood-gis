@@ -7,19 +7,13 @@ const DEFAULT_ZOOM_PADDING = [70, 70];
 const BASEMAPS = {
   sat: {
     url: "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
-    opt: { maxNativeZoom: 19, attribution: "© Esri" }
+    // ภาพดาวเทียมของ Esri แถวนี้มีถึงระดับซูมประมาณ 17 ถ้าตั้งสูงกว่านี้จะขึ้น "Map data not yet available"
+    // ถ้าอยากลองเพิ่ม ให้ลองเลข 18 แล้วซูมดู ถ้ายังเป็นสีเทาให้ลดกลับเป็น 17
+    opt: { maxNativeZoom: 17, attribution: "© Esri" }
   },
   osm: {
     url: "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
     opt: { maxNativeZoom: 19, attribution: "© OpenStreetMap" }
-  },
-  light: {
-    url: "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png",
-    opt: { maxNativeZoom: 19, subdomains: "abcd", attribution: "© OpenStreetMap © CARTO" }
-  },
-  street: {
-    url: "https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}",
-    opt: { maxNativeZoom: 19, attribution: "© Esri" }
   },
   topo: {
     url: "https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png",
@@ -150,7 +144,18 @@ function wfsUrl(layer, cql) {
 
 function buildingsUrl() {
   if (MODE === "geonode") return wfsUrl(C.GEONODE.BUILDINGS_LAYER, C.GEONODE.BUILDINGS_CQL);
+  if (MODE === "api") return (C.API && C.API.BUILDINGS_URL) || "/api/buildings";
   return C.MOCK_URL;
+}
+
+function boundaryUrl() {
+  if (MODE === "api") return (C.API && C.API.BOUNDARY_URL) || "/api/boundary";
+  return optionalLayerUrl(C.BOUNDARY_URL, (C.GEONODE || {}).BOUNDARY_LAYER);
+}
+
+function waterUrl() {
+  if (MODE === "api") return (C.API && C.API.WATER_URL) || "/api/water";
+  return optionalLayerUrl(C.WATER_URL, (C.GEONODE || {}).WATER_LAYER);
 }
 
 // ไฟล์ GeoJSON (ถ้าใส่) มาก่อน  ถ้าไม่มีให้ใช้ชื่อ layer บน GeoNode  ไม่มีทั้งคู่ = ข้ามชั้นนี้
@@ -164,6 +169,18 @@ async function fetchJson(url) {
   const res = await fetch(url);
   if (!res.ok) throw new Error(`HTTP ${res.status} (${url})`);
   return res.json();
+}
+
+async function fetchJsonWithFallback(primaryUrl, fallbackUrl) {
+  try {
+    return await fetchJson(primaryUrl);
+  } catch (err) {
+    if (fallbackUrl && primaryUrl !== fallbackUrl) {
+      console.warn(`[Fallback] ไม่สามารถเรียก ${primaryUrl} กำลังดึงจาก ${fallbackUrl}:`, err);
+      return await fetchJson(fallbackUrl);
+    }
+    throw err;
+  }
 }
 
 function passes(f) {
@@ -210,7 +227,7 @@ function pointPopupHtml(p) {
   return `<b>${escapeHtml(p.name || p.id)}</b><br>` +
     `รหัส: ${escapeHtml(p.id)}<br>` +
     (p.type ? `ประเภท: ${escapeHtml(p.type)}<br>` : "") +
-    `น้ำท่วมสะสม: <b>${escapeHtml(p.flood)} ${C.UNIT||'ครั้ง'}</b>`;
+    `น้ำท่วมสะสม: <b>${escapeHtml(p.flood)} ${C.UNIT || 'ครั้ง'}</b>`;
 }
 
 function renderPoints() {
@@ -224,7 +241,7 @@ function renderPoints() {
       fillColor: classColor(p.flood), fillOpacity: 0.95
     })
       .bindPopup(pointPopupHtml(p), { maxWidth: 260 })
-      .bindTooltip(`${escapeHtml(p.name || p.id)} (${p.flood} ${C.UNIT||'ครั้ง'})`, { direction: "top", className: "bld-tip" })
+      .bindTooltip(`${escapeHtml(p.name || p.id)} (${p.flood} ${C.UNIT || 'ครั้ง'})`, { direction: "top", className: "bld-tip" })
   ));
   const chk = document.getElementById("chk-flood-points");
   if (!chk || chk.checked) pointLayer.addTo(map);
@@ -265,7 +282,7 @@ function popupHtml(p) {
     `ประเภท: ${escapeHtml(p.bldg_type || "ไม่ระบุ")}<br>` +
     (state.year && state.year !== "all"
       ? `ปี ${state.year}: <b>${p.flood_level ? "ท่วม" : "ไม่ท่วม"}</b><br>` : "") +
-    `ท่วมสะสม: <b>${escapeHtml(p.flood_total != null ? p.flood_total : p.flood_level)} ${C.UNIT||'ครั้ง'}</b>` +
+    `ท่วมสะสม: <b>${escapeHtml(p.flood_total != null ? p.flood_total : p.flood_level)} ${C.UNIT || 'ครั้ง'}</b>` +
     (p.flood_years ? `<br><small>ปีที่ท่วม: ${escapeHtml(p.flood_years.split(",").join(", ") || "-")}</small>` : "");
 }
 
@@ -282,7 +299,7 @@ function renderBuildings() {
   if (pinLayer) pinLayer.remove();
   pinLayer = L.layerGroup(list.map(f => {
     return L.circleMarker(f.properties.ctr, { radius: 4, color: "#fff", weight: 2, fillColor: "#1f8aa6", fillOpacity: 1 })
-      .bindTooltip(`${escapeHtml(f.properties.bldg_id)} (${f.properties.flood_level} ${C.UNIT||'ครั้ง'})`, { direction: "top", className: "bld-tip" });
+      .bindTooltip(`${escapeHtml(f.properties.bldg_id)} (${f.properties.flood_level} ${C.UNIT || 'ครั้ง'})`, { direction: "top", className: "bld-tip" });
   }));
   if (pinsOn) pinLayer.addTo(map);
   updateSummary();
@@ -365,26 +382,43 @@ function wireUI() {
   const panel = document.getElementById("floating-panel");
   const actionBtns = document.querySelectorAll("[data-panel]");
   const views = document.querySelectorAll(".panel-view");
+  const backdrop = document.getElementById("panel-backdrop");
+
+  const updateBackdrop = () => {
+    if (!backdrop) return;
+    const isMobile = window.innerWidth <= 768;
+    const isLayersOpen = layersPanel && !layersPanel.classList.contains("hidden");
+    const isFloatingOpen = panel && !panel.classList.contains("hidden");
+    if (isMobile && (isLayersOpen || isFloatingOpen)) {
+      backdrop.classList.remove("hidden");
+    } else {
+      backdrop.classList.add("hidden");
+    }
+  };
+
+  const closeFloatingPanel = () => {
+    if (panel) panel.classList.add("hidden");
+    actionBtns.forEach(b => b.classList.remove("active"));
+    updateBackdrop();
+  };
+
   actionBtns.forEach(btn => {
     btn.addEventListener("click", () => {
       const isOpen = btn.classList.contains("active") && !panel.classList.contains("hidden");
       if (isOpen) {
-        panel.classList.add("hidden");
-        btn.classList.remove("active");
+        closeFloatingPanel();
       } else {
         panel.classList.remove("hidden");
         actionBtns.forEach(b => b.classList.remove("active"));
         btn.classList.add("active");
         setLayersOpen(false);   // แผงทั้งสองอยู่ตำแหน่งเดียวกัน เปิดทีละแผง
         views.forEach(v => v.classList.toggle("hidden", v.id !== btn.dataset.panel));
+        updateBackdrop();
       }
     });
   });
   document.querySelectorAll("[data-close]").forEach(btn => {
-    btn.addEventListener("click", () => {
-      panel.classList.add("hidden");
-      actionBtns.forEach(b => b.classList.remove("active"));
-    });
+    btn.addEventListener("click", closeFloatingPanel);
   });
 
   // ----- แผง Layers: เปิด/ปิดจากปุ่มในแถบซ้าย -----
@@ -393,13 +427,39 @@ function wireUI() {
   const setLayersOpen = open => {
     layersPanel.classList.toggle("hidden", !open);
     layersBtn.classList.toggle("active", open);
+    updateBackdrop();
   };
   layersBtn.addEventListener("click", () => {
     const open = layersPanel.classList.contains("hidden");
-    if (open) { panel.classList.add("hidden"); actionBtns.forEach(b => b.classList.remove("active")); }
+    if (open) {
+      closeFloatingPanel();
+    }
     setLayersOpen(open);
   });
   document.querySelectorAll("[data-toggle-layers]").forEach(b => b.addEventListener("click", () => setLayersOpen(false)));
+
+  if (backdrop) {
+    backdrop.addEventListener("click", () => {
+      setLayersOpen(false);
+      closeFloatingPanel();
+    });
+  }
+
+  // บนหน้าจอมือถือ/แท็บเล็ต: เริ่มต้นด้วยการซ่อนแผง Layers และพับ Legend เพื่อให้เห็นแผนที่เต็มตา
+  if (window.innerWidth <= 768) {
+    setLayersOpen(false);
+    const legendPanel = document.getElementById("legend-panel");
+    if (legendPanel) {
+      legendPanel.classList.add("collapsed");
+      const legendHead = legendPanel.querySelector(".side-head");
+      if (legendHead) legendHead.setAttribute("aria-expanded", "false");
+    }
+  }
+
+  window.addEventListener("resize", () => {
+    if (map) map.invalidateSize();
+    updateBackdrop();
+  });
 
   // ----- Legend: กดหัวแผงเพื่อพับเก็บ-เปิด -----
   document.querySelectorAll(".side-head").forEach(head => {
@@ -541,10 +601,10 @@ async function init() {
     });
   }
 
-  const boundaryUrl = optionalLayerUrl(C.BOUNDARY_URL, G.BOUNDARY_LAYER);
-  if (boundaryUrl) {
+  const bUrl = boundaryUrl();
+  if (bUrl) {
     try {
-      const rawB = await fetchJson(boundaryUrl);
+      const rawB = await fetchJsonWithFallback(bUrl, C.BOUNDARY_URL);
       boundaryLayer = L.geoJSON(rawB, {
         style: { color: "#d4492e", weight: 3, dashArray: "10 6", fill: false },
         interactive: false
@@ -553,15 +613,15 @@ async function init() {
       if (bb.isValid()) map.fitBounds(bb, { padding: [30, 30] });   // เริ่มที่ขอบเขตหมู่ 15
     } catch (err) {
       console.warn("โหลดขอบเขตหมู่ 15 ไม่สำเร็จ:", err);
-      showMessage("โหลดไฟล์ขอบเขตหมู่ 15 ไม่สำเร็จ ตรวจ BOUNDARY_URL / GEONODE.BOUNDARY_LAYER ใน config.js");
+      showMessage("โหลดไฟล์ขอบเขตหมู่ 15 ไม่สำเร็จ ตรวจ BOUNDARY_URL / API.BOUNDARY_URL ใน config.js");
     }
   }
 
-  const waterUrl = optionalLayerUrl(C.WATER_URL, G.WATER_LAYER);
+  const wUrl = waterUrl();
   try {
     const [rawBuildings, rawWater] = await Promise.all([
-      fetchJson(buildingsUrl()),
-      waterUrl ? fetchJson(waterUrl).catch(err => { console.warn("โหลดขอบเขตน้ำไม่สำเร็จ:", err); return null; }) : null
+      fetchJsonWithFallback(buildingsUrl(), C.MOCK_URL),
+      wUrl ? fetchJsonWithFallback(wUrl, C.WATER_URL).catch(err => { console.warn("โหลดขอบเขตน้ำไม่สำเร็จ:", err); return null; }) : null
     ]);
     DATA = normalizeBuildings(rawBuildings);
     if (!DATA.features.length) throw new Error("ไฟล์ไม่มีอาคารที่เป็น Polygon");
@@ -581,7 +641,7 @@ async function init() {
     console.error("โหลดข้อมูลไม่สำเร็จ:", e);
     showMessage(MODE === "geonode"
       ? "โหลดข้อมูลอาคารจาก GeoNode ไม่สำเร็จ: ตรวจ OWS_URL, BUILDINGS_LAYER, CQL และ CORS ของ GeoServer (ดูรายละเอียดใน Console)"
-      : "โหลดข้อมูลอาคารไม่สำเร็จ: ตรวจสอบว่าไฟล์อยู่ใน data/ และเปิดผ่านเซิร์ฟเวอร์ (เช่น Live Server) ไม่ใช่เปิดไฟล์ตรงๆ");
+      : "โหลดข้อมูลอาคารไม่สำเร็จ: ตรวจสอบว่า Node.js Backend ทำงานอยู่ (npm start) หรือไฟล์อยู่ใน data/");
   }
 
   // จุดน้ำท่วม: โหลดหลังอาคาร เพื่อให้ชั้น SVG ของจุดอยู่เหนือ canvas ของอาคาร

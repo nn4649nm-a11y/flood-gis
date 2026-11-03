@@ -53,12 +53,12 @@ window.CONFIG = {
 
   // ช่วงความถี่น้ำท่วมและสี (ค่า v ตกช่วงแรกที่ v < max)  ตรงกับ SLD ที่จะตั้งใน GeoServer
   CLASSES: [
-    { max: 1,   color: "#E6F2FC", label: "ไม่เคยท่วม" },
-    { max: 2,   color: "#C4DEF5", label: "ท่วม 1 ครั้ง" },
-    { max: 3,   color: "#9CC5EC", label: "ท่วม 2 ครั้ง" },
-    { max: 4,   color: "#6AA6E0", label: "ท่วม 3 ครั้ง" },
-    { max: 5,   color: "#3F85CF", label: "ท่วม 4 ครั้ง" },
-    { max: 6,   color: "#1F5FA8", label: "ท่วม 5 ครั้ง" },
+    { max: 1, color: "#E6F2FC", label: "ไม่เคยท่วม" },
+    { max: 2, color: "#C4DEF5", label: "ท่วม 1 ครั้ง" },
+    { max: 3, color: "#9CC5EC", label: "ท่วม 2 ครั้ง" },
+    { max: 4, color: "#6AA6E0", label: "ท่วม 3 ครั้ง" },
+    { max: 5, color: "#3F85CF", label: "ท่วม 4 ครั้ง" },
+    { max: 6, color: "#1F5FA8", label: "ท่วม 5 ครั้ง" },
     { max: Infinity, color: "#0B3A75", label: "ท่วม 6 ครั้งขึ้นไป" }
   ]
 };

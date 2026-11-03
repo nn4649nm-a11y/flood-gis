@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="th">
+
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>ระบบแผนที่น้ำท่วม บางระกำ หมู่ 15</title>
   <link rel="icon" href="data:,">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
@@ -11,40 +12,48 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700&display=swap">
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
   <div id="app">
     <div id="map"></div>
+    <div id="panel-backdrop" class="panel-backdrop hidden"></div>
 
     <!-- 1. แถบควบคุมมุมมองด้านซ้าย -->
     <div class="nav-toolbar">
       <button id="btn-home" class="nav-btn" aria-label="กลับมุมมองเริ่มต้น" title="กลับมุมมองเริ่มต้น (Home)">
-        <svg viewBox="0 0 24 24"><path d="M3 10.5L12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1v-9.5z"/></svg>
+        <svg viewBox="0 0 24 24">
+          <path d="M3 10.5L12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1v-9.5z" />
+        </svg>
       </button>
       <div class="nav-sep"></div>
       <button id="btn-zoom-in" class="nav-btn" aria-label="ซูมเข้า" title="ซูมเข้า">
-        <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+        <svg viewBox="0 0 24 24">
+          <path d="M12 5v14M5 12h14" />
+        </svg>
       </button>
       <button id="btn-zoom-out" class="nav-btn" aria-label="ซูมออก" title="ซูมออก">
-        <svg viewBox="0 0 24 24"><path d="M5 12h14"/></svg>
+        <svg viewBox="0 0 24 24">
+          <path d="M5 12h14" />
+        </svg>
       </button>
       <div class="nav-sep"></div>
       <button id="btn-layers" class="nav-btn active" aria-label="ชั้นข้อมูล" title="ชั้นข้อมูล (เปิด/ปิด)">
         <svg viewBox="0 0 24 24">
-          <polygon points="12 3 2 8.5 12 14 22 8.5 12 3"/>
-          <polyline points="2 12.5 12 18 22 12.5"/>
-          <polyline points="2 16.5 12 22 22 16.5"/>
+          <polygon points="12 3 2 8.5 12 14 22 8.5 12 3" />
+          <polyline points="2 12.5 12 18 22 12.5" />
+          <polyline points="2 16.5 12 22 22 16.5" />
         </svg>
       </button>
       <button class="nav-btn" data-panel="view-search" aria-label="ค้นหาอาคาร" title="ค้นหาอาคาร">
-        <svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><line x1="15.5" y1="15.5" x2="21" y2="21"/></svg>
+        <svg viewBox="0 0 24 24">
+          <circle cx="10.5" cy="10.5" r="6.5" />
+          <line x1="15.5" y1="15.5" x2="21" y2="21" />
+        </svg>
       </button>
       <button class="nav-btn" data-panel="view-basemap" aria-label="แผนที่ฐาน" title="แผนที่ฐาน (Basemap)">
         <svg viewBox="0 0 24 24">
-          <rect x="3" y="3" width="7.5" height="7.5"/>
-          <rect x="13.5" y="3" width="7.5" height="7.5"/>
-          <rect x="3" y="13.5" width="7.5" height="7.5"/>
-          <rect x="13.5" y="13.5" width="7.5" height="7.5"/>
-          <path d="M3 7l4-4M14 9l6-6M3 18l5-4M14 20l7-5" stroke-width="1"/>
+          <polygon points="12 3.5 21 9 12 14.5 3 9 12 3.5" />
+          <polyline points="3 13.5 12 19 21 13.5" />
         </svg>
       </button>
     </div>
@@ -56,34 +65,38 @@
       </div>
       <div class="side-body">
         <div class="layer-list">
-            <div class="layer-item">
-              <label class="chk-wrap">
-                <input type="checkbox" id="chk-boundary" checked>
-                <span class="chk-box"></span>
-                <span class="layer-title">ขอบเขต บางระกำ หมู่ 15</span>
-              </label>
-            </div>
+          <div class="layer-item">
+            <label class="chk-wrap">
+              <input type="checkbox" id="chk-boundary" checked>
+              <span class="chk-box"></span>
+              <span class="layer-title">ขอบเขต บางระกำ หมู่ 15</span>
+            </label>
+          </div>
 
-            <div class="layer-sec">อาคาร</div>
+          <div class="layer-sec">อาคาร</div>
 
-            <div class="layer-item">
-              <label class="chk-wrap">
-                <input type="checkbox" id="chk-bld" checked>
-                <span class="chk-box"></span>
-                <span class="layer-title">อาคาร</span>
-              </label>
-              <button class="zoom-layer-btn" data-zoom="all" title="ซูมไปที่อาคาร"><svg viewBox="0 0 20 20"><rect x="2" y="3" width="12" height="10" rx="1"/><circle cx="12" cy="12" r="4" fill="#fff"/><line x1="15" y1="15" x2="18" y2="18"/></svg></button>
-            </div>
+          <div class="layer-item">
+            <label class="chk-wrap">
+              <input type="checkbox" id="chk-bld" checked>
+              <span class="chk-box"></span>
+              <span class="layer-title">อาคาร</span>
+            </label>
+            <button class="zoom-layer-btn" data-zoom="all" title="ซูมไปที่อาคาร"><svg viewBox="0 0 20 20">
+                <rect x="2" y="3" width="12" height="10" rx="1" />
+                <circle cx="12" cy="12" r="4" fill="#fff" />
+                <line x1="15" y1="15" x2="18" y2="18" />
+              </svg></button>
+          </div>
 
-            <div class="layer-item">
-              <label class="chk-wrap">
-                <input type="checkbox" id="chk-pins">
-                <span class="chk-box"></span>
-                <span class="layer-title">หมุด / ป้ายชื่ออาคาร</span>
-              </label>
-            </div>
+          <div class="layer-item">
+            <label class="chk-wrap">
+              <input type="checkbox" id="chk-pins">
+              <span class="chk-box"></span>
+              <span class="layer-title">หมุด / ป้ายชื่ออาคาร</span>
+            </label>
+          </div>
 
-            <div hidden>
+          <div hidden>
             <div class="layer-item">
               <label class="chk-wrap">
                 <input type="checkbox" id="chk-flood-color">
@@ -94,45 +107,57 @@
 
             <!-- รายการความถี่น้ำท่วมสร้างจาก CONFIG.CLASSES ใน app.js: เลือกเพื่อเน้นเฉพาะอาคารในระดับนั้น -->
             <div class="layer-children" id="flood-sublayers"></div>
-            </div>
-
-            <div class="layer-sec">น้ำท่วม</div>
-
-            <div class="layer-item">
-              <label class="chk-wrap">
-                <input type="checkbox" id="chk-water-bodies" checked>
-                <span class="chk-box"></span>
-                <span class="layer-title">แหล่งน้ำ (แม่น้ำ / บ่อ)</span>
-              </label>
-              <button class="zoom-layer-btn" data-zoom="water" title="ซูมไปที่แหล่งน้ำ"><svg viewBox="0 0 20 20"><rect x="2" y="3" width="12" height="10" rx="1"/><circle cx="12" cy="12" r="4" fill="#fff"/><line x1="15" y1="15" x2="18" y2="18"/></svg></button>
-            </div>
-
-            <div class="layer-item">
-              <label class="chk-wrap">
-                <input type="checkbox" id="chk-flood-water" checked>
-                <span class="chk-box"></span>
-                <span class="layer-title">ผิวน้ำท่วม (WMS)</span>
-              </label>
-            </div>
-            <div class="layer-item">
-              <label class="chk-wrap">
-                <input type="checkbox" id="chk-flood-year" checked>
-                <span class="chk-box"></span>
-                <span class="layer-title">แรสเตอร์น้ำท่วมรายปี</span>
-              </label>
-              <select id="flood-year" class="layer-select" aria-label="เลือกปี"></select>
-            </div>
-            <div class="layer-hint hidden" id="flood-hint">ยังไม่มีข้อมูลน้ำท่วม ตั้ง FLOOD_POINTS_URL, FLOOD_WMS_LAYER หรือ WATER_URL ใน config.js</div>
           </div>
+
+          <div class="layer-sec">น้ำท่วม</div>
+
+          <div class="layer-item">
+            <label class="chk-wrap">
+              <input type="checkbox" id="chk-water-bodies" checked>
+              <span class="chk-box"></span>
+              <span class="layer-title">แหล่งน้ำ (แม่น้ำ / บ่อ)</span>
+            </label>
+            <button class="zoom-layer-btn" data-zoom="water" title="ซูมไปที่แหล่งน้ำ"><svg viewBox="0 0 20 20">
+                <rect x="2" y="3" width="12" height="10" rx="1" />
+                <circle cx="12" cy="12" r="4" fill="#fff" />
+                <line x1="15" y1="15" x2="18" y2="18" />
+              </svg></button>
+          </div>
+
+          <div class="layer-item">
+            <label class="chk-wrap">
+              <input type="checkbox" id="chk-flood-water" checked>
+              <span class="chk-box"></span>
+              <span class="layer-title">ผิวน้ำท่วม (WMS)</span>
+            </label>
+          </div>
+          <div class="layer-item">
+            <label class="chk-wrap">
+              <input type="checkbox" id="chk-flood-year" checked>
+              <span class="chk-box"></span>
+              <span class="layer-title">ข้อมูลน้ำท่วมรายปี</span>
+            </label>
+            <select id="flood-year" class="layer-select" aria-label="เลือกปี"></select>
+          </div>
+          <div class="layer-hint hidden" id="flood-hint">ยังไม่มีข้อมูลน้ำท่วม ตั้ง FLOOD_POINTS_URL, FLOOD_WMS_LAYER
+            หรือ WATER_URL ใน config.js</div>
+        </div>
       </div>
     </section>
 
     <!-- 2a-2. Legend ชิดมุมซ้ายล่าง พับเก็บได้ -->
     <section id="legend-panel" class="side-panel">
       <button type="button" class="side-head" aria-expanded="true" data-collapse="legend-panel">
-        <span>ความถี่น้ำท่วม (15 ปี)</span><i class="chev" aria-hidden="true"></i>
+        <span>สัญลักษณ์บนแผนที่</span><i class="chev" aria-hidden="true"></i>
       </button>
       <div class="side-body">
+        <div class="sym-list">
+          <div class="sym"><i class="sym-boundary"></i><span>ขอบเขตหมู่ 15</span></div>
+          <div class="sym"><i class="sym-bld"></i><span>อาคาร</span></div>
+          <div class="sym"><i class="sym-water"></i><span>แหล่งน้ำ (แม่น้ำ / บ่อ)</span></div>
+          <div class="sym"><i class="sym-flood"></i><span>บริเวณน้ำท่วม (ภาพรายปี)</span></div>
+        </div>
+        <div class="sym-sec">ความถี่น้ำท่วม (15 ปี)</div>
         <div id="summary"></div>
         <div id="legend"></div>
       </div>
@@ -169,14 +194,6 @@
             <div class="bm-thumb osm-thumb"></div>
             <span>แผนที่ถนน (OSM)</span>
           </div>
-          <div class="bm-card" data-bm="light">
-            <div class="bm-thumb light-thumb"></div>
-            <span>แผนที่เรียบ (Voyager)</span>
-          </div>
-          <div class="bm-card" data-bm="street">
-            <div class="bm-thumb street-thumb"></div>
-            <span>แผนที่ถนน (Esri)</span>
-          </div>
           <div class="bm-card" data-bm="topo">
             <div class="bm-thumb topo-thumb"></div>
             <span>แผนที่ภูมิประเทศ</span>
@@ -192,4 +209,5 @@
   <script src="app.js"></script>
   <script src="flood_years.js"></script>
 </body>
+
 </html>

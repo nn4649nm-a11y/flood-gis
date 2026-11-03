@@ -294,3 +294,16 @@ html, body { font-size: 13px; }
 .year-chips button{font:inherit;font-size:11px;padding:3px 0;border:1px solid #c9dbe3;border-radius:8px 8px 8px 2px;background:#fff;color:var(--ink,#12303f);cursor:pointer}
 .year-chips button:first-child{grid-column:span 4}
 .year-chips button.on{background:var(--water,#1f8aa6);border-color:var(--water,#1f8aa6);color:#fff}
+
+
+/* สัญลักษณ์บนแผนที่ (สีตรงกับที่วาดใน app.js) */
+#legend-panel { max-height: 340px; }
+#layers-panel { max-height: calc(100% - 370px); }
+.sym-list { margin-bottom: 4px; }
+.sym { display: flex; align-items: center; gap: 8px; font-size: 12px; margin-bottom: 4px; }
+.sym i { flex-shrink: 0; width: 26px; height: 14px; display: inline-block; }
+.sym-boundary { height: 0 !important; border-top: 3px dashed #d4492e; }
+.sym-bld { background: #fff; border: 1.5px solid #12303f; border-radius: 2px; }
+.sym-water { background: rgba(31, 138, 166, .4); border: 1px solid #1f8aa6; border-radius: 2px; }
+.sym-flood { background: rgba(31, 95, 168, .7); border-radius: 2px; }
+.sym-sec { margin: 6px 0 5px; padding-top: 6px; border-top: 1px solid var(--line); font-size: 11.5px; font-weight: 600; color: #5d7681; }
