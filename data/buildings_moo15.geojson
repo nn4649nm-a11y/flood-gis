@@ -8,50 +8,50 @@
                 "coordinates": [
                     [
                         [
-                            100.12093819999983,
+                            100.12094108789186,
                             16.77636252596715
                         ],
                         [
-                            100.12094249999983,
+                            100.12094538789187,
                             16.776373825967152
                         ],
                         [
-                            100.1209556,
+                            100.12095848789204,
                             16.776369
                         ],
                         [
-                            100.12097569999983,
+                            100.12097858789187,
                             16.776362925967153
                         ],
                         [
-                            100.12100039999983,
+                            100.12100328789187,
                             16.77635402596715
                         ],
                         [
-                            100.12099269999983,
+                            100.12099558789187,
                             16.77632352596715
                         ],
                         [
-                            100.12098469999982,
+                            100.12098758789186,
                             16.77629622596715
                         ],
                         [
-                            100.12095359999984,
+                            100.12095648789187,
                             16.776305125967152
                         ],
                         [
-                            100.12092319999982,
+                            100.12092608789186,
                             16.77631602596715
                         ],
                         [
-                            100.12093819999983,
+                            100.12094108789186,
                             16.77636252596715
                         ]
                     ]
                 ]
             },
             "properties": {
-                "bldg_id": "B378",
+                "bldg_id": "B001",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -120,21 +120,21 @@
                 ]
             },
             "properties": {
-                "bldg_id": "B379",
+                "bldg_id": "B002",
                 "bldg_type": "house",
                 "moo": 15,
-                "flood_level": 2,
-                "flood_years": "2011,2017"
+                "flood_level": 3,
+                "flood_years": "2011,2017,2025"
             }
         },
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B001",
+                "bldg_id": "B003",
                 "bldg_type": "house",
                 "moo": 15,
-                "flood_level": 2,
-                "flood_years": "2011,2013"
+                "flood_level": 3,
+                "flood_years": "2011,2013,2015"
             },
             "geometry": {
                 "type": "Polygon",
@@ -179,7 +179,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B002",
+                "bldg_id": "B004",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -216,7 +216,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B003",
+                "bldg_id": "B005",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -265,11 +265,11 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B004",
+                "bldg_id": "B006",
                 "bldg_type": "house",
                 "moo": 15,
-                "flood_level": 2,
-                "flood_years": "2011,2013"
+                "flood_level": 3,
+                "flood_years": "2011,2012,2013"
             },
             "geometry": {
                 "type": "Polygon",
@@ -322,7 +322,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B005",
+                "bldg_id": "B007",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -367,7 +367,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B006",
+                "bldg_id": "B008",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 4,
@@ -424,11 +424,11 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B007",
+                "bldg_id": "B009",
                 "bldg_type": "house",
                 "moo": 15,
-                "flood_level": 2,
-                "flood_years": "2011,2013"
+                "flood_level": 4,
+                "flood_years": "2011,2012,2013,2023"
             },
             "geometry": {
                 "type": "Polygon",
@@ -461,7 +461,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B008",
+                "bldg_id": "B010",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 3,
@@ -502,7 +502,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B009",
+                "bldg_id": "B011",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 5,
@@ -539,7 +539,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B010",
+                "bldg_id": "B012",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 4,
@@ -592,7 +592,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B011",
+                "bldg_id": "B013",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 4,
@@ -653,11 +653,11 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B012",
+                "bldg_id": "B014",
                 "bldg_type": "house",
                 "moo": 15,
-                "flood_level": 4,
-                "flood_years": "2011,2017,2021,2022"
+                "flood_level": 6,
+                "flood_years": "2011,2015,2017,2021,2022,2023"
             },
             "geometry": {
                 "type": "Polygon",
@@ -702,7 +702,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B013",
+                "bldg_id": "B015",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 4,
@@ -747,11 +747,11 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B014",
+                "bldg_id": "B016",
                 "bldg_type": "house",
                 "moo": 15,
-                "flood_level": 3,
-                "flood_years": "2011,2017,2021"
+                "flood_level": 4,
+                "flood_years": "2011,2017,2021,2022"
             },
             "geometry": {
                 "type": "Polygon",
@@ -1032,7 +1032,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B015",
+                "bldg_id": "B017",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 4,
@@ -1073,11 +1073,11 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B016",
+                "bldg_id": "B018",
                 "bldg_type": "house",
                 "moo": 15,
-                "flood_level": 2,
-                "flood_years": "2011,2017"
+                "flood_level": 3,
+                "flood_years": "2011,2017,2021"
             },
             "geometry": {
                 "type": "Polygon",
@@ -1134,11 +1134,11 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B017",
+                "bldg_id": "B019",
                 "bldg_type": "house",
                 "moo": 15,
-                "flood_level": 2,
-                "flood_years": "2011,2017"
+                "flood_level": 3,
+                "flood_years": "2011,2017,2025"
             },
             "geometry": {
                 "type": "Polygon",
@@ -1146,27 +1146,27 @@
                     [
                         [
                             100.11496430933798,
-                            16.76234408644286
+                            16.762328534343943
                         ],
                         [
                             100.11496926655546,
-                            16.762321507463398
+                            16.762305955364482
                         ],
                         [
                             100.11496404085358,
-                            16.762298003020728
+                            16.762282450921813
                         ],
                         [
                             100.11487130261533,
-                            16.76227693285395
+                            16.762261380755035
                         ],
                         [
                             100.11485633382506,
-                            16.76232800131471
+                            16.762312449215795
                         ],
                         [
                             100.11496430933798,
-                            16.76234408644286
+                            16.762328534343943
                         ]
                     ]
                 ]
@@ -1175,7 +1175,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B018",
+                "bldg_id": "B020",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 2,
@@ -1224,11 +1224,11 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B019",
+                "bldg_id": "B021",
                 "bldg_type": "house",
                 "moo": 15,
-                "flood_level": 0,
-                "flood_years": ""
+                "flood_level": 1,
+                "flood_years": "2011"
             },
             "geometry": {
                 "type": "Polygon",
@@ -1305,7 +1305,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B020",
+                "bldg_id": "B022",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 2,
@@ -1342,7 +1342,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B021",
+                "bldg_id": "B023",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 2,
@@ -1383,7 +1383,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B022",
+                "bldg_id": "B024",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 2,
@@ -1444,7 +1444,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B023",
+                "bldg_id": "B025",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -1497,7 +1497,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B024",
+                "bldg_id": "B026",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 2,
@@ -1534,7 +1534,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B025",
+                "bldg_id": "B027",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -1583,7 +1583,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B026",
+                "bldg_id": "B028",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 2,
@@ -1632,7 +1632,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B027",
+                "bldg_id": "B029",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 2,
@@ -1689,11 +1689,11 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B028",
+                "bldg_id": "B030",
                 "bldg_type": "house",
                 "moo": 15,
-                "flood_level": 1,
-                "flood_years": "2011"
+                "flood_level": 2,
+                "flood_years": "2011,2017"
             },
             "geometry": {
                 "type": "Polygon",
@@ -1734,7 +1734,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B029",
+                "bldg_id": "B031",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -1791,7 +1791,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B030",
+                "bldg_id": "B032",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -1868,7 +1868,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B031",
+                "bldg_id": "B033",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -1921,7 +1921,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B032",
+                "bldg_id": "B034",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 0,
@@ -1970,7 +1970,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B033",
+                "bldg_id": "B035",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -2007,7 +2007,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B034",
+                "bldg_id": "B036",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -2068,7 +2068,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B035",
+                "bldg_id": "B037",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 2,
@@ -2137,11 +2137,11 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B036",
+                "bldg_id": "B038",
                 "bldg_type": "house",
                 "moo": 15,
-                "flood_level": 1,
-                "flood_years": "2011"
+                "flood_level": 2,
+                "flood_years": "2011,2021"
             },
             "geometry": {
                 "type": "Polygon",
@@ -2210,7 +2210,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B037",
+                "bldg_id": "B039",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 2,
@@ -2279,7 +2279,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B038",
+                "bldg_id": "B040",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 2,
@@ -2320,7 +2320,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B039",
+                "bldg_id": "B041",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 2,
@@ -2373,11 +2373,11 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B040",
+                "bldg_id": "B042",
                 "bldg_type": "house",
                 "moo": 15,
-                "flood_level": 2,
-                "flood_years": "2011,2021"
+                "flood_level": 3,
+                "flood_years": "2011,2016,2021"
             },
             "geometry": {
                 "type": "Polygon",
@@ -2434,7 +2434,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B041",
+                "bldg_id": "B043",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 3,
@@ -2483,11 +2483,11 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B042",
+                "bldg_id": "B044",
                 "bldg_type": "house",
                 "moo": 15,
-                "flood_level": 4,
-                "flood_years": "2011,2013,2017,2025"
+                "flood_level": 5,
+                "flood_years": "2011,2013,2017,2021,2025"
             },
             "geometry": {
                 "type": "Polygon",
@@ -2532,7 +2532,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B044",
+                "bldg_id": "B045",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 4,
@@ -2544,23 +2544,23 @@
                     [
                         [
                             100.11579186954566,
-                            16.764460493616877
+                            16.76442578800592
                         ],
                         [
                             100.11583936559684,
-                            16.764402385349385
+                            16.764367679738427
                         ],
                         [
                             100.11579442532329,
-                            16.764375173777697
+                            16.76434046816674
                         ],
                         [
                             100.11575001104515,
-                            16.764438168000645
+                            16.764403462389687
                         ],
                         [
                             100.11579186954566,
-                            16.764460493616877
+                            16.76442578800592
                         ]
                     ]
                 ]
@@ -2569,11 +2569,11 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B045",
+                "bldg_id": "B046",
                 "bldg_type": "house",
                 "moo": 15,
-                "flood_level": 1,
-                "flood_years": "2011"
+                "flood_level": 3,
+                "flood_years": "2011,2016,2025"
             },
             "geometry": {
                 "type": "Polygon",
@@ -2634,59 +2634,6 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B046",
-                "bldg_type": "house",
-                "moo": 15,
-                "flood_level": 1,
-                "flood_years": "2011"
-            },
-            "geometry": {
-                "type": "Polygon",
-                "coordinates": [
-                    [
-                        [
-                            100.1159231,
-                            16.7644289
-                        ],
-                        [
-                            100.1160144,
-                            16.7644745
-                        ],
-                        [
-                            100.1161829,
-                            16.7645466
-                        ],
-                        [
-                            100.1162226,
-                            16.7644811
-                        ],
-                        [
-                            100.1160661,
-                            16.764418
-                        ],
-                        [
-                            100.1160889,
-                            16.7643743
-                        ],
-                        [
-                            100.1160215,
-                            16.7643363
-                        ],
-                        [
-                            100.1159679,
-                            16.7643154
-                        ],
-                        [
-                            100.1159231,
-                            16.7644289
-                        ]
-                    ]
-                ]
-            }
-        },
-        {
-            "type": "Feature",
-            "properties": {
                 "bldg_id": "B047",
                 "bldg_type": "house",
                 "moo": 15,
@@ -2698,24 +2645,40 @@
                 "coordinates": [
                     [
                         [
-                            100.11648909072962,
-                            16.76464399982917
+                            100.11593255550562,
+                            16.764421355305046
                         ],
                         [
-                            100.1165373812019,
-                            16.76454764649351
+                            100.11602385550562,
+                            16.764466955305046
                         ],
                         [
-                            100.11646389854342,
-                            16.764512745428362
+                            100.11619235550562,
+                            16.764539055305047
                         ],
                         [
-                            100.11642278937465,
-                            16.76461886514528
+                            100.11623205550562,
+                            16.76447355530505
                         ],
                         [
-                            100.11648909072962,
-                            16.76464399982917
+                            100.11607555550562,
+                            16.764410455305047
+                        ],
+                        [
+                            100.11609835550561,
+                            16.764366755305048
+                        ],
+                        [
+                            100.11603095550562,
+                            16.764328755305048
+                        ],
+                        [
+                            100.11597735550562,
+                            16.76430785530505
+                        ],
+                        [
+                            100.11593255550562,
+                            16.764421355305046
                         ]
                     ]
                 ]
@@ -2725,6 +2688,43 @@
             "type": "Feature",
             "properties": {
                 "bldg_id": "B048",
+                "bldg_type": "house",
+                "moo": 15,
+                "flood_level": 1,
+                "flood_years": "2011"
+            },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            100.11649066664758,
+                            16.76461533000171
+                        ],
+                        [
+                            100.11653895711986,
+                            16.764518976666054
+                        ],
+                        [
+                            100.11646547446138,
+                            16.764484075600905
+                        ],
+                        [
+                            100.11642436529262,
+                            16.764590195317822
+                        ],
+                        [
+                            100.11649066664758,
+                            16.76461533000171
+                        ]
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "bldg_id": "B049",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -2817,7 +2817,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B049",
+                "bldg_id": "B050",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -2878,11 +2878,11 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B050",
+                "bldg_id": "B051",
                 "bldg_type": "house",
                 "moo": 15,
-                "flood_level": 2,
-                "flood_years": "2011,2021"
+                "flood_level": 4,
+                "flood_years": "2011,2012,2017,2021"
             },
             "geometry": {
                 "type": "Polygon",
@@ -2915,7 +2915,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B051",
+                "bldg_id": "B052",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 3,
@@ -2934,8 +2934,8 @@
                             16.7664498
                         ],
                         [
-                            100.11968934635757,
-                            16.766452385667737
+                            100.1196932,
+                            16.7664293
                         ],
                         [
                             100.1196928,
@@ -2962,8 +2962,8 @@
                             16.76629
                         ],
                         [
-                            100.1195993,
-                            16.76632
+                            100.1196007,
+                            16.7663096
                         ],
                         [
                             100.1196138499118,
@@ -2980,11 +2980,11 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B052",
+                "bldg_id": "B053",
                 "bldg_type": "house",
                 "moo": 15,
-                "flood_level": 1,
-                "flood_years": "2011"
+                "flood_level": 2,
+                "flood_years": "2011,2017"
             },
             "geometry": {
                 "type": "Polygon",
@@ -3037,7 +3037,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B053",
+                "bldg_id": "B054",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -3074,7 +3074,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B054",
+                "bldg_id": "B055",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 2,
@@ -3123,7 +3123,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B055",
+                "bldg_id": "B056",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -3184,7 +3184,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B056",
+                "bldg_id": "B057",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -3233,7 +3233,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B057",
+                "bldg_id": "B058",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 2,
@@ -3286,7 +3286,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B058",
+                "bldg_id": "B059",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 2,
@@ -3331,7 +3331,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B059",
+                "bldg_id": "B060",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 2,
@@ -3368,11 +3368,11 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B060",
+                "bldg_id": "B061",
                 "bldg_type": "house",
                 "moo": 15,
-                "flood_level": 1,
-                "flood_years": "2011"
+                "flood_level": 2,
+                "flood_years": "2011,2017"
             },
             "geometry": {
                 "type": "Polygon",
@@ -3421,7 +3421,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B061",
+                "bldg_id": "B062",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 2,
@@ -3474,7 +3474,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B062",
+                "bldg_id": "B063",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 2,
@@ -3515,7 +3515,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B063",
+                "bldg_id": "B064",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -3572,7 +3572,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B064",
+                "bldg_id": "B065",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -3629,7 +3629,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B065",
+                "bldg_id": "B066",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -3686,7 +3686,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B066",
+                "bldg_id": "B067",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -3739,23 +3739,23 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B067",
+                "bldg_id": "B068",
                 "bldg_type": "house",
                 "moo": 15,
-                "flood_level": 1,
-                "flood_years": "2011"
+                "flood_level": 2,
+                "flood_years": "2011,2013"
             },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
                     [
                         [
-                            100.1211097886699,
-                            16.763436407569053
+                            100.1210981,
+                            16.7634193
                         ],
                         [
-                            100.121109179774,
-                            16.76333247497415
+                            100.1210943,
+                            16.7633337
                         ],
                         [
                             100.12108850362165,
@@ -3766,32 +3766,36 @@
                             16.76326417228009
                         ],
                         [
-                            100.12098876670052,
-                            16.763278220181157
+                            100.1209882,
+                            16.7632651
                         ],
                         [
-                            100.12093582209393,
-                            16.763274585933786
+                            100.1209263,
+                            16.7632691
                         ],
                         [
-                            100.12086271827637,
-                            16.76330439920532
+                            100.1208851,
+                            16.7633054
                         ],
                         [
-                            100.12086508681983,
-                            16.763361256922845
+                            100.1208727,
+                            16.7633591
                         ],
                         [
-                            100.12089814791092,
-                            16.763445402542786
+                            100.1208884,
+                            16.7634057
                         ],
                         [
-                            100.12102847409878,
-                            16.76345449922012
+                            100.1209066,
+                            16.7634238
                         ],
                         [
-                            100.1211097886699,
-                            16.763436407569053
+                            100.1210206,
+                            16.763429
+                        ],
+                        [
+                            100.1210981,
+                            16.7634193
                         ]
                     ]
                 ]
@@ -3800,11 +3804,11 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B068",
+                "bldg_id": "B069",
                 "bldg_type": "house",
                 "moo": 15,
-                "flood_level": 1,
-                "flood_years": "2011"
+                "flood_level": 2,
+                "flood_years": "2011,2021"
             },
             "geometry": {
                 "type": "Polygon",
@@ -3849,7 +3853,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B069",
+                "bldg_id": "B070",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -3902,63 +3906,63 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B070",
+                "bldg_id": "B071",
                 "bldg_type": "house",
                 "moo": 15,
-                "flood_level": 0,
-                "flood_years": ""
+                "flood_level": 1,
+                "flood_years": "2011"
             },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
                     [
                         [
-                            100.12149628016428,
-                            16.764087336701667
+                            100.12149319104711,
+                            16.764070575652756
                         ],
                         [
-                            100.12149921841677,
-                            16.76406771017309
+                            100.1214961292996,
+                            16.76405094912418
                         ],
                         [
-                            100.12152057345892,
-                            16.764064652421368
+                            100.12151748434175,
+                            16.764047891372456
                         ],
                         [
-                            100.12151104612755,
-                            16.76400195050616
+                            100.12150795701038,
+                            16.763985189457248
                         ],
                         [
-                            100.12149272128835,
-                            16.764001069663763
+                            100.12148963217118,
+                            16.76398430861485
                         ],
                         [
-                            100.12147917477994,
-                            16.76394721435491
+                            100.12147608566276,
+                            16.763930453306
                         ],
                         [
-                            100.12146789358684,
-                            16.763932567812525
+                            100.12146480446967,
+                            16.763915806763613
                         ],
                         [
-                            100.12138749315139,
-                            16.763933005150385
+                            100.12138440403422,
+                            16.763916244101473
                         ],
                         [
-                            100.12138146148574,
-                            16.763945784813085
+                            100.12137837236857,
+                            16.763929023764174
                         ],
                         [
-                            100.12139634172448,
-                            16.764053561875386
+                            100.1213932526073,
+                            16.764036800826474
                         ],
                         [
-                            100.12139765824564,
-                            16.764104542132372
+                            100.12139456912847,
+                            16.76408778108346
                         ],
                         [
-                            100.12149628016428,
-                            16.764087336701667
+                            100.12149319104711,
+                            16.764070575652756
                         ]
                     ]
                 ]
@@ -3967,7 +3971,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B071",
+                "bldg_id": "B072",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -4032,7 +4036,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B072",
+                "bldg_id": "B073",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 2,
@@ -4069,7 +4073,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B073",
+                "bldg_id": "B074",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -4122,7 +4126,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B074",
+                "bldg_id": "B075",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -4175,7 +4179,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B075",
+                "bldg_id": "B076",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 2,
@@ -4232,7 +4236,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B076",
+                "bldg_id": "B077",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 4,
@@ -4269,7 +4273,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B077",
+                "bldg_id": "B078",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 3,
@@ -4314,11 +4318,11 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B080",
+                "bldg_id": "B079",
                 "bldg_type": "house",
                 "moo": 15,
-                "flood_level": 0,
-                "flood_years": ""
+                "flood_level": 2,
+                "flood_years": "2011,2018"
             },
             "geometry": {
                 "type": "Polygon",
@@ -4375,7 +4379,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B081",
+                "bldg_id": "B080",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -4390,20 +4394,20 @@
                             16.76291144310438
                         ],
                         [
-                            100.12407283928599,
-                            16.762894225390546
+                            100.1240739,
+                            16.7628919
                         ],
                         [
-                            100.1240654099989,
-                            16.762842297984122
+                            100.1240694,
+                            16.7628407
                         ],
                         [
                             100.12405180313938,
                             16.762776517569154
                         ],
                         [
-                            100.12396350313938,
-                            16.762788617569154
+                            100.123957,
+                            16.7627912
                         ],
                         [
                             100.12397218283921,
@@ -4416,7 +4420,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B082",
+                "bldg_id": "B081",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -4461,7 +4465,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B083",
+                "bldg_id": "B082",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -4510,7 +4514,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B084",
+                "bldg_id": "B083",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -4547,7 +4551,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B085",
+                "bldg_id": "B084",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -4584,7 +4588,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B086",
+                "bldg_id": "B085",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 2,
@@ -4629,11 +4633,11 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B088",
+                "bldg_id": "B086",
                 "bldg_type": "house",
                 "moo": 15,
-                "flood_level": 1,
-                "flood_years": "2017"
+                "flood_level": 2,
+                "flood_years": "2011,2017"
             },
             "geometry": {
                 "type": "Polygon",
@@ -4686,7 +4690,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B089",
+                "bldg_id": "B087",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 2,
@@ -4723,7 +4727,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B090",
+                "bldg_id": "B088",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 0,
@@ -4760,7 +4764,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B092",
+                "bldg_id": "B089",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 0,
@@ -4797,7 +4801,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B093",
+                "bldg_id": "B090",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -4834,7 +4838,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B094",
+                "bldg_id": "B091",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -4891,7 +4895,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B095",
+                "bldg_id": "B092",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -4956,7 +4960,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B096",
+                "bldg_id": "B093",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 0,
@@ -5009,11 +5013,11 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B098",
+                "bldg_id": "B094",
                 "bldg_type": "house",
                 "moo": 15,
-                "flood_level": 1,
-                "flood_years": "2021"
+                "flood_level": 3,
+                "flood_years": "2011,2021,2023"
             },
             "geometry": {
                 "type": "Polygon",
@@ -5058,11 +5062,11 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B099",
+                "bldg_id": "B095",
                 "bldg_type": "house",
                 "moo": 15,
-                "flood_level": 1,
-                "flood_years": "2021"
+                "flood_level": 2,
+                "flood_years": "2011,2021"
             },
             "geometry": {
                 "type": "Polygon",
@@ -5127,7 +5131,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B100",
+                "bldg_id": "B096",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 5,
@@ -5172,11 +5176,11 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B101",
+                "bldg_id": "B097",
                 "bldg_type": "house",
                 "moo": 15,
-                "flood_level": 3,
-                "flood_years": "2011,2017,2025"
+                "flood_level": 4,
+                "flood_years": "2011,2017,2023,2025"
             },
             "geometry": {
                 "type": "Polygon",
@@ -5229,11 +5233,11 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B102",
+                "bldg_id": "B098",
                 "bldg_type": "house",
                 "moo": 15,
-                "flood_level": 1,
-                "flood_years": "2011"
+                "flood_level": 3,
+                "flood_years": "2011,2013,2021"
             },
             "geometry": {
                 "type": "Polygon",
@@ -5274,7 +5278,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B103",
+                "bldg_id": "B099",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -5319,7 +5323,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B104",
+                "bldg_id": "B100",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -5364,11 +5368,11 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B105",
+                "bldg_id": "B101",
                 "bldg_type": "house",
                 "moo": 15,
-                "flood_level": 1,
-                "flood_years": "2011"
+                "flood_level": 2,
+                "flood_years": "2011,2021"
             },
             "geometry": {
                 "type": "Polygon",
@@ -5441,7 +5445,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B106",
+                "bldg_id": "B102",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -5494,11 +5498,11 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B107",
+                "bldg_id": "B103",
                 "bldg_type": "house",
                 "moo": 15,
-                "flood_level": 0,
-                "flood_years": ""
+                "flood_level": 2,
+                "flood_years": "2011,2014"
             },
             "geometry": {
                 "type": "Polygon",
@@ -5551,7 +5555,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B108",
+                "bldg_id": "B104",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -5648,7 +5652,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B109",
+                "bldg_id": "B105",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -5709,7 +5713,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B110",
+                "bldg_id": "B106",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -5754,6 +5758,170 @@
         {
             "type": "Feature",
             "properties": {
+                "bldg_id": "B107",
+                "bldg_type": "house",
+                "moo": 15,
+                "flood_level": 1,
+                "flood_years": "2011"
+            },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            100.13384959705176,
+                            16.76117488746236
+                        ],
+                        [
+                            100.1338922710851,
+                            16.761162886507094
+                        ],
+                        [
+                            100.13394571473621,
+                            16.761250839763267
+                        ],
+                        [
+                            100.13398836554087,
+                            16.76123491681944
+                        ],
+                        [
+                            100.13399741453536,
+                            16.761216237097557
+                        ],
+                        [
+                            100.13391267865244,
+                            16.761000007296804
+                        ],
+                        [
+                            100.13379688656062,
+                            16.761038884467702
+                        ],
+                        [
+                            100.13384959705176,
+                            16.76117488746236
+                        ]
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "bldg_id": "B108",
+                "bldg_type": "house",
+                "moo": 15,
+                "flood_level": 1,
+                "flood_years": "2011"
+            },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            100.1340574,
+                            16.7610406
+                        ],
+                        [
+                            100.1341604,
+                            16.7610077
+                        ],
+                        [
+                            100.1341074,
+                            16.7608673
+                        ],
+                        [
+                            100.13400806068677,
+                            16.760900485175988
+                        ],
+                        [
+                            100.1340574,
+                            16.7610406
+                        ]
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "bldg_id": "B109",
+                "bldg_type": "house",
+                "moo": 15,
+                "flood_level": 1,
+                "flood_years": "2011"
+            },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            100.13424124811306,
+                            16.760956042068738
+                        ],
+                        [
+                            100.13432657858709,
+                            16.760929098522205
+                        ],
+                        [
+                            100.13429354129063,
+                            16.760849857826553
+                        ],
+                        [
+                            100.13421532898016,
+                            16.76087578167975
+                        ],
+                        [
+                            100.13424124811306,
+                            16.760956042068738
+                        ]
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "bldg_id": "B110",
+                "bldg_type": "house",
+                "moo": 15,
+                "flood_level": 1,
+                "flood_years": "2011"
+            },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            100.13421818205929,
+                            16.76138560243164
+                        ],
+                        [
+                            100.13426697399395,
+                            16.7613755287891
+                        ],
+                        [
+                            100.1342984300002,
+                            16.76135966736216
+                        ],
+                        [
+                            100.13424979576523,
+                            16.761224622609667
+                        ],
+                        [
+                            100.13416752988618,
+                            16.761253510329333
+                        ],
+                        [
+                            100.13421818205929,
+                            16.76138560243164
+                        ]
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
                 "bldg_id": "B111",
                 "bldg_type": "house",
                 "moo": 15,
@@ -5765,36 +5933,44 @@
                 "coordinates": [
                     [
                         [
-                            100.13384696678735,
-                            16.761198813388347
+                            100.13479351685994,
+                            16.760811616934046
                         ],
                         [
-                            100.13388964082068,
-                            16.76118681243308
+                            100.13484022668189,
+                            16.7607937104367
                         ],
                         [
-                            100.1339430844718,
-                            16.761274765689254
+                            100.13487164765482,
+                            16.760771965981508
                         ],
                         [
-                            100.13398573527645,
-                            16.761258842745427
+                            100.13486339554794,
+                            16.760753381447767
                         ],
                         [
-                            100.13399478427094,
-                            16.761240163023544
+                            100.13490191719345,
+                            16.76072767581294
                         ],
                         [
-                            100.13391004838802,
-                            16.76102393322279
+                            100.13485463183522,
+                            16.76064851363732
                         ],
                         [
-                            100.1337942562962,
-                            16.76106281039369
+                            100.13484145399356,
+                            16.760657410877535
                         ],
                         [
-                            100.13384696678735,
-                            16.761198813388347
+                            100.13480648577573,
+                            16.7605958303274
+                        ],
+                        [
+                            100.13469894622445,
+                            16.760653292517574
+                        ],
+                        [
+                            100.13479351685994,
+                            16.760811616934046
                         ]
                     ]
                 ]
@@ -5806,180 +5982,8 @@
                 "bldg_id": "B112",
                 "bldg_type": "house",
                 "moo": 15,
-                "flood_level": 1,
-                "flood_years": "2011"
-            },
-            "geometry": {
-                "type": "Polygon",
-                "coordinates": [
-                    [
-                        [
-                            100.1340662630362,
-                            16.761108379690327
-                        ],
-                        [
-                            100.13414956398857,
-                            16.76108242789604
-                        ],
-                        [
-                            100.13410180822926,
-                            16.760923845684673
-                        ],
-                        [
-                            100.13402054275025,
-                            16.760949786262024
-                        ],
-                        [
-                            100.1340662630362,
-                            16.761108379690327
-                        ]
-                    ]
-                ]
-            }
-        },
-        {
-            "type": "Feature",
-            "properties": {
-                "bldg_id": "B113",
-                "bldg_type": "house",
-                "moo": 15,
-                "flood_level": 1,
-                "flood_years": "2011"
-            },
-            "geometry": {
-                "type": "Polygon",
-                "coordinates": [
-                    [
-                        [
-                            100.1342334468234,
-                            16.760982933574436
-                        ],
-                        [
-                            100.13431877729744,
-                            16.760955990027902
-                        ],
-                        [
-                            100.13428574000098,
-                            16.76087674933225
-                        ],
-                        [
-                            100.1342075276905,
-                            16.76090267318545
-                        ],
-                        [
-                            100.1342334468234,
-                            16.760982933574436
-                        ]
-                    ]
-                ]
-            }
-        },
-        {
-            "type": "Feature",
-            "properties": {
-                "bldg_id": "B114",
-                "bldg_type": "house",
-                "moo": 15,
-                "flood_level": 1,
-                "flood_years": "2011"
-            },
-            "geometry": {
-                "type": "Polygon",
-                "coordinates": [
-                    [
-                        [
-                            100.13422598334894,
-                            16.761440879292703
-                        ],
-                        [
-                            100.1342747752836,
-                            16.76143080565016
-                        ],
-                        [
-                            100.13430623128986,
-                            16.761414944223223
-                        ],
-                        [
-                            100.13425759705488,
-                            16.76127989947073
-                        ],
-                        [
-                            100.13417533117584,
-                            16.761308787190394
-                        ],
-                        [
-                            100.13422598334894,
-                            16.761440879292703
-                        ]
-                    ]
-                ]
-            }
-        },
-        {
-            "type": "Feature",
-            "properties": {
-                "bldg_id": "B115",
-                "bldg_type": "house",
-                "moo": 15,
-                "flood_level": 1,
-                "flood_years": "2011"
-            },
-            "geometry": {
-                "type": "Polygon",
-                "coordinates": [
-                    [
-                        [
-                            100.13479027227892,
-                            16.76083181076258
-                        ],
-                        [
-                            100.13483698210086,
-                            16.760813904265234
-                        ],
-                        [
-                            100.1348684030738,
-                            16.76079215981004
-                        ],
-                        [
-                            100.13486015096692,
-                            16.7607735752763
-                        ],
-                        [
-                            100.13489867261242,
-                            16.760747869641474
-                        ],
-                        [
-                            100.1348513872542,
-                            16.760668707465854
-                        ],
-                        [
-                            100.13483820941254,
-                            16.760677604706068
-                        ],
-                        [
-                            100.1348032411947,
-                            16.760616024155933
-                        ],
-                        [
-                            100.13469570164342,
-                            16.760673486346107
-                        ],
-                        [
-                            100.13479027227892,
-                            16.76083181076258
-                        ]
-                    ]
-                ]
-            }
-        },
-        {
-            "type": "Feature",
-            "properties": {
-                "bldg_id": "B116",
-                "bldg_type": "house",
-                "moo": 15,
-                "flood_level": 3,
-                "flood_years": "2011,2023,2025"
+                "flood_level": 8,
+                "flood_years": "2011,2012,2013,2017,2018,2021,2023,2025"
             },
             "geometry": {
                 "type": "Polygon",
@@ -6036,7 +6040,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B117",
+                "bldg_id": "B113",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 7,
@@ -6073,7 +6077,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B118",
+                "bldg_id": "B114",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 3,
@@ -6126,7 +6130,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B119",
+                "bldg_id": "B115",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 2,
@@ -6179,7 +6183,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B120",
+                "bldg_id": "B116",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -6260,7 +6264,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B121",
+                "bldg_id": "B117",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -6345,7 +6349,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B122",
+                "bldg_id": "B118",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -6382,7 +6386,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B123",
+                "bldg_id": "B119",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -6431,7 +6435,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B124",
+                "bldg_id": "B120",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -6484,7 +6488,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B125",
+                "bldg_id": "B121",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -6521,7 +6525,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B126",
+                "bldg_id": "B122",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -6558,7 +6562,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B127",
+                "bldg_id": "B123",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 0,
@@ -6611,7 +6615,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B128",
+                "bldg_id": "B124",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -6692,7 +6696,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B129",
+                "bldg_id": "B125",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -6745,7 +6749,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B130",
+                "bldg_id": "B126",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 2,
@@ -6822,7 +6826,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B131",
+                "bldg_id": "B127",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 2,
@@ -6859,7 +6863,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B132",
+                "bldg_id": "B128",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 2,
@@ -6900,7 +6904,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B133",
+                "bldg_id": "B129",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -6941,7 +6945,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B134",
+                "bldg_id": "B130",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -7006,7 +7010,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B135",
+                "bldg_id": "B131",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -7067,7 +7071,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B136",
+                "bldg_id": "B132",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -7116,7 +7120,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B137",
+                "bldg_id": "B133",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -7173,7 +7177,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B138",
+                "bldg_id": "B134",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -7250,7 +7254,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B139",
+                "bldg_id": "B135",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -7311,7 +7315,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B140",
+                "bldg_id": "B136",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -7364,7 +7368,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B141",
+                "bldg_id": "B137",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -7405,11 +7409,11 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B142",
+                "bldg_id": "B138",
                 "bldg_type": "house",
                 "moo": 15,
-                "flood_level": 1,
-                "flood_years": "2011"
+                "flood_level": 2,
+                "flood_years": "2011,2025"
             },
             "geometry": {
                 "type": "Polygon",
@@ -7454,11 +7458,11 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B143",
+                "bldg_id": "B139",
                 "bldg_type": "house",
                 "moo": 15,
-                "flood_level": 1,
-                "flood_years": "2011"
+                "flood_level": 2,
+                "flood_years": "2011,2025"
             },
             "geometry": {
                 "type": "Polygon",
@@ -7491,7 +7495,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B144",
+                "bldg_id": "B140",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -7548,7 +7552,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B145",
+                "bldg_id": "B141",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -7585,7 +7589,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B146",
+                "bldg_id": "B142",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -7646,7 +7650,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B148",
+                "bldg_id": "B143",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 2,
@@ -7699,7 +7703,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B149",
+                "bldg_id": "B144",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 2,
@@ -7744,11 +7748,11 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B150",
+                "bldg_id": "B145",
                 "bldg_type": "house",
                 "moo": 15,
-                "flood_level": 1,
-                "flood_years": "2011"
+                "flood_level": 3,
+                "flood_years": "2011,2016,2017"
             },
             "geometry": {
                 "type": "Polygon",
@@ -7853,7 +7857,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B151",
+                "bldg_id": "B146",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 2,
@@ -7894,7 +7898,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B152",
+                "bldg_id": "B147",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -7955,7 +7959,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B153",
+                "bldg_id": "B148",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -8008,7 +8012,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B154",
+                "bldg_id": "B149",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -8045,7 +8049,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B155",
+                "bldg_id": "B150",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 2,
@@ -8106,7 +8110,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B156",
+                "bldg_id": "B151",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 5,
@@ -8159,7 +8163,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B157",
+                "bldg_id": "B152",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 2,
@@ -8212,11 +8216,11 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B158",
+                "bldg_id": "B153",
                 "bldg_type": "house",
                 "moo": 15,
-                "flood_level": 0,
-                "flood_years": ""
+                "flood_level": 1,
+                "flood_years": "2011"
             },
             "geometry": {
                 "type": "Polygon",
@@ -8273,11 +8277,11 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B159",
+                "bldg_id": "B154",
                 "bldg_type": "house",
                 "moo": 15,
-                "flood_level": 2,
-                "flood_years": "2011,2023"
+                "flood_level": 3,
+                "flood_years": "2011,2023,2025"
             },
             "geometry": {
                 "type": "Polygon",
@@ -8310,11 +8314,11 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B160",
+                "bldg_id": "B155",
                 "bldg_type": "house",
                 "moo": 15,
-                "flood_level": 2,
-                "flood_years": "2011,2023"
+                "flood_level": 3,
+                "flood_years": "2011,2023,2025"
             },
             "geometry": {
                 "type": "Polygon",
@@ -8347,7 +8351,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B161",
+                "bldg_id": "B156",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -8384,11 +8388,11 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B162",
+                "bldg_id": "B157",
                 "bldg_type": "house",
                 "moo": 15,
-                "flood_level": 0,
-                "flood_years": ""
+                "flood_level": 1,
+                "flood_years": "2011"
             },
             "geometry": {
                 "type": "Polygon",
@@ -8399,12 +8403,12 @@
                             16.76773396980212
                         ],
                         [
-                            100.14652777694053,
-                            16.76727655332403
+                            100.1465215,
+                            16.7672091
                         ],
                         [
-                            100.14642170913488,
-                            16.767239883518037
+                            100.1464383,
+                            16.7672009
                         ],
                         [
                             100.14631255466257,
@@ -8421,7 +8425,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B163",
+                "bldg_id": "B158",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 0,
@@ -8458,7 +8462,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B164",
+                "bldg_id": "B159",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 0,
@@ -8495,7 +8499,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B165",
+                "bldg_id": "B160",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 0,
@@ -8532,7 +8536,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B166",
+                "bldg_id": "B161",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 0,
@@ -8593,7 +8597,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B167",
+                "bldg_id": "B162",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 0,
@@ -8604,60 +8608,60 @@
                 "coordinates": [
                     [
                         [
-                            100.14585064278275,
-                            16.767036610164617
+                            100.14584204023849,
+                            16.767031668071887
                         ],
                         [
-                            100.1458686096665,
-                            16.76697767908545
+                            100.14586000712224,
+                            16.76697273699272
                         ],
                         [
-                            100.14590119479556,
-                            16.766980439504447
+                            100.1459158,
+                            16.7669797
                         ],
                         [
-                            100.14593086941798,
-                            16.766837118612525
+                            100.1459445,
+                            16.7668351
                         ],
                         [
-                            100.14590739693828,
-                            16.766826463378674
+                            100.14589879439403,
+                            16.766821521285944
                         ],
                         [
-                            100.1458844323697,
-                            16.766820801022202
+                            100.14587582982544,
+                            16.766815858929473
                         ],
                         [
-                            100.1458704323697,
-                            16.766817101022205
+                            100.14586182982545,
+                            16.766812158929476
                         ],
                         [
-                            100.1458566323697,
-                            16.766814801022203
+                            100.14584802982544,
+                            16.766809858929474
                         ],
                         [
-                            100.14585337482801,
-                            16.766813036403683
+                            100.14584477228375,
+                            16.766808094310953
                         ],
                         [
-                            100.14563940411793,
-                            16.766773043869744
+                            100.14563080157367,
+                            16.766768101777014
                         ],
                         [
-                            100.14561178236339,
-                            16.766919294883458
+                            100.14560317981913,
+                            16.766914352790728
                         ],
                         [
-                            100.1456709342641,
-                            16.76693955705061
+                            100.14566233171985,
+                            16.76693461495788
                         ],
                         [
-                            100.14566222087767,
-                            16.76701412500753
+                            100.14565361833341,
+                            16.7670091829148
                         ],
                         [
-                            100.14585064278275,
-                            16.767036610164617
+                            100.14584204023849,
+                            16.767031668071887
                         ]
                     ]
                 ]
@@ -8666,7 +8670,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B168",
+                "bldg_id": "B163",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 0,
@@ -8707,7 +8711,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B169",
+                "bldg_id": "B164",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 0,
@@ -8756,7 +8760,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B170",
+                "bldg_id": "B165",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 0,
@@ -8797,7 +8801,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B171",
+                "bldg_id": "B166",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 0,
@@ -8834,7 +8838,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B172",
+                "bldg_id": "B167",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 0,
@@ -8887,7 +8891,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B173",
+                "bldg_id": "B168",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 0,
@@ -8898,36 +8902,36 @@
                 "coordinates": [
                     [
                         [
-                            100.14636961000583,
-                            16.765848815468058
+                            100.1463776,
+                            16.7657938
                         ],
                         [
-                            100.14649793778595,
-                            16.765863790107883
+                            100.1465167,
+                            16.7657999
                         ],
                         [
-                            100.14653998907278,
-                            16.765747854871154
+                            100.1465244,
+                            16.7657259
                         ],
                         [
-                            100.14663785546726,
-                            16.765774765086366
+                            100.146632,
+                            16.7657453
                         ],
                         [
-                            100.1466870495236,
-                            16.76549210170356
+                            100.1466766,
+                            16.7654068
                         ],
                         [
-                            100.1464587028059,
-                            16.765430618475847
+                            100.1464614,
+                            16.7653962
                         ],
                         [
-                            100.14629564340221,
-                            16.765394265483998
+                            100.1462981,
+                            16.7653844
                         ],
                         [
-                            100.1462693000047,
-                            16.76541402236843
+                            100.1462651,
+                            16.7653763
                         ],
                         [
                             100.14621571724261,
@@ -8938,16 +8942,16 @@
                             16.765651413501676
                         ],
                         [
-                            100.14624246010149,
-                            16.765690678269635
+                            100.1462494,
+                            16.7656706
                         ],
                         [
-                            100.14640349604828,
-                            16.765729003581868
+                            100.1463846,
+                            16.7656856
                         ],
                         [
-                            100.14636961000583,
-                            16.765848815468058
+                            100.1463776,
+                            16.7657938
                         ]
                     ]
                 ]
@@ -8956,71 +8960,83 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B174",
+                "bldg_id": "B169",
                 "bldg_type": "house",
                 "moo": 15,
-                "flood_level": 0,
-                "flood_years": ""
+                "flood_level": 2,
+                "flood_years": "2011,2014"
             },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
                     [
                         [
-                            100.14682310544849,
-                            16.76577765665741
+                            100.14683198617409,
+                            16.765747045028693
                         ],
                         [
-                            100.14684387240128,
-                            16.765676547576444
+                            100.14685275312688,
+                            16.765645935947727
                         ],
                         [
-                            100.14685810882955,
-                            16.765674507334356
+                            100.1468551,
+                            16.7656197
                         ],
                         [
-                            100.14688579414262,
-                            16.765539041564313
+                            100.1468645,
+                            16.7655345
                         ],
                         [
-                            100.14683380781061,
-                            16.76552560350422
+                            100.1468294,
+                            16.7655336
                         ],
                         [
-                            100.14680126994544,
-                            16.765530687116794
+                            100.1468113,
+                            16.7655341
                         ],
                         [
-                            100.14678506859345,
-                            16.76554450452431
+                            100.1468099,
+                            16.7655123
                         ],
                         [
-                            100.14677322022243,
-                            16.765605362671426
+                            100.14679394931905,
+                            16.765513892895594
                         ],
                         [
-                            100.14673958234457,
-                            16.765596725115426
+                            100.14678210094803,
+                            16.76557475104271
                         ],
                         [
-                            100.14672995745629,
-                            16.765688947529455
+                            100.146736,
+                            16.7655742
                         ],
                         [
-                            100.14676968996181,
-                            16.765695590142123
+                            100.1467347,
+                            16.7656125
                         ],
                         [
-                            100.14676190661416,
-                            16.76575544515492
+                            100.1467316,
+                            16.7656373
                         ],
                         [
-                            100.14676808350036,
-                            16.765767177031986
+                            100.1467794,
+                            16.765639
                         ],
                         [
-                            100.14682310544849,
-                            16.76577765665741
+                            100.14677857068742,
+                            16.765664978513406
+                        ],
+                        [
+                            100.14677078733976,
+                            16.765724833526203
+                        ],
+                        [
+                            100.14677696422596,
+                            16.76573656540327
+                        ],
+                        [
+                            100.14683198617409,
+                            16.765747045028693
                         ]
                     ]
                 ]
@@ -9029,7 +9045,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B175",
+                "bldg_id": "B170",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 0,
@@ -9070,7 +9086,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B176",
+                "bldg_id": "B171",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 0,
@@ -9085,20 +9101,32 @@
                             16.765362413042425
                         ],
                         [
-                            100.14618035843343,
-                            16.765347841537668
+                            100.1461912,
+                            16.7653447
                         ],
                         [
-                            100.14618118233477,
-                            16.765315479793085
+                            100.1461972,
+                            16.7653177
                         ],
                         [
-                            100.146136337801,
-                            16.76530494340242
+                            100.1461791,
+                            16.7652933
                         ],
                         [
-                            100.14612428954266,
-                            16.76533246495134
+                            100.1461329,
+                            16.7652848
+                        ],
+                        [
+                            100.1461312,
+                            16.7652933
+                        ],
+                        [
+                            100.146027,
+                            16.7652872
+                        ],
+                        [
+                            100.1460244,
+                            16.7653139
                         ],
                         [
                             100.14592562748976,
@@ -9215,68 +9243,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B177",
-                "bldg_type": "house",
-                "moo": 15,
-                "flood_level": 0,
-                "flood_years": ""
-            },
-            "geometry": {
-                "type": "Polygon",
-                "coordinates": [
-                    [
-                        [
-                            100.14593655822297,
-                            16.76525506698627
-                        ],
-                        [
-                            100.14600710195565,
-                            16.764968362942962
-                        ],
-                        [
-                            100.14600691403771,
-                            16.764936987341333
-                        ],
-                        [
-                            100.14594980994035,
-                            16.764918674893508
-                        ],
-                        [
-                            100.14593394327888,
-                            16.764988380027297
-                        ],
-                        [
-                            100.1459054176476,
-                            16.764983635989772
-                        ],
-                        [
-                            100.14588967427527,
-                            16.765073931360245
-                        ],
-                        [
-                            100.14584180599576,
-                            16.765068314309826
-                        ],
-                        [
-                            100.14580917814217,
-                            16.765228320460366
-                        ],
-                        [
-                            100.14587852438703,
-                            16.765251467495496
-                        ],
-                        [
-                            100.14593655822297,
-                            16.76525506698627
-                        ]
-                    ]
-                ]
-            }
-        },
-        {
-            "type": "Feature",
-            "properties": {
-                "bldg_id": "B178",
+                "bldg_id": "B172",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -9287,28 +9254,48 @@
                 "coordinates": [
                     [
                         [
-                            100.1458065105357,
-                            16.76495280909956
+                            100.14593655822297,
+                            16.765230321305694
                         ],
                         [
-                            100.14571179763692,
-                            16.76494254977619
+                            100.14600710195565,
+                            16.764943617262386
                         ],
                         [
-                            100.14568915906705,
-                            16.76507112374839
+                            100.1460144,
+                            16.7648958
                         ],
                         [
-                            100.1457289325174,
-                            16.76508462998567
+                            100.1459468,
+                            16.7648927
                         ],
                         [
-                            100.14577781265272,
-                            16.765089260918142
+                            100.145922,
+                            16.764931354319422
                         ],
                         [
-                            100.1458065105357,
-                            16.76495280909956
+                            100.1459054176476,
+                            16.764958890309195
+                        ],
+                        [
+                            100.14588967427527,
+                            16.76504918567967
+                        ],
+                        [
+                            100.14584180599576,
+                            16.76504356862925
+                        ],
+                        [
+                            100.14580917814217,
+                            16.76520357477979
+                        ],
+                        [
+                            100.14587852438703,
+                            16.76522672181492
+                        ],
+                        [
+                            100.14593655822297,
+                            16.765230321305694
                         ]
                     ]
                 ]
@@ -9317,35 +9304,39 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B179",
+                "bldg_id": "B173",
                 "bldg_type": "house",
                 "moo": 15,
-                "flood_level": 0,
-                "flood_years": ""
+                "flood_level": 1,
+                "flood_years": "2014"
             },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
                     [
                         [
-                            100.14546789609017,
-                            16.765002736363357
+                            100.14580651053576,
+                            16.764916243195238
                         ],
                         [
-                            100.14550641923336,
-                            16.764807398759405
+                            100.14571179763698,
+                            16.764905983871866
                         ],
                         [
-                            100.14543406110663,
-                            16.764791131963854
+                            100.1456891590671,
+                            16.765034557844064
                         ],
                         [
-                            100.14540066172768,
-                            16.764992324212574
+                            100.14572893251746,
+                            16.765048064081345
                         ],
                         [
-                            100.14546789609017,
-                            16.765002736363357
+                            100.14577781265278,
+                            16.765052695013818
+                        ],
+                        [
+                            100.14580651053576,
+                            16.764916243195238
                         ]
                     ]
                 ]
@@ -9354,11 +9345,48 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B180",
+                "bldg_id": "B174",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 2,
-                "flood_years": "2011,2017"
+                "flood_years": "2011,2014"
+            },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            100.1454647136652,
+                            16.764963885072007
+                        ],
+                        [
+                            100.1455032368084,
+                            16.764768547468055
+                        ],
+                        [
+                            100.14543087868167,
+                            16.764752280672504
+                        ],
+                        [
+                            100.14539747930272,
+                            16.764953472921224
+                        ],
+                        [
+                            100.1454647136652,
+                            16.764963885072007
+                        ]
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "bldg_id": "B175",
+                "bldg_type": "house",
+                "moo": 15,
+                "flood_level": 4,
+                "flood_years": "2011,2012,2017,2025"
             },
             "geometry": {
                 "type": "Polygon",
@@ -9403,7 +9431,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B182",
+                "bldg_id": "B176",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -9414,28 +9442,40 @@
                 "coordinates": [
                     [
                         [
-                            100.14984870245398,
-                            16.77267159079377
+                            100.14985403967943,
+                            16.77264491421964
                         ],
                         [
-                            100.14986838568551,
-                            16.77255970186531
+                            100.14985403967943,
+                            16.77259661421964
                         ],
                         [
-                            100.14979880054584,
-                            16.772497336961642
+                            100.14985733967943,
+                            16.77253551421964
                         ],
                         [
-                            100.14975600736,
-                            16.772489731581395
+                            100.14982663967943,
+                            16.772514914219638
                         ],
                         [
-                            100.14973255952165,
-                            16.772652628465334
+                            100.14981093967943,
+                            16.77250371421964
                         ],
                         [
-                            100.14984870245398,
-                            16.77267159079377
+                            100.14979353967944,
+                            16.772494214219638
+                        ],
+                        [
+                            100.14974463967943,
+                            16.772494214219638
+                        ],
+                        [
+                            100.14973642668801,
+                            16.772637031187696
+                        ],
+                        [
+                            100.14985403967943,
+                            16.77264491421964
                         ]
                     ]
                 ]
@@ -9444,7 +9484,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B183",
+                "bldg_id": "B177",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -9481,7 +9521,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B185",
+                "bldg_id": "B178",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 0,
@@ -9518,11 +9558,11 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B186",
+                "bldg_id": "B179",
                 "bldg_type": "house",
                 "moo": 15,
-                "flood_level": 0,
-                "flood_years": ""
+                "flood_level": 1,
+                "flood_years": "2017"
             },
             "geometry": {
                 "type": "Polygon",
@@ -9571,7 +9611,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B187",
+                "bldg_id": "B180",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -9612,7 +9652,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B188",
+                "bldg_id": "B181",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -9649,7 +9689,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B189",
+                "bldg_id": "B182",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -9686,11 +9726,11 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B190",
+                "bldg_id": "B183",
                 "bldg_type": "house",
                 "moo": 15,
-                "flood_level": 0,
-                "flood_years": ""
+                "flood_level": 1,
+                "flood_years": "2011"
             },
             "geometry": {
                 "type": "Polygon",
@@ -9835,11 +9875,11 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B191",
+                "bldg_id": "B184",
                 "bldg_type": "house",
                 "moo": 15,
-                "flood_level": 0,
-                "flood_years": ""
+                "flood_level": 1,
+                "flood_years": "2011"
             },
             "geometry": {
                 "type": "Polygon",
@@ -10084,7 +10124,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B192",
+                "bldg_id": "B185",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 0,
@@ -10121,7 +10161,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B193",
+                "bldg_id": "B186",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 0,
@@ -10302,7 +10342,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B194",
+                "bldg_id": "B187",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 0,
@@ -10359,11 +10399,11 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B195",
+                "bldg_id": "B188",
                 "bldg_type": "house",
                 "moo": 15,
-                "flood_level": 0,
-                "flood_years": ""
+                "flood_level": 1,
+                "flood_years": "2011"
             },
             "geometry": {
                 "type": "Polygon",
@@ -10440,11 +10480,11 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B196",
+                "bldg_id": "B189",
                 "bldg_type": "house",
                 "moo": 15,
-                "flood_level": 0,
-                "flood_years": ""
+                "flood_level": 1,
+                "flood_years": "2011"
             },
             "geometry": {
                 "type": "Polygon",
@@ -10477,7 +10517,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B197",
+                "bldg_id": "B190",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -10514,7 +10554,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B198",
+                "bldg_id": "B191",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 0,
@@ -10551,7 +10591,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B199",
+                "bldg_id": "B192",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 0,
@@ -10596,7 +10636,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B200",
+                "bldg_id": "B193",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 0,
@@ -10633,7 +10673,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B201",
+                "bldg_id": "B194",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 0,
@@ -10702,7 +10742,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B202",
+                "bldg_id": "B195",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 0,
@@ -10759,7 +10799,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B203",
+                "bldg_id": "B196",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 0,
@@ -10800,11 +10840,11 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B204",
+                "bldg_id": "B197",
                 "bldg_type": "house",
                 "moo": 15,
-                "flood_level": 0,
-                "flood_years": ""
+                "flood_level": 1,
+                "flood_years": "2011"
             },
             "geometry": {
                 "type": "Polygon",
@@ -10981,7 +11021,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B205",
+                "bldg_id": "B198",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -11046,7 +11086,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B206",
+                "bldg_id": "B199",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -11083,7 +11123,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B207",
+                "bldg_id": "B200",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -11124,7 +11164,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B208",
+                "bldg_id": "B201",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -11177,7 +11217,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B209",
+                "bldg_id": "B202",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -11218,7 +11258,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B210",
+                "bldg_id": "B203",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -11259,35 +11299,35 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B211",
+                "bldg_id": "B204",
                 "bldg_type": "house",
                 "moo": 15,
-                "flood_level": 0,
-                "flood_years": ""
+                "flood_level": 1,
+                "flood_years": "2011"
             },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
                     [
                         [
-                            100.13674834507344,
-                            16.76553390918364
+                            100.1367446,
+                            16.7655024
                         ],
                         [
-                            100.13679141253708,
-                            16.76524539799127
+                            100.1367703,
+                            16.7652343
                         ],
                         [
-                            100.13664480136855,
-                            16.76523640118602
+                            100.1366434,
+                            16.765231
                         ],
                         [
-                            100.13662515312554,
-                            16.76552674428075
+                            100.1366143,
+                            16.7654953
                         ],
                         [
-                            100.13674834507344,
-                            16.76553390918364
+                            100.1367446,
+                            16.7655024
                         ]
                     ]
                 ]
@@ -11296,11 +11336,11 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B212",
+                "bldg_id": "B205",
                 "bldg_type": "house",
                 "moo": 15,
-                "flood_level": 0,
-                "flood_years": ""
+                "flood_level": 1,
+                "flood_years": "2011"
             },
             "geometry": {
                 "type": "Polygon",
@@ -11333,7 +11373,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B214",
+                "bldg_id": "B206",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -11394,7 +11434,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B215",
+                "bldg_id": "B207",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 0,
@@ -11431,7 +11471,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B216",
+                "bldg_id": "B208",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 0,
@@ -11472,7 +11512,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B217",
+                "bldg_id": "B209",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -11529,7 +11569,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B219",
+                "bldg_id": "B210",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 0,
@@ -11566,7 +11606,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B220",
+                "bldg_id": "B211",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -11607,7 +11647,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B221",
+                "bldg_id": "B212",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -11664,55 +11704,55 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B222",
+                "bldg_id": "B213",
                 "bldg_type": "house",
                 "moo": 15,
-                "flood_level": 0,
-                "flood_years": ""
+                "flood_level": 1,
+                "flood_years": "2011"
             },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
                     [
                         [
-                            100.1381810672037,
-                            16.76677501827061
+                            100.1381741,
+                            16.7667649
                         ],
                         [
-                            100.13818496899239,
-                            16.766746561580717
+                            100.13817678820288,
+                            16.7667430802462
                         ],
                         [
-                            100.13821953702832,
-                            16.76674048757343
+                            100.13821135623881,
+                            16.766737006238912
                         ],
                         [
-                            100.13822112334654,
-                            16.766664978599856
+                            100.1382068,
+                            16.7666631
                         ],
                         [
-                            100.13821545135586,
-                            16.766566957691783
+                            100.13820727056635,
+                            16.766563476357266
                         ],
                         [
-                            100.13811774875911,
-                            16.766567497152515
+                            100.1381423,
+                            16.7665639
                         ],
                         [
-                            100.13811416192229,
-                            16.76664890030733
+                            100.1381423,
+                            16.7666544
                         ],
                         [
-                            100.1380368023332,
-                            16.766647366368005
+                            100.1380269,
+                            16.7666544
                         ],
                         [
-                            100.13802939530233,
-                            16.766770953073006
+                            100.13802121451282,
+                            16.76676747173849
                         ],
                         [
-                            100.1381810672037,
-                            16.76677501827061
+                            100.1381741,
+                            16.7667649
                         ]
                     ]
                 ]
@@ -11721,7 +11761,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B223",
+                "bldg_id": "B214",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -11770,7 +11810,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B224",
+                "bldg_id": "B215",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 0,
@@ -11807,7 +11847,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B225",
+                "bldg_id": "B216",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -11872,7 +11912,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B226",
+                "bldg_id": "B217",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 2,
@@ -11883,24 +11923,24 @@
                 "coordinates": [
                     [
                         [
-                            100.14092996181876,
-                            16.768031728853117
+                            100.14091787216245,
+                            16.76798708005444
                         ],
                         [
-                            100.14093984101058,
-                            16.767981667578606
+                            100.14092775135427,
+                            16.76793701877993
                         ],
                         [
-                            100.14081044164057,
-                            16.76795787077278
+                            100.14079835198426,
+                            16.7679132219741
                         ],
                         [
-                            100.1407955087871,
-                            16.768013843141805
+                            100.14078341913078,
+                            16.767969194343127
                         ],
                         [
-                            100.14092996181876,
-                            16.768031728853117
+                            100.14091787216245,
+                            16.76798708005444
                         ]
                     ]
                 ]
@@ -11909,11 +11949,11 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B227",
+                "bldg_id": "B218",
                 "bldg_type": "house",
                 "moo": 15,
-                "flood_level": 0,
-                "flood_years": ""
+                "flood_level": 1,
+                "flood_years": "2011"
             },
             "geometry": {
                 "type": "Polygon",
@@ -11946,11 +11986,11 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B228",
+                "bldg_id": "B219",
                 "bldg_type": "house",
                 "moo": 15,
-                "flood_level": 0,
-                "flood_years": ""
+                "flood_level": 1,
+                "flood_years": "2011"
             },
             "geometry": {
                 "type": "Polygon",
@@ -11983,7 +12023,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B229",
+                "bldg_id": "B220",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 0,
@@ -12020,7 +12060,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B230",
+                "bldg_id": "B221",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 0,
@@ -12057,7 +12097,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B231",
+                "bldg_id": "B222",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -12142,7 +12182,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B232",
+                "bldg_id": "B223",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -12201,12 +12241,12 @@
                             16.7672347
                         ],
                         [
-                            100.12988682524188,
-                            16.767330699352193
+                            100.1298855,
+                            16.7673261
                         ],
                         [
-                            100.1299083,
-                            16.7673248
+                            100.129905,
+                            16.767327
                         ],
                         [
                             100.1299055,
@@ -12239,11 +12279,11 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B233",
+                "bldg_id": "B224",
                 "bldg_type": "house",
                 "moo": 15,
-                "flood_level": 1,
-                "flood_years": "2011"
+                "flood_level": 2,
+                "flood_years": "2011,2017"
             },
             "geometry": {
                 "type": "Polygon",
@@ -12280,7 +12320,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B234",
+                "bldg_id": "B225",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -12317,7 +12357,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B235",
+                "bldg_id": "B226",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -12358,47 +12398,47 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B236",
+                "bldg_id": "B227",
                 "bldg_type": "house",
                 "moo": 15,
-                "flood_level": 3,
-                "flood_years": "2011,2022,2024"
+                "flood_level": 5,
+                "flood_years": "2011,2022,2023,2024,2025"
             },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
                     [
                         [
-                            100.1301859313121,
-                            16.772316311904486
+                            100.13018073154055,
+                            16.77228707993015
                         ],
                         [
-                            100.13019536735194,
-                            16.772190753076085
+                            100.13019373154054,
+                            16.77216697993015
                         ],
                         [
-                            100.13023811360662,
-                            16.772190518632648
+                            100.13023127825184,
+                            16.77216852307634
                         ],
                         [
-                            100.130249851685,
-                            16.77211005128249
+                            100.13024301633021,
+                            16.77208805572618
                         ],
                         [
-                            100.13013365237212,
-                            16.772081272843078
+                            100.13012681701734,
+                            16.77205927728677
                         ],
                         [
-                            100.13010849978208,
-                            16.772303009220476
+                            100.13009553154055,
+                            16.77227727993015
                         ],
                         [
-                            100.13012888991685,
-                            16.77230878054338
+                            100.13013443154055,
+                            16.772280779930153
                         ],
                         [
-                            100.1301859313121,
-                            16.772316311904486
+                            100.13018073154055,
+                            16.77228707993015
                         ]
                     ]
                 ]
@@ -12407,11 +12447,11 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B238",
+                "bldg_id": "B228",
                 "bldg_type": "house",
                 "moo": 15,
-                "flood_level": 2,
-                "flood_years": "2011,2024"
+                "flood_level": 3,
+                "flood_years": "2011,2013,2024"
             },
             "geometry": {
                 "type": "Polygon",
@@ -12420,18 +12460,34 @@
                         [
                             100.13076329006523,
                             16.77335754731842
+                        ],
+                        [
+                            100.1307738,
+                            16.7733052
                         ],
                         [
                             100.13076268713459,
                             16.7732555761539
                         ],
                         [
-                            100.13062425833319,
-                            16.773254374687227
+                            100.1306913,
+                            16.773246
+                        ],
+                        [
+                            100.1306222,
+                            16.7732514
+                        ],
+                        [
+                            100.1306097,
+                            16.7733009
                         ],
                         [
                             100.13061668421672,
                             16.773350507579462
+                        ],
+                        [
+                            100.1306926,
+                            16.7733692
                         ],
                         [
                             100.13076329006523,
@@ -12444,7 +12500,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B239",
+                "bldg_id": "B229",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 2,
@@ -12455,24 +12511,40 @@
                 "coordinates": [
                     [
                         [
-                            100.13049642393084,
-                            16.7733620397993
+                            100.1304969,
+                            16.7733644
                         ],
                         [
-                            100.1304916688985,
-                            16.77324636407193
+                            100.1305092,
+                            16.7733106
                         ],
                         [
-                            100.13035528721856,
-                            16.773247112245908
+                            100.130489,
+                            16.7732622
                         ],
                         [
-                            100.1303743373736,
-                            16.773370553754074
+                            100.1304294,
+                            16.7732439
                         ],
                         [
-                            100.13049642393084,
-                            16.7733620397993
+                            100.1303755,
+                            16.7732676
+                        ],
+                        [
+                            100.130353,
+                            16.7733278
+                        ],
+                        [
+                            100.1303687,
+                            16.7733816
+                        ],
+                        [
+                            100.1304373,
+                            16.7733859
+                        ],
+                        [
+                            100.1304969,
+                            16.7733644
                         ]
                     ]
                 ]
@@ -12481,7 +12553,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B240",
+                "bldg_id": "B230",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 3,
@@ -12550,11 +12622,11 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B241",
+                "bldg_id": "B231",
                 "bldg_type": "house",
                 "moo": 15,
-                "flood_level": 3,
-                "flood_years": "2011,2017,2018"
+                "flood_level": 8,
+                "flood_years": "2011,2016,2017,2018,2020,2021,2023,2025"
             },
             "geometry": {
                 "type": "Polygon",
@@ -12619,11 +12691,11 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B242",
+                "bldg_id": "B232",
                 "bldg_type": "house",
                 "moo": 15,
-                "flood_level": 2,
-                "flood_years": "2011,2021"
+                "flood_level": 4,
+                "flood_years": "2011,2021,2024,2025"
             },
             "geometry": {
                 "type": "Polygon",
@@ -12656,7 +12728,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B243",
+                "bldg_id": "B233",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -12713,11 +12785,11 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B244",
+                "bldg_id": "B234",
                 "bldg_type": "house",
                 "moo": 15,
-                "flood_level": 3,
-                "flood_years": "2011,2017,2025"
+                "flood_level": 4,
+                "flood_years": "2011,2017,2018,2025"
             },
             "geometry": {
                 "type": "Polygon",
@@ -12750,11 +12822,11 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B245",
+                "bldg_id": "B235",
                 "bldg_type": "house",
                 "moo": 15,
-                "flood_level": 2,
-                "flood_years": "2011,2017"
+                "flood_level": 3,
+                "flood_years": "2011,2017,2018"
             },
             "geometry": {
                 "type": "Polygon",
@@ -12787,39 +12859,39 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B246",
+                "bldg_id": "B236",
                 "bldg_type": "house",
                 "moo": 15,
-                "flood_level": 3,
-                "flood_years": "2011,2017,2025"
+                "flood_level": 4,
+                "flood_years": "2011,2017,2018,2025"
             },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
                     [
                         [
-                            100.12411394832311,
-                            16.774772584130652
+                            100.1241068,
+                            16.7747907
                         ],
                         [
                             100.12412763820241,
                             16.774677398467215
                         ],
                         [
-                            100.12396775974253,
-                            16.774663562765554
+                            100.1239782,
+                            16.7746685
                         ],
                         [
-                            100.12395582872713,
-                            16.774711673600905
+                            100.1239716,
+                            16.7747165
                         ],
                         [
-                            100.12397748457836,
-                            16.774759601223273
+                            100.1239706,
+                            16.7747699
                         ],
                         [
-                            100.12411394832311,
-                            16.774772584130652
+                            100.1241068,
+                            16.7747907
                         ]
                     ]
                 ]
@@ -12828,7 +12900,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B249",
+                "bldg_id": "B237",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 5,
@@ -12885,7 +12957,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B252",
+                "bldg_id": "B238",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 2,
@@ -12938,11 +13010,11 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B253",
+                "bldg_id": "B239",
                 "bldg_type": "house",
                 "moo": 15,
-                "flood_level": 3,
-                "flood_years": "2011,2012,2017"
+                "flood_level": 5,
+                "flood_years": "2011,2012,2013,2017,2018"
             },
             "geometry": {
                 "type": "Polygon",
@@ -12975,7 +13047,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B256",
+                "bldg_id": "B240",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 2,
@@ -13012,7 +13084,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B257",
+                "bldg_id": "B241",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 4,
@@ -13069,7 +13141,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B258",
+                "bldg_id": "B242",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 2,
@@ -13130,7 +13202,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B259",
+                "bldg_id": "B243",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 2,
@@ -13187,7 +13259,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B260",
+                "bldg_id": "B244",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 2,
@@ -13232,11 +13304,11 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B261",
+                "bldg_id": "B245",
                 "bldg_type": "house",
                 "moo": 15,
-                "flood_level": 1,
-                "flood_years": "2011"
+                "flood_level": 2,
+                "flood_years": "2011,2012"
             },
             "geometry": {
                 "type": "Polygon",
@@ -13281,7 +13353,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B263",
+                "bldg_id": "B246",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 2,
@@ -13318,7 +13390,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B264",
+                "bldg_id": "B247",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 2,
@@ -13371,7 +13443,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B265",
+                "bldg_id": "B248",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -13408,7 +13480,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B266",
+                "bldg_id": "B249",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 0,
@@ -13445,7 +13517,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B267",
+                "bldg_id": "B250",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 0,
@@ -13490,7 +13562,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B268",
+                "bldg_id": "B251",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 0,
@@ -13543,7 +13615,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B269",
+                "bldg_id": "B252",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 0,
@@ -13588,7 +13660,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B270",
+                "bldg_id": "B253",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 0,
@@ -13633,7 +13705,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B271",
+                "bldg_id": "B254",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 0,
@@ -13674,7 +13746,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B272",
+                "bldg_id": "B255",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 0,
@@ -13715,7 +13787,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B273",
+                "bldg_id": "B256",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 0,
@@ -13756,7 +13828,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B274",
+                "bldg_id": "B257",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 0,
@@ -13797,7 +13869,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B275",
+                "bldg_id": "B258",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 0,
@@ -13838,7 +13910,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B276",
+                "bldg_id": "B259",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 0,
@@ -13879,7 +13951,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B277",
+                "bldg_id": "B260",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 0,
@@ -13920,11 +13992,11 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B278",
+                "bldg_id": "B261",
                 "bldg_type": "house",
                 "moo": 15,
-                "flood_level": 0,
-                "flood_years": ""
+                "flood_level": 1,
+                "flood_years": "2025"
             },
             "geometry": {
                 "type": "Polygon",
@@ -13961,11 +14033,11 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B279",
+                "bldg_id": "B262",
                 "bldg_type": "house",
                 "moo": 15,
-                "flood_level": 1,
-                "flood_years": "2025"
+                "flood_level": 2,
+                "flood_years": "2011,2025"
             },
             "geometry": {
                 "type": "Polygon",
@@ -14006,11 +14078,11 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B280",
+                "bldg_id": "B263",
                 "bldg_type": "house",
                 "moo": 15,
-                "flood_level": 1,
-                "flood_years": "2025"
+                "flood_level": 2,
+                "flood_years": "2011,2025"
             },
             "geometry": {
                 "type": "Polygon",
@@ -14051,7 +14123,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B281",
+                "bldg_id": "B264",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 2,
@@ -14096,11 +14168,11 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B282",
+                "bldg_id": "B265",
                 "bldg_type": "house",
                 "moo": 15,
-                "flood_level": 0,
-                "flood_years": ""
+                "flood_level": 1,
+                "flood_years": "2025"
             },
             "geometry": {
                 "type": "Polygon",
@@ -14141,7 +14213,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B283",
+                "bldg_id": "B266",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 0,
@@ -14182,7 +14254,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B284",
+                "bldg_id": "B267",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 0,
@@ -14223,7 +14295,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B285",
+                "bldg_id": "B268",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 0,
@@ -14264,11 +14336,11 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B286",
+                "bldg_id": "B269",
                 "bldg_type": "house",
                 "moo": 15,
-                "flood_level": 0,
-                "flood_years": ""
+                "flood_level": 1,
+                "flood_years": "2011"
             },
             "geometry": {
                 "type": "Polygon",
@@ -14305,7 +14377,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B287",
+                "bldg_id": "B270",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 0,
@@ -14346,7 +14418,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B288",
+                "bldg_id": "B271",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 2,
@@ -14387,7 +14459,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B289",
+                "bldg_id": "B272",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 0,
@@ -14428,7 +14500,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B290",
+                "bldg_id": "B273",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -14469,7 +14541,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B291",
+                "bldg_id": "B274",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -14510,7 +14582,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B292",
+                "bldg_id": "B275",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -14559,11 +14631,11 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B293",
+                "bldg_id": "B276",
                 "bldg_type": "house",
                 "moo": 15,
-                "flood_level": 1,
-                "flood_years": "2011"
+                "flood_level": 2,
+                "flood_years": "2011,2012"
             },
             "geometry": {
                 "type": "Polygon",
@@ -14600,7 +14672,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B294",
+                "bldg_id": "B277",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -14641,55 +14713,71 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B295",
+                "bldg_id": "B278",
                 "bldg_type": "house",
                 "moo": 15,
-                "flood_level": 1,
-                "flood_years": "2011"
+                "flood_level": 5,
+                "flood_years": "2011,2017,2018,2023,2025"
             },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
                     [
                         [
-                            100.1402281,
-                            16.7713115
+                            100.14025755503062,
+                            16.7712244625106
                         ],
                         [
-                            100.1402802,
-                            16.7711999
+                            100.14027315503061,
+                            16.771190962510598
                         ],
                         [
-                            100.1403063,
-                            16.7712051
+                            100.14030165503061,
+                            16.7711971625106
                         ],
                         [
-                            100.1403131,
-                            16.771171
+                            100.14030625503061,
+                            16.7711812625106
                         ],
                         [
-                            100.1404709,
-                            16.7712104
+                            100.14031385503061,
+                            16.7711666625106
                         ],
                         [
-                            100.1404187,
-                            16.7713916
+                            100.14047165503061,
+                            16.7712060625106
                         ],
                         [
-                            100.1403241,
-                            16.7713654
+                            100.14041945503061,
+                            16.7713872625106
                         ],
                         [
-                            100.1403323,
-                            16.7713417
+                            100.14032485503061,
+                            16.7713610625106
                         ],
                         [
-                            100.1402253,
-                            16.7713089
+                            100.14033305503061,
+                            16.7713373625106
                         ],
                         [
-                            100.1402281,
-                            16.7713115
+                            100.14029245503062,
+                            16.771328362510598
+                        ],
+                        [
+                            100.14026025503061,
+                            16.7713186625106
+                        ],
+                        [
+                            100.14022345503061,
+                            16.7713001625106
+                        ],
+                        [
+                            100.14023175503061,
+                            16.7712790625106
+                        ],
+                        [
+                            100.14025755503062,
+                            16.7712244625106
                         ]
                     ]
                 ]
@@ -14698,7 +14786,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B296",
+                "bldg_id": "B279",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 6,
@@ -14739,7 +14827,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B297",
+                "bldg_id": "B280",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -14792,7 +14880,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B298",
+                "bldg_id": "B281",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -14841,7 +14929,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B299",
+                "bldg_id": "B282",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -14852,12 +14940,12 @@
                 "coordinates": [
                     [
                         [
-                            100.1225009,
-                            16.7624251
+                            100.1225057,
+                            16.7624277
                         ],
                         [
-                            100.1224783,
-                            16.7623669
+                            100.1224848,
+                            16.7623704
                         ],
                         [
                             100.1225104,
@@ -14876,12 +14964,12 @@
                             16.7623909
                         ],
                         [
-                            100.1224997,
-                            16.7624251
+                            100.1225289,
+                            16.7624155
                         ],
                         [
-                            100.1225009,
-                            16.7624251
+                            100.1225057,
+                            16.7624277
                         ]
                     ]
                 ]
@@ -14890,7 +14978,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B300",
+                "bldg_id": "B283",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -14939,7 +15027,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B301",
+                "bldg_id": "B284",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -14988,7 +15076,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B302",
+                "bldg_id": "B285",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -15029,7 +15117,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B303",
+                "bldg_id": "B286",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -15070,7 +15158,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B304",
+                "bldg_id": "B287",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -15111,7 +15199,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B305",
+                "bldg_id": "B288",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -15152,7 +15240,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B306",
+                "bldg_id": "B289",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -15193,7 +15281,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B307",
+                "bldg_id": "B290",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -15242,7 +15330,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B308",
+                "bldg_id": "B291",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -15283,7 +15371,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B309",
+                "bldg_id": "B292",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -15294,28 +15382,32 @@
                 "coordinates": [
                     [
                         [
-                            100.1226512,
-                            16.7625606
+                            100.1226242,
+                            16.7625849
                         ],
                         [
-                            100.1225737,
-                            16.7626061
+                            100.1226013,
+                            16.7625915
                         ],
                         [
-                            100.1225337,
-                            16.7624864
+                            100.12257171198561,
+                            16.762594678758916
                         ],
                         [
-                            100.1226175,
-                            16.7624409
+                            100.12253171198562,
+                            16.762474978758917
                         ],
                         [
-                            100.1226525,
-                            16.7625606
+                            100.12261551198561,
+                            16.762429478758918
                         ],
                         [
-                            100.1226512,
-                            16.7625606
+                            100.1226709,
+                            16.7625792
+                        ],
+                        [
+                            100.1226242,
+                            16.7625849
                         ]
                     ]
                 ]
@@ -15324,7 +15416,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B310",
+                "bldg_id": "B293",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -15365,7 +15457,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B311",
+                "bldg_id": "B294",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -15414,7 +15506,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B312",
+                "bldg_id": "B295",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -15455,7 +15547,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B313",
+                "bldg_id": "B296",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -15496,7 +15588,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B314",
+                "bldg_id": "B297",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -15537,7 +15629,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B315",
+                "bldg_id": "B298",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -15578,7 +15670,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B316",
+                "bldg_id": "B299",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -15589,28 +15681,36 @@
                 "coordinates": [
                     [
                         [
-                            100.1225038,
-                            16.7628038
+                            100.1225046,
+                            16.7628015
                         ],
                         [
                             100.1224883,
                             16.7626281
                         ],
                         [
-                            100.1226284,
-                            16.7626122
+                            100.1226694,
+                            16.762597
+                        ],
+                        [
+                            100.1226844,
+                            16.7626613
+                        ],
+                        [
+                            100.1226378,
+                            16.7626672
                         ],
                         [
                             100.1226395,
                             16.762791
                         ],
                         [
-                            100.1224983,
-                            16.762806
+                            100.1225489,
+                            16.7627984
                         ],
                         [
-                            100.1225038,
-                            16.7628038
+                            100.1225046,
+                            16.7628015
                         ]
                     ]
                 ]
@@ -15619,7 +15719,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B317",
+                "bldg_id": "B300",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -15656,7 +15756,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B318",
+                "bldg_id": "B301",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -15697,7 +15797,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B319",
+                "bldg_id": "B302",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -15738,7 +15838,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B320",
+                "bldg_id": "B303",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -15779,7 +15879,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B321",
+                "bldg_id": "B304",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -15816,7 +15916,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B322",
+                "bldg_id": "B305",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -15857,7 +15957,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B323",
+                "bldg_id": "B306",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 5,
@@ -15898,11 +15998,11 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B324",
+                "bldg_id": "B307",
                 "bldg_type": "house",
                 "moo": 15,
-                "flood_level": 5,
-                "flood_years": "2011,2012,2017,2018,2021"
+                "flood_level": 6,
+                "flood_years": "2011,2012,2013,2017,2018,2021"
             },
             "geometry": {
                 "type": "Polygon",
@@ -15943,7 +16043,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B325",
+                "bldg_id": "B308",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 5,
@@ -15992,11 +16092,11 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B326",
+                "bldg_id": "B309",
                 "bldg_type": "house",
                 "moo": 15,
-                "flood_level": 5,
-                "flood_years": "2011,2012,2017,2018,2021"
+                "flood_level": 6,
+                "flood_years": "2011,2012,2013,2017,2018,2021"
             },
             "geometry": {
                 "type": "Polygon",
@@ -16041,11 +16141,11 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B327",
+                "bldg_id": "B310",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 2,
-                "flood_years": "2011,2018"
+                "flood_years": "2011,2021"
             },
             "geometry": {
                 "type": "Polygon",
@@ -16082,11 +16182,11 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B328",
+                "bldg_id": "B311",
                 "bldg_type": "house",
                 "moo": 15,
-                "flood_level": 2,
-                "flood_years": "2011,2018"
+                "flood_level": 4,
+                "flood_years": "2011,2012,2018,2021"
             },
             "geometry": {
                 "type": "Polygon",
@@ -16131,11 +16231,11 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B329",
+                "bldg_id": "B312",
                 "bldg_type": "house",
                 "moo": 15,
-                "flood_level": 2,
-                "flood_years": "2011,2018"
+                "flood_level": 3,
+                "flood_years": "2011,2012,2018"
             },
             "geometry": {
                 "type": "Polygon",
@@ -16172,11 +16272,11 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B330",
+                "bldg_id": "B313",
                 "bldg_type": "house",
                 "moo": 15,
-                "flood_level": 2,
-                "flood_years": "2011,2018"
+                "flood_level": 3,
+                "flood_years": "2011,2012,2018"
             },
             "geometry": {
                 "type": "Polygon",
@@ -16213,11 +16313,11 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B331",
+                "bldg_id": "B314",
                 "bldg_type": "house",
                 "moo": 15,
-                "flood_level": 3,
-                "flood_years": "2011,2012,2021"
+                "flood_level": 5,
+                "flood_years": "2011,2012,2013,2018,2021"
             },
             "geometry": {
                 "type": "Polygon",
@@ -16266,11 +16366,11 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B332",
+                "bldg_id": "B315",
                 "bldg_type": "house",
                 "moo": 15,
-                "flood_level": 3,
-                "flood_years": "2011,2012,2021"
+                "flood_level": 6,
+                "flood_years": "2011,2012,2013,2017,2018,2021"
             },
             "geometry": {
                 "type": "Polygon",
@@ -16315,11 +16415,11 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B333",
+                "bldg_id": "B316",
                 "bldg_type": "house",
                 "moo": 15,
-                "flood_level": 3,
-                "flood_years": "2011,2012,2021"
+                "flood_level": 4,
+                "flood_years": "2011,2012,2017,2021"
             },
             "geometry": {
                 "type": "Polygon",
@@ -16376,11 +16476,11 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B336",
+                "bldg_id": "B317",
                 "bldg_type": "house",
                 "moo": 15,
-                "flood_level": 3,
-                "flood_years": "2011,2012,2021"
+                "flood_level": 4,
+                "flood_years": "2011,2012,2017,2021"
             },
             "geometry": {
                 "type": "Polygon",
@@ -16425,11 +16525,11 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B337",
+                "bldg_id": "B318",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 3,
-                "flood_years": "2011,2012,2021"
+                "flood_years": "2011,2017,2021"
             },
             "geometry": {
                 "type": "Polygon",
@@ -16466,11 +16566,11 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B338",
+                "bldg_id": "B319",
                 "bldg_type": "house",
                 "moo": 15,
-                "flood_level": 2,
-                "flood_years": "2011,2021"
+                "flood_level": 3,
+                "flood_years": "2011,2013,2021"
             },
             "geometry": {
                 "type": "Polygon",
@@ -16519,7 +16619,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B339",
+                "bldg_id": "B320",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 2,
@@ -16560,11 +16660,11 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B340",
+                "bldg_id": "B321",
                 "bldg_type": "house",
                 "moo": 15,
-                "flood_level": 4,
-                "flood_years": "2011,2013,2017,2025"
+                "flood_level": 6,
+                "flood_years": "2011,2013,2017,2018,2022,2025"
             },
             "geometry": {
                 "type": "Polygon",
@@ -16601,11 +16701,11 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B341",
+                "bldg_id": "B322",
                 "bldg_type": "house",
                 "moo": 15,
-                "flood_level": 4,
-                "flood_years": "2011,2013,2017,2025"
+                "flood_level": 3,
+                "flood_years": "2011,2017,2025"
             },
             "geometry": {
                 "type": "Polygon",
@@ -16654,11 +16754,11 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B342",
+                "bldg_id": "B323",
                 "bldg_type": "house",
                 "moo": 15,
-                "flood_level": 4,
-                "flood_years": "2011,2013,2017,2025"
+                "flood_level": 3,
+                "flood_years": "2011,2017,2025"
             },
             "geometry": {
                 "type": "Polygon",
@@ -16695,11 +16795,11 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B343",
+                "bldg_id": "B324",
                 "bldg_type": "house",
                 "moo": 15,
-                "flood_level": 1,
-                "flood_years": "2011"
+                "flood_level": 2,
+                "flood_years": "2011,2017"
             },
             "geometry": {
                 "type": "Polygon",
@@ -16752,7 +16852,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B344",
+                "bldg_id": "B325",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 2,
@@ -16821,7 +16921,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B345",
+                "bldg_id": "B326",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 2,
@@ -16866,7 +16966,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B346",
+                "bldg_id": "B327",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 2,
@@ -16907,7 +17007,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B347",
+                "bldg_id": "B328",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 2,
@@ -16948,7 +17048,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B348",
+                "bldg_id": "B329",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -17013,7 +17113,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B349",
+                "bldg_id": "B330",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -17054,7 +17154,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B350",
+                "bldg_id": "B331",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -17103,11 +17203,11 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B351",
+                "bldg_id": "B332",
                 "bldg_type": "house",
                 "moo": 15,
-                "flood_level": 1,
-                "flood_years": "2011"
+                "flood_level": 0,
+                "flood_years": ""
             },
             "geometry": {
                 "type": "Polygon",
@@ -17144,7 +17244,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B354",
+                "bldg_id": "B333",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -17163,20 +17263,20 @@
                             16.7688658
                         ],
                         [
-                            100.1365287,
-                            16.7689084
+                            100.1365305,
+                            16.7688975
                         ],
                         [
-                            100.1364873,
-                            16.7690243
+                            100.1364892,
+                            16.7690312
                         ],
                         [
                             100.136426,
                             16.7690081
                         ],
                         [
-                            100.1363984,
-                            16.7690653
+                            100.1363994,
+                            16.7690689
                         ],
                         [
                             100.1363479,
@@ -17193,7 +17293,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B355",
+                "bldg_id": "B334",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -17234,7 +17334,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B356",
+                "bldg_id": "B335",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -17245,8 +17345,8 @@
                 "coordinates": [
                     [
                         [
-                            100.1362483,
-                            16.7693749
+                            100.136251,
+                            16.769365
                         ],
                         [
                             100.1363111,
@@ -17261,12 +17361,12 @@
                             16.7693881
                         ],
                         [
-                            100.1362437,
-                            16.7693749
+                            100.1362859,
+                            16.7693737
                         ],
                         [
-                            100.1362483,
-                            16.7693749
+                            100.136251,
+                            16.769365
                         ]
                     ]
                 ]
@@ -17275,11 +17375,11 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B357",
+                "bldg_id": "B336",
                 "bldg_type": "house",
                 "moo": 15,
-                "flood_level": 2,
-                "flood_years": "2011,2017"
+                "flood_level": 3,
+                "flood_years": "2011,2017,2025"
             },
             "geometry": {
                 "type": "Polygon",
@@ -17332,7 +17432,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B358",
+                "bldg_id": "B337",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -17377,7 +17477,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B359",
+                "bldg_id": "B338",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -17418,7 +17518,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B360",
+                "bldg_id": "B339",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 2,
@@ -17459,7 +17559,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B361",
+                "bldg_id": "B340",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 2,
@@ -17504,7 +17604,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B362",
+                "bldg_id": "B341",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -17553,11 +17653,11 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B363",
+                "bldg_id": "B342",
                 "bldg_type": "house",
                 "moo": 15,
-                "flood_level": 0,
-                "flood_years": ""
+                "flood_level": 1,
+                "flood_years": "2011"
             },
             "geometry": {
                 "type": "Polygon",
@@ -17594,7 +17694,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B364",
+                "bldg_id": "B343",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 0,
@@ -17635,7 +17735,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B365",
+                "bldg_id": "B344",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 0,
@@ -17680,7 +17780,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B366",
+                "bldg_id": "B345",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -17717,7 +17817,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B367",
+                "bldg_id": "B346",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 0,
@@ -17774,7 +17874,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B368",
+                "bldg_id": "B347",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 0,
@@ -17811,7 +17911,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B369",
+                "bldg_id": "B348",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 0,
@@ -17848,11 +17948,11 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B370",
+                "bldg_id": "B349",
                 "bldg_type": "house",
                 "moo": 15,
-                "flood_level": 0,
-                "flood_years": ""
+                "flood_level": 1,
+                "flood_years": "2011"
             },
             "geometry": {
                 "type": "Polygon",
@@ -17885,7 +17985,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B371",
+                "bldg_id": "B350",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 0,
@@ -17934,7 +18034,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B372",
+                "bldg_id": "B351",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 0,
@@ -17979,7 +18079,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B373",
+                "bldg_id": "B352",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 2,
@@ -17990,8 +18090,8 @@
                 "coordinates": [
                     [
                         [
-                            100.12969610403047,
-                            16.773667976217293
+                            100.1296826,
+                            16.7736674
                         ],
                         [
                             100.12975090403047,
@@ -18002,8 +18102,8 @@
                             16.773641776217296
                         ],
                         [
-                            100.12980620403047,
-                            16.773566976217296
+                            100.1298107,
+                            16.7735674
                         ],
                         [
                             100.12980440403048,
@@ -18018,8 +18118,8 @@
                             16.773593776217293
                         ],
                         [
-                            100.12969610403047,
-                            16.773667976217293
+                            100.1296826,
+                            16.7736674
                         ]
                     ]
                 ]
@@ -18028,11 +18128,11 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B374",
+                "bldg_id": "B353",
                 "bldg_type": "house",
                 "moo": 15,
-                "flood_level": 2,
-                "flood_years": "2011,2023"
+                "flood_level": 3,
+                "flood_years": "2011,2013,2023"
             },
             "geometry": {
                 "type": "Polygon",
@@ -18085,11 +18185,11 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B375",
+                "bldg_id": "B354",
                 "bldg_type": "house",
                 "moo": 15,
-                "flood_level": 2,
-                "flood_years": "2011,2023"
+                "flood_level": 3,
+                "flood_years": "2011,2013,2023"
             },
             "geometry": {
                 "type": "Polygon",
@@ -18146,7 +18246,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B376",
+                "bldg_id": "B355",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 0,
@@ -18203,19 +18303,19 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B377",
+                "bldg_id": "B356",
                 "bldg_type": "house",
                 "moo": 15,
-                "flood_level": 0,
-                "flood_years": ""
+                "flood_level": 1,
+                "flood_years": "2011"
             },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
                     [
                         [
-                            100.13873390530608,
-                            16.76578223960024
+                            100.1387215,
+                            16.7657867
                         ],
                         [
                             100.1389318,
@@ -18234,8 +18334,8 @@
                             16.7656696
                         ],
                         [
-                            100.1390878,
-                            16.7656682
+                            100.1390933,
+                            16.7656687
                         ],
                         [
                             100.1391038,
@@ -18246,28 +18346,28 @@
                             16.7655761
                         ],
                         [
-                            100.1390032,
-                            16.7655426
+                            100.1390021,
+                            16.7655345
                         ],
                         [
-                            100.1389668,
-                            16.7655286
+                            100.138963,
+                            16.7655222
                         ],
                         [
                             100.1389055,
                             16.7655147
                         ],
                         [
-                            100.1387758,
-                            16.7654965
+                            100.1387714,
+                            16.7655029
                         ],
                         [
                             100.1387598,
                             16.7655775
                         ],
                         [
-                            100.13873390530608,
-                            16.76578223960024
+                            100.1387215,
+                            16.7657867
                         ]
                     ]
                 ]
@@ -18276,7 +18376,7 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B380",
+                "bldg_id": "B357",
                 "bldg_type": "house",
                 "moo": 15,
                 "flood_level": 1,
@@ -18291,12 +18391,12 @@
                             16.7763361
                         ],
                         [
-                            100.1209165,
-                            16.7763375
+                            100.1209206,
+                            16.7763379
                         ],
                         [
-                            100.1209203,
-                            16.7763171
+                            100.1209219,
+                            16.7763167
                         ],
                         [
                             100.1209225,
@@ -18325,54 +18425,54 @@
         {
             "type": "Feature",
             "properties": {
-                "bldg_id": "B381",
+                "bldg_id": "B358",
                 "bldg_type": "house",
                 "moo": 15,
-                "flood_level": 1,
-                "flood_years": "2011"
+                "flood_level": 2,
+                "flood_years": "2011,2012"
             },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
                     [
                         [
-                            100.12097825086089,
+                            100.12097423714287,
                             16.7764314873477
                         ],
                         [
-                            100.12098255086089,
+                            100.12097853714288,
                             16.7764427873477
                         ],
                         [
-                            100.12099565086106,
+                            100.12099163714305,
                             16.776437961380548
                         ],
                         [
-                            100.12101575086089,
+                            100.12101173714288,
                             16.7764318873477
                         ],
                         [
-                            100.12104045086089,
+                            100.12103643714288,
                             16.7764229873477
                         ],
                         [
-                            100.12103275086089,
+                            100.12102873714288,
                             16.7763924873477
                         ],
                         [
-                            100.12102475086088,
+                            100.12102073714287,
                             16.7763651873477
                         ],
                         [
-                            100.1209936508609,
+                            100.12098963714288,
                             16.7763740873477
                         ],
                         [
-                            100.12096325086088,
+                            100.12095923714287,
                             16.7763849873477
                         ],
                         [
-                            100.12097825086089,
+                            100.12097423714287,
                             16.7764314873477
                         ]
                     ]
