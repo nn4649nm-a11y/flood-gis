@@ -307,3 +307,68 @@ html, body { font-size: 13px; }
 .sym-water { background: rgba(31, 138, 166, .4); border: 1px solid #1f8aa6; border-radius: 2px; }
 .sym-flood { background: rgba(31, 95, 168, .7); border-radius: 2px; }
 .sym-sec { margin: 6px 0 5px; padding-top: 6px; border-top: 1px solid var(--line); font-size: 11.5px; font-weight: 600; color: #5d7681; }
+
+/* ==========================================================
+   รองรับโทรศัพท์ / หน้าจอสัมผัส
+   ========================================================== */
+@supports (height: 100dvh) { html, body, #app { height: 100dvh; } }
+body { -webkit-text-size-adjust: 100%; }
+
+/* hover ค้างบนจอสัมผัส: ไม่ให้ปุ่มเติมน้ำค้างหลังแตะ */
+@media (hover: none) {
+  .nav-btn:hover:not(.active) { background-size: 100% 0%; }
+}
+
+@media (max-width: 640px), (pointer: coarse) and (max-width: 900px) {
+  /* ขอบปลอดภัยของจอ (รอยบาก / แถบระบบ) */
+  .nav-toolbar { top: max(12px, env(safe-area-inset-top)); left: max(12px, env(safe-area-inset-left)); gap: 4px; }
+  .nav-btn { width: 36px; height: 36px; }
+  .nav-btn svg { width: 17px; height: 17px; }
+  /* ปุ่มและช่องกรอกให้แตะง่าย */
+  .side-x { width: 30px; height: 30px; font-size: 13px; }
+  .panel-close { width: 44px; height: 38px; font-size: 15px; }
+  .side-title, .side-head { height: 36px; font-size: 13.5px; }
+  #layers-panel .layer-item { padding: 4px 0; }
+  #layers-panel .chk-box { width: 16px; height: 16px; }
+  #layers-panel .layer-title { font-size: 12.5px; }
+  #layers-panel .zoom-layer-btn { padding: 4px; }
+  #layers-panel .zoom-layer-btn svg { width: 16px; height: 16px; }
+  .year-chips { gap: 4px; }
+  .year-chips button { font-size: 11.5px; padding: 5px 0; }
+  #layers-panel #flood-year, .layer-select { font-size: 16px; padding: 4px 6px; }
+  #search { font-size: 16px; padding: 8px 10px; }
+  .btn-full { padding: 10px; }
+  .bm-card { font-size: 12.5px; padding: 6px; }
+  .bm-thumb { height: 52px; }
+  .layer-hint, .layer-sec { font-size: 11.5px; }
+  .sym, #legend .lg { font-size: 12px; }
+}
+
+@media (max-width: 640px) {
+  /* แผงเปิดเต็มความกว้างที่เหลือ ข้างแถบปุ่ม */
+  #layers-panel, .floating-panel {
+    left: calc(max(12px, env(safe-area-inset-left)) + 36px + 8px);
+    right: max(8px, env(safe-area-inset-right));
+    top: max(12px, env(safe-area-inset-top));
+    width: auto;
+  }
+  #layers-panel { max-height: calc(100% - 24px - env(safe-area-inset-top) - env(safe-area-inset-bottom)); }
+  .floating-panel { max-height: calc(100% - 24px - env(safe-area-inset-top) - env(safe-area-inset-bottom)); overflow-y: auto; }
+  /* Legend ชิดล่างซ้าย พับอยู่ตอนเริ่ม และซ่อนเมื่อมีแผงอื่นเปิด */
+  #legend-panel {
+    left: max(8px, env(safe-area-inset-left));
+    bottom: max(28px, calc(env(safe-area-inset-bottom) + 24px));
+    width: min(200px, calc(100% - 16px));
+    max-height: 40%;
+  }
+  #app:has(#layers-panel:not(.hidden)) #legend-panel,
+  #app:has(#floating-panel:not(.hidden)) #legend-panel { display: none; }
+  #toast { bottom: max(56px, calc(env(safe-area-inset-bottom) + 52px)); }
+  .leaflet-popup-content { font-size: 13px; margin: 10px 12px; }
+}
+
+/* จอแนวนอนเตี้ยๆ */
+@media (max-height: 480px) and (max-width: 900px) {
+  #layers-panel, .floating-panel { top: 8px; max-height: calc(100% - 16px); }
+  #legend-panel { max-height: 55%; }
+}

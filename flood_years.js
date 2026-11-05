@@ -9,7 +9,7 @@
     let cur = "all";   // ค่าที่เลือกอยู่: "all" | "freq_1".."freq_6" | "2011".."2025"
 
     sel.innerHTML = `<option value="all">สะสมทุกปี (ความถี่)</option>` +
-      [1, 2, 3, 4, 5, 6].map(k => `<option value="freq_${k}">ความถี่ ${k === 6 ? "6 ครั้งขึ้นไป" : k + " ครั้ง"} เท่านั้น</option>`).join("") +
+      [1,2,3,4,5,6].map(k => `<option value="freq_${k}">ความถี่ ${k===6?"6 ครั้งขึ้นไป":k+" ครั้ง"} เท่านั้น</option>`).join("") +
       `<option value="year" hidden>ปี</option>`;   // ซ่อนในรายการ ใช้แสดงปีที่เลือกจากปุ่ม
     const yearOpt = sel.querySelector('option[value="year"]');
 
@@ -43,6 +43,11 @@
       if (cur === "all" || cur.startsWith("freq_")) sel.value = cur;
       else { yearOpt.textContent = "ปี " + cur; sel.value = "year"; }
       apply();
+      // โทรศัพท์: เลือกปีแล้วปิดแผงชั้นข้อมูล จะได้เห็นแผนที่ทันที
+      if (window.matchMedia("(max-width: 640px)").matches) {
+        const x = document.querySelector("#layers-panel [data-toggle-layers]");
+        if (x) x.click();
+      }
     });
     sel.addEventListener("change", () => { cur = sel.value; apply(); });
     chk.addEventListener("change", apply);
