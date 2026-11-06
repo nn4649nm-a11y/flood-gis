@@ -11,6 +11,13 @@ const BASEMAPS = {
     // ถ้าอยากลองเพิ่ม ให้ลองเลข 18 แล้วซูมดู ถ้ายังเป็นสีเทาให้ลดกลับเป็น 17
     opt: { maxNativeZoom: 17, attribution: "© Esri" }
   },
+  // ภาพดาวเทียม Google: ชัดกว่า Esri เมื่อซูมใกล้ (ใช้ได้ถึงระดับ 20)
+  // หมายเหตุ: ข้อกำหนดของ Google ไม่อนุญาตให้ดึงภาพตรงแบบนี้ในเว็บสาธารณะ เหมาะกับการทดสอบหรือใช้ภายใน
+  // ถ้าจะเผยแพร่จริง ให้ลบรายการ google นี้ หรือเปลี่ยนไปใช้ Google Maps Tiles API แบบมีกุญแจ
+  google: {
+    url: "https://mt{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}",
+    opt: { maxNativeZoom: 20, subdomains: "0123", attribution: "© Google" }
+  },
   osm: {
     url: "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
     opt: { maxNativeZoom: 19, attribution: "© OpenStreetMap" }
@@ -85,6 +92,43 @@ function classIndex(v) {
   return C.CLASSES.length - 1;
 }
 function classColor(v) { return C.CLASSES[classIndex(v)].color; }
+
+/* ================= ขอบเขตหมู่ 15: นับเฉพาะอาคารที่อยู่ข้างใน ================= */
+let boundaryPolys = null;   // รายการ Polygon ของขอบเขตหมู่ (แต่ละอันเป็นรายการของ ring: ring แรก = ขอบนอก)
+
+function boundaryToPolys(raw) {
+  const out = [];
+  ((raw && raw.features) || []).forEach(f => {
+    const g = f && f.geometry;
+    if (!g) return;
+    if (g.type === "Polygon") out.push(g.coordinates);
+    else if (g.type === "MultiPolygon") g.coordinates.forEach(p => out.push(p));
+  });
+  return out;
+}
+
+function pointInRing(x, y, ring) {
+  let inside = false;
+  for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) {
+    const xi = ring[i][0], yi = ring[i][1], xj = ring[j][0], yj = ring[j][1];
+    if ((yi > y) !== (yj > y) && x < (xj - xi) * (y - yi) / (yj - yi) + xi) inside = !inside;
+  }
+  return inside;
+}
+
+function inBoundary(lng, lat) {
+  return boundaryPolys.some(poly =>
+    pointInRing(lng, lat, poly[0]) && !poly.slice(1).some(hole => pointInRing(lng, lat, hole)));
+}
+
+// อาคารอยู่ในหมู่ 15 เมื่อจุดกึ่งกลางของรูปอาคารอยู่ในเส้นขอบเขต
+function buildingInBoundary(feature) {
+  const ring = feature.geometry.coordinates[0];
+  const n = ring.length - 1;   // จุดสุดท้ายซ้ำจุดแรก
+  let sx = 0, sy = 0;
+  for (let i = 0; i < n; i++) { sx += ring[i][0]; sy += ring[i][1]; }
+  return inBoundary(sx / n, sy / n);
+}
 
 /* ================= ข้อมูลอาคาร ================= */
 // แปลงไฟล์ GeoJSON ใดๆ ให้เป็นรูปแบบที่แอปใช้: Polygon และฟิลด์ตาม C.FIELDS
@@ -288,7 +332,7 @@ function restyleBuildings() {
 
 function updateSummary() {
   if (!DATA) return;
-  const shown = filtered();
+  const shown = filtered().filter(f => f.properties.inMoo !== false);   // นับเฉพาะอาคารในขอบเขตหมู่ 15
   const affected = shown.filter(f => f.properties.flood_level > 0).length;
   const counts = C.CLASSES.map(() => 0);
   shown.forEach(f => counts[f.properties.cls]++);
@@ -428,7 +472,7 @@ function wireUI() {
   const chkWater = document.getElementById("chk-flood-water");   // ผิวน้ำท่วม (WMS)
   const chkBodies = document.getElementById("chk-water-bodies"); // แหล่งน้ำ (แม่น้ำ/บ่อ)
 
-  chkWater.addEventListener("change", () => {
+  if (chkWater) chkWater.addEventListener("change", () => {
     if (!wmsLayer) return;
     if (chkWater.checked) wmsLayer.addTo(map); else wmsLayer.remove();
   });
@@ -547,6 +591,7 @@ async function init() {
   if (boundaryUrl) {
     try {
       const rawB = await fetchJson(boundaryUrl);
+      boundaryPolys = boundaryToPolys(rawB);
       boundaryLayer = L.geoJSON(rawB, {
         style: { color: "#d4492e", weight: 3, dashArray: "10 6", fill: false },
         interactive: false
@@ -567,6 +612,17 @@ async function init() {
     ]);
     DATA = normalizeBuildings(rawBuildings);
     if (!DATA.features.length) throw new Error("ไฟล์ไม่มีอาคารที่เป็น Polygon");
+
+    // อาคารทุกหลังยังแสดงบนแผนที่ แต่กล่องสรุปและตัวเลขในคำอธิบายสัญลักษณ์ นับเฉพาะที่อยู่ในขอบเขตหมู่ 15
+    if (boundaryPolys && boundaryPolys.length) {
+      let nIn = 0;
+      DATA.features.forEach(f => { f.properties.inMoo = buildingInBoundary(f); if (f.properties.inMoo) nIn++; });
+      console.info(`อาคารในขอบเขตหมู่ 15: ${nIn} จาก ${DATA.features.length} หลัง (แสดงทั้งหมด นับเฉพาะในหมู่)`);
+      if (!nIn) {
+        DATA.features.forEach(f => { f.properties.inMoo = true; });
+        showMessage("ไม่พบอาคารที่อยู่ในขอบเขตหมู่ 15 จึงนับอาคารทั้งหมดแทน ตรวจพิกัดของไฟล์อาคารและขอบเขต", 9000);
+      }
+    }
 
     if (rawWater && rawWater.features && rawWater.features.length) {
       waterLayer = L.geoJSON(rawWater, { style: { color: "#1f8aa6", weight: 1, fillColor: "#1f8aa6", fillOpacity: 0.4 }, interactive: false }).addTo(map);
