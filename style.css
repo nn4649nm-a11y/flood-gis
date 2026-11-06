@@ -970,7 +970,7 @@ body {
     overflow-y: auto;
   }
 
-  /* Legend ชิดล่างซ้าย พับอยู่ตอนเริ่ม และซ่อนเมื่อมีแผงอื่นเปิด */
+  /* Legend ชิดล่างซ้าย พับอยู่ตอนเริ่ม และแสดงพร้อมแผงอื่นโดยแบ่งความสูง */
   #legend-panel {
     left: max(8px, env(safe-area-inset-left));
     bottom: max(28px, calc(env(safe-area-inset-bottom) + 24px));
@@ -978,9 +978,20 @@ body {
     max-height: 40%;
   }
 
+  /* เปิดแผงอื่นพร้อมกันได้: แบ่งความสูง แผงบนไม่เกิน 52% ส่วน legend เลื่อนดูในกล่องตัวเอง */
+  #app:has(#layers-panel:not(.hidden)) #layers-panel,
+  #app:has(#floating-panel:not(.hidden)) .floating-panel {
+    max-height: 52%;
+  }
+
   #app:has(#layers-panel:not(.hidden)) #legend-panel,
   #app:has(#floating-panel:not(.hidden)) #legend-panel {
-    display: none;
+    max-height: 36%;
+  }
+
+  #legend-panel .side-body {
+    overflow-y: auto;
+    max-height: calc(100% - 40px);
   }
 
   #toast {
@@ -1054,15 +1065,25 @@ body {
 }
 
 /* จอเตี้ย (แล็ปท็อปจอเล็ก, แท็บเล็ตและมือถือแนวนอน):
-   แผงชั้นข้อมูลใช้ความสูงเต็มที่ และซ่อนกล่องสัญลักษณ์ชั่วคราวขณะเปิดแผงอื่น ไม่ให้ซ้อนกัน */
+   แผงชั้นข้อมูลใช้ความสูงเต็มที่ แบ่งความสูงกับกล่องสัญลักษณ์ให้แสดงพร้อมกันได้ */
 @media (min-width: 641px) and (max-height: 760px) {
   #layers-panel {
     max-height: calc(100% - 24px);
   }
 
+  #app:has(#layers-panel:not(.hidden)) #layers-panel,
+  #app:has(#floating-panel:not(.hidden)) .floating-panel {
+    max-height: 50%;
+  }
+
   #app:has(#layers-panel:not(.hidden)) #legend-panel,
   #app:has(#floating-panel:not(.hidden)) #legend-panel {
-    display: none;
+    max-height: calc(50% - 44px);
+  }
+
+  #legend-panel .side-body {
+    overflow-y: auto;
+    max-height: calc(100% - 40px);
   }
 }
 
