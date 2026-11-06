@@ -3,39 +3,75 @@
    และเมื่อเปิดใช้งาน น้ำจะไหลเติมขึ้นมาจากก้นปุ่ม
    ========================================================== */
 :root {
-  --ink: #12303f;          /* น้ำลึกกลางลำน้ำ */
-  --water: #1f8aa6;        /* น้ำท่วม */
+  --ink: #12303f;
+  /* น้ำลึกกลางลำน้ำ */
+  --water: #1f8aa6;
+  /* น้ำท่วม */
   --water-soft: #d9edf2;
   --paper: #f4f7f7;
   --line: #c9d8dc;
-  --gauge-red: #d4492e;    /* เส้นระดับวิกฤตบนเสาวัดน้ำ */
+  --gauge-red: #d4492e;
+  /* เส้นระดับวิกฤตบนเสาวัดน้ำ */
   --drop: 18px 18px 18px 4px;
   --fill-ease: cubic-bezier(.3, .7, .2, 1);
 }
-* { box-sizing: border-box; }
-html, body {
-  height: 100%; margin: 0;
-  font-family: "Sarabun", "Noto Sans Thai", "Segoe UI", system-ui, sans-serif;
-  font-size: 14px; color: var(--ink); overflow: hidden;
+
+* {
+  box-sizing: border-box;
 }
-#app { position: relative; width: 100%; height: 100%; }
-#map { position: relative; z-index: 0; width: 100%; height: 100%; font-family: inherit; }
-.hidden { display: none !important; }
-button { font-family: inherit; }
-button:focus-visible, .chk-wrap:focus-within .chk-box, input:focus-visible, select:focus-visible {
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  font-family: "Sarabun", "Noto Sans Thai", "Segoe UI", system-ui, sans-serif;
+  font-size: 14px;
+  color: var(--ink);
+  overflow: hidden;
+}
+
+#app {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+#map {
+  position: relative;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  font-family: inherit;
+}
+
+.hidden {
+  display: none !important;
+}
+
+button {
+  font-family: inherit;
+}
+
+button:focus-visible,
+.chk-wrap:focus-within .chk-box,
+input:focus-visible,
+select:focus-visible {
   outline: 2px solid var(--water);
   outline-offset: 2px;
 }
 
 /* ---------- พื้นปุ่มแบบ "น้ำเติมจากก้นปุ่ม" ใช้ร่วมกัน ---------- */
-.nav-btn, .btn-full {
+.nav-btn,
+.btn-full {
   background-image: linear-gradient(var(--water), var(--water));
   background-repeat: no-repeat;
   background-position: bottom;
   background-size: 100% 0%;
   transition: background-size .5s var(--fill-ease), color .25s, box-shadow .25s;
 }
-.nav-btn.active, .btn-full:hover {
+
+.nav-btn.active,
+.btn-full:hover {
   background-size: 100% 100%;
   color: #fff;
 }
@@ -51,6 +87,7 @@ button:focus-visible, .chk-wrap:focus-within .chk-box, input:focus-visible, sele
   align-items: center;
   gap: 5px;
 }
+
 .nav-btn {
   width: 40px;
   height: 40px;
@@ -66,11 +103,32 @@ button:focus-visible, .chk-wrap:focus-within .chk-box, input:focus-visible, sele
   position: relative;
   box-shadow: 0 2px 6px rgba(18, 48, 63, .22);
 }
-.nav-btn svg { width: 19px; height: 19px; fill: none; stroke: currentColor; stroke-width: 1.8; position: relative; }
-.nav-btn:hover:not(.active) { background-size: 100% 22%; }
-.nav-btn.active { border-color: var(--water); }
-.nav-btn.disabled { opacity: .4; pointer-events: none; }
-.nav-sep { height: 5px; }
+
+.nav-btn svg {
+  width: 19px;
+  height: 19px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  position: relative;
+}
+
+.nav-btn:hover:not(.active) {
+  background-size: 100% 22%;
+}
+
+.nav-btn.active {
+  border-color: var(--water);
+}
+
+.nav-btn.disabled {
+  opacity: .4;
+  pointer-events: none;
+}
+
+.nav-sep {
+  height: 5px;
+}
 
 /* ================= 3. หน้าต่าง Layers & Legend ================= */
 .floating-panel {
@@ -88,6 +146,7 @@ button:focus-visible, .chk-wrap:focus-within .chk-box, input:focus-visible, sele
   flex-direction: column;
   overflow: hidden;
 }
+
 .panel-close {
   width: 44px;
   border: none;
@@ -96,7 +155,12 @@ button:focus-visible, .chk-wrap:focus-within .chk-box, input:focus-visible, sele
   color: #9fc0cb;
   cursor: pointer;
 }
-.panel-close:hover { background: var(--gauge-red); color: #fff; }
+
+.panel-close:hover {
+  background: var(--gauge-red);
+  color: #fff;
+}
+
 .panel-header {
   display: flex;
   align-items: center;
@@ -108,7 +172,11 @@ button:focus-visible, .chk-wrap:focus-within .chk-box, input:focus-visible, sele
   font-size: 15px;
   color: #fff;
 }
-.layer-list { padding: 12px 14px; }
+
+.layer-list {
+  padding: 12px 14px;
+}
+
 .layer-item {
   display: flex;
   align-items: center;
@@ -116,6 +184,7 @@ button:focus-visible, .chk-wrap:focus-within .chk-box, input:focus-visible, sele
   padding: 6px 0;
   gap: 8px;
 }
+
 /* รายการย่อยระดับน้ำ: เส้นนำเป็นขีดแบบเสาวัดน้ำ */
 .layer-children {
   margin-left: 8px;
@@ -133,7 +202,13 @@ button:focus-visible, .chk-wrap:focus-within .chk-box, input:focus-visible, sele
   flex: 1;
   min-width: 0;
 }
-.chk-wrap input { position: absolute; opacity: 0; pointer-events: none; }
+
+.chk-wrap input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
 .chk-box {
   width: 18px;
   height: 18px;
@@ -146,8 +221,12 @@ button:focus-visible, .chk-wrap:focus-within .chk-box, input:focus-visible, sele
   flex-shrink: 0;
   transition: background-size .4s var(--fill-ease);
 }
-.chk-wrap input:checked + .chk-box { background-size: 100% 100%; }
-.chk-wrap input:checked + .chk-box::after {
+
+.chk-wrap input:checked+.chk-box {
+  background-size: 100% 100%;
+}
+
+.chk-wrap input:checked+.chk-box::after {
   content: "";
   width: 4px;
   height: 8px;
@@ -156,13 +235,22 @@ button:focus-visible, .chk-wrap:focus-within .chk-box, input:focus-visible, sele
   transform: rotate(45deg);
   margin-top: -2px;
 }
-.lvl-sw { width: 14px; height: 14px; flex-shrink: 0; border-radius: 7px 7px 7px 2px; border: 1px solid #12303f55; }
+
+.lvl-sw {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  border-radius: 7px 7px 7px 2px;
+  border: 1px solid #12303f55;
+}
+
 .layer-title {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   color: var(--ink);
 }
+
 .zoom-layer-btn {
   background: transparent;
   border: none;
@@ -173,187 +261,715 @@ button:focus-visible, .chk-wrap:focus-within .chk-box, input:focus-visible, sele
   align-items: center;
   border-radius: 8px 8px 8px 2px;
 }
-.zoom-layer-btn svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.4; }
-.zoom-layer-btn:hover { color: #fff; background: var(--water); }
+
+.zoom-layer-btn svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.4;
+}
+
+.zoom-layer-btn:hover {
+  color: #fff;
+  background: var(--water);
+}
 
 /* ส่วนประกอบอื่นๆ ใน Panel */
-.pad-box { padding: 14px; }
-.lg { display: flex; gap: 8px; align-items: center; font-size: 13px; margin-bottom: 5px; }
-.lg i { width: 20px; height: 14px; border-radius: 7px 7px 7px 2px; border: 1px solid #12303f33; }
-.field-lbl { display: block; font-size: 13px; color: #4b6772; margin: 8px 0 4px; }
+.pad-box {
+  padding: 14px;
+}
+
+.lg {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  font-size: 13px;
+  margin-bottom: 5px;
+}
+
+.lg i {
+  width: 20px;
+  height: 14px;
+  border-radius: 7px 7px 7px 2px;
+  border: 1px solid #12303f33;
+}
+
+.field-lbl {
+  display: block;
+  font-size: 13px;
+  color: #4b6772;
+  margin: 8px 0 4px;
+}
+
 #search {
-  width: 100%; padding: 8px 10px; font: inherit; color: var(--ink);
-  background: #fff; border: 1px solid var(--line); border-radius: 10px 10px 10px 3px; margin-bottom: 6px;
+  width: 100%;
+  padding: 8px 10px;
+  font: inherit;
+  color: var(--ink);
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 10px 10px 10px 3px;
+  margin-bottom: 6px;
 }
+
 .btn-full {
-  width: 100%; padding: 10px; margin-top: 8px; font: inherit; font-weight: 600;
-  background-color: var(--ink); color: #fff; border: none;
-  border-radius: var(--drop); cursor: pointer;
+  width: 100%;
+  padding: 10px;
+  margin-top: 8px;
+  font: inherit;
+  font-weight: 600;
+  background-color: var(--ink);
+  color: #fff;
+  border: none;
+  border-radius: var(--drop);
+  cursor: pointer;
 }
-.btn-full.disabled { opacity: .4; pointer-events: none; }
-.basemap-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+.btn-full.disabled {
+  opacity: .4;
+  pointer-events: none;
+}
+
+.basemap-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
 .bm-card {
-  border: 2px solid var(--line); border-radius: 14px 14px 14px 4px; padding: 6px;
-  text-align: center; cursor: pointer; font-size: 12.5px; background: #fff;
+  border: 2px solid var(--line);
+  border-radius: 14px 14px 14px 4px;
+  padding: 6px;
+  text-align: center;
+  cursor: pointer;
+  font-size: 12.5px;
+  background: #fff;
   transition: border-color .2s, transform .2s;
 }
-.bm-card:hover { border-color: var(--water); }
-.bm-card.active { border-color: var(--water); background: var(--water-soft); font-weight: 700; color: var(--ink); }
-.bm-thumb { height: 60px; border-radius: 9px 9px 9px 2px; margin-bottom: 6px; background-size: cover; background-position: center; }
-.sat-thumb { background: linear-gradient(135deg, #1d3b2a, #3b5e47, #2b4435); }
-.osm-thumb { background: linear-gradient(135deg, #f2efe9, #dcd7c9, #b5d0d0); }
-.light-thumb { background: linear-gradient(135deg, #f6f4ee, #e6e2d6, #aad3df); }
-.street-thumb { background: linear-gradient(135deg, #f5f1e6, #e8dfc8, #a8cfe0); }
-.topo-thumb { background: linear-gradient(135deg, #dfe8c8, #c8d9a8, #e6d9b8); }
+
+.bm-card:hover {
+  border-color: var(--water);
+}
+
+.bm-card.active {
+  border-color: var(--water);
+  background: var(--water-soft);
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.bm-thumb {
+  height: 60px;
+  border-radius: 9px 9px 9px 2px;
+  margin-bottom: 6px;
+  background-size: cover;
+  background-position: center;
+}
+
+.sat-thumb {
+  background: linear-gradient(135deg, #1d3b2a, #3b5e47, #2b4435);
+}
+
+.osm-thumb {
+  background: linear-gradient(135deg, #f2efe9, #dcd7c9, #b5d0d0);
+}
+
+.light-thumb {
+  background: linear-gradient(135deg, #f6f4ee, #e6e2d6, #aad3df);
+}
+
+.street-thumb {
+  background: linear-gradient(135deg, #f5f1e6, #e8dfc8, #a8cfe0);
+}
+
+.topo-thumb {
+  background: linear-gradient(135deg, #dfe8c8, #c8d9a8, #e6d9b8);
+}
 
 @media (max-width: 640px) {
-.floating-panel { width: 264px; right: 68px; }
+  .floating-panel {
+    width: 264px;
+    right: 68px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-.nav-btn, .btn-full, .chk-box, .bm-card { transition: none; }
+
+  .nav-btn,
+  .btn-full,
+  .chk-box,
+  .bm-card {
+    transition: none;
+  }
 }
 
 /* ---------- ข้อความแจ้งเตือน และป๊อปอัปอาคาร (Leaflet) ---------- */
 #toast {
-  position: absolute; left: 50%; bottom: 44px; transform: translateX(-50%); z-index: 20;
-  max-width: min(520px, calc(100% - 32px)); padding: 12px 16px;
-  background: var(--ink); color: #fff; font-size: 14px; line-height: 1.5;
-  border-radius: var(--drop); box-shadow: 0 8px 24px rgba(18, 48, 63, .35);
+  position: absolute;
+  left: 50%;
+  bottom: 44px;
+  transform: translateX(-50%);
+  z-index: 20;
+  max-width: min(520px, calc(100% - 32px));
+  padding: 12px 16px;
+  background: var(--ink);
+  color: #fff;
+  font-size: 14px;
+  line-height: 1.5;
+  border-radius: var(--drop);
+  box-shadow: 0 8px 24px rgba(18, 48, 63, .35);
 }
-.bld-tip { font-family: inherit; font-size: 12px; font-weight: 600; color: var(--ink); border-radius: 8px 8px 8px 2px; border: 1px solid var(--line); }
-.leaflet-popup-content-wrapper { border-radius: 14px 14px 14px 4px; box-shadow: 0 6px 20px rgba(18, 48, 63, .3); }
-.leaflet-popup-content { font-family: inherit; font-size: 14px; color: var(--ink); line-height: 1.6; }
-.leaflet-container .leaflet-control-attribution { font-size: 11px; }
+
+.bld-tip {
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink);
+  border-radius: 8px 8px 8px 2px;
+  border: 1px solid var(--line);
+}
+
+.leaflet-popup-content-wrapper {
+  border-radius: 14px 14px 14px 4px;
+  box-shadow: 0 6px 20px rgba(18, 48, 63, .3);
+}
+
+.leaflet-popup-content {
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--ink);
+  line-height: 1.6;
+}
+
+.leaflet-container .leaflet-control-attribution {
+  font-size: 11px;
+}
 
 /* ---------- UI แบบกะทัดรัด: Layers ข้างแถบปุ่ม / Legend ชิดมุมซ้ายล่าง ---------- */
-html, body { font-size: 13px; }
-.nav-toolbar { top: 12px; left: 12px; gap: 4px; }
-.nav-btn { width: 38px; height: 38px; }
-.nav-btn svg { width: 18px; height: 18px; }
-.nav-sep { height: 4px; }
-.leaflet-top.leaflet-left, .leaflet-control-zoom { display: none; }
+html,
+body {
+  font-size: 13px;
+}
+
+.nav-toolbar {
+  top: 12px;
+  left: 12px;
+  gap: 4px;
+}
+
+.nav-btn {
+  width: 38px;
+  height: 38px;
+}
+
+.nav-btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+.nav-sep {
+  height: 4px;
+}
+
+.leaflet-top.leaflet-left,
+.leaflet-control-zoom {
+  display: none;
+}
+
 .side-panel {
-  position: absolute; z-index: 10; display: flex; flex-direction: column; min-height: 0;
-  background: var(--paper); border: 1px solid var(--line);
-  border-radius: 14px 14px 14px 4px; box-shadow: 0 6px 20px rgba(18, 48, 63, .26); overflow: hidden;
+  position: absolute;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 14px 14px 14px 4px;
+  box-shadow: 0 6px 20px rgba(18, 48, 63, .26);
+  overflow: hidden;
 }
-#layers-panel { left: 60px; top: 12px; width: 236px; max-height: calc(100% - 300px); min-height: 160px; }
-#legend-panel { left: 8px; bottom: 32px; width: 188px; max-height: 280px; }
-.side-title, .side-head {
-  display: flex; align-items: center; justify-content: space-between; flex-shrink: 0;
-  height: 34px; padding: 0 8px 0 12px; background: var(--ink); color: #fff;
-  font-family: inherit; font-weight: 600; font-size: 13.5px; line-height: 1;
+
+#layers-panel {
+  left: 60px;
+  top: 12px;
+  width: 236px;
+  max-height: calc(100% - 300px);
+  min-height: 160px;
 }
-.side-head { width: 100%; border: none; cursor: pointer; text-align: left; }
-.side-head:hover { background: #1b4558; }
-.side-x { width: 26px; height: 26px; border: none; border-radius: 8px 8px 8px 2px; background: transparent; color: #cfe3ea; font-size: 13px; cursor: pointer; }
-.side-x:hover { background: var(--gauge-red); color: #fff; }
-.chev { width: 7px; height: 7px; border: solid #fff; border-width: 0 2px 2px 0; transform: rotate(45deg); margin: -3px 4px 0 0; transition: transform .25s; }
-.side-panel.collapsed .chev { transform: rotate(-135deg); margin-top: 3px; }
-.side-body { overflow-y: auto; min-height: 0; }
-.side-panel.collapsed .side-body { display: none; }
+
+#legend-panel {
+  left: 8px;
+  bottom: 32px;
+  width: 188px;
+  max-height: 280px;
+}
+
+.side-title,
+.side-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+  height: 34px;
+  padding: 0 8px 0 12px;
+  background: var(--ink);
+  color: #fff;
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 13.5px;
+  line-height: 1;
+}
+
+.side-head {
+  width: 100%;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+}
+
+.side-head:hover {
+  background: #1b4558;
+}
+
+.side-x {
+  width: 26px;
+  height: 26px;
+  border: none;
+  border-radius: 8px 8px 8px 2px;
+  background: transparent;
+  color: #cfe3ea;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.side-x:hover {
+  background: var(--gauge-red);
+  color: #fff;
+}
+
+.chev {
+  width: 7px;
+  height: 7px;
+  border: solid #fff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+  margin: -3px 4px 0 0;
+  transition: transform .25s;
+}
+
+.side-panel.collapsed .chev {
+  transform: rotate(-135deg);
+  margin-top: 3px;
+}
+
+.side-body {
+  overflow-y: auto;
+  min-height: 0;
+}
+
+.side-panel.collapsed .side-body {
+  display: none;
+}
 
 /* รายการชั้นข้อมูลแบบกระชับ */
-#layers-panel .layer-list { padding: 6px 10px 8px; }
-#layers-panel .layer-item { padding: 3px 0; gap: 4px; }
-#layers-panel .chk-wrap { gap: 7px; }
-#layers-panel .chk-box { width: 15px; height: 15px; border-width: 1.5px; }
-#layers-panel .layer-title { font-size: 12.5px; }
-#layers-panel .zoom-layer-btn { padding: 2px; }
-#layers-panel .zoom-layer-btn svg { width: 15px; height: 15px; }
-#layers-panel .layer-children { margin-left: 6px; padding-left: 10px; }
-#layers-panel .lvl-sw { width: 11px; height: 11px; }
+#layers-panel .layer-list {
+  padding: 6px 10px 8px;
+}
+
+#layers-panel .layer-item {
+  padding: 3px 0;
+  gap: 4px;
+}
+
+#layers-panel .chk-wrap {
+  gap: 7px;
+}
+
+#layers-panel .chk-box {
+  width: 15px;
+  height: 15px;
+  border-width: 1.5px;
+}
+
+#layers-panel .layer-title {
+  font-size: 12.5px;
+}
+
+#layers-panel .zoom-layer-btn {
+  padding: 2px;
+}
+
+#layers-panel .zoom-layer-btn svg {
+  width: 15px;
+  height: 15px;
+}
+
+#layers-panel .layer-children {
+  margin-left: 6px;
+  padding-left: 10px;
+}
+
+#layers-panel .lvl-sw {
+  width: 11px;
+  height: 11px;
+}
 
 /* Legend + สรุป */
-#legend-panel .side-body { padding: 8px 10px 9px; }
-.sm-head { font-size: 12px; line-height: 1.35; margin-bottom: 6px; }
-.sm-head b { font-size: 20px; color: var(--water); margin-right: 4px; }
-.sm-head span { display: block; color: #5d7681; font-size: 11px; }
-#legend .lg { gap: 7px; font-size: 12px; margin-bottom: 3px; }
-#legend .lg i { width: 15px; height: 11px; flex-shrink: 0; }
-#legend .lg span { flex: 1; }
-#legend .lg em { font-style: normal; font-weight: 700; font-variant-numeric: tabular-nums; }
-.floating-panel { top: 12px; left: 60px; right: auto; width: 252px; }
-.pad-box { padding: 10px 12px; }
+#legend-panel .side-body {
+  padding: 8px 10px 9px;
+}
+
+.sm-head {
+  font-size: 12px;
+  line-height: 1.35;
+  margin-bottom: 6px;
+}
+
+.sm-head b {
+  font-size: 20px;
+  color: var(--water);
+  margin-right: 4px;
+}
+
+.sm-head span {
+  display: block;
+  color: #5d7681;
+  font-size: 11px;
+}
+
+#legend .lg {
+  gap: 7px;
+  font-size: 12px;
+  margin-bottom: 3px;
+}
+
+#legend .lg i {
+  width: 15px;
+  height: 11px;
+  flex-shrink: 0;
+}
+
+#legend .lg span {
+  flex: 1;
+}
+
+#legend .lg em {
+  font-style: normal;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.floating-panel {
+  top: 12px;
+  left: 60px;
+  right: auto;
+  width: 252px;
+}
+
+.pad-box {
+  padding: 10px 12px;
+}
+
 @media (max-width: 640px) {
-#layers-panel { width: 214px; }
-.floating-panel { width: 214px; }
+  #layers-panel {
+    width: 214px;
+  }
+
+  .floating-panel {
+    width: 214px;
+  }
 }
 
 /* หัวข้อส่วนในแผงชั้นข้อมูล: อาคาร / น้ำท่วม */
-.layer-sec { margin: 8px 0 2px; padding-top: 6px; border-top: 1px solid var(--line); font-size: 11.5px; font-weight: 600; color: #5d7681; }
-.layer-hint { margin: 2px 0 4px 24px; font-size: 11.5px; line-height: 1.4; color: #5d7681; }
-.chk-wrap:has(input:disabled) { opacity: .5; cursor: not-allowed; }
-.layer-select{margin:4px 0 2px 26px;width:calc(100% - 26px);font:inherit;font-size:12px;padding:3px 6px;border:1px solid #c9dbe3;border-radius:8px;background:#fff;color:var(--ink,#12303f)}
-.flood-img{image-rendering:pixelated}
-#layers-panel .layer-item:has(#flood-year){flex-wrap:wrap}
-#layers-panel #flood-year{display:block;flex:1 0 100%;width:auto;margin:2px 0 4px 26px;box-sizing:border-box;max-width:calc(100% - 26px)}
+.layer-sec {
+  margin: 8px 0 2px;
+  padding-top: 6px;
+  border-top: 1px solid var(--line);
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #5d7681;
+}
 
-.year-chips{flex:1 0 100%;display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin:2px 0 6px 26px;max-width:calc(100% - 26px)}
-.year-chips button{font:inherit;font-size:11px;padding:3px 0;border:1px solid #c9dbe3;border-radius:8px 8px 8px 2px;background:#fff;color:var(--ink,#12303f);cursor:pointer}
-.year-chips button:first-child{grid-column:span 4}
-.year-chips button.on{background:var(--water,#1f8aa6);border-color:var(--water,#1f8aa6);color:#fff}
+.layer-hint {
+  margin: 2px 0 4px 24px;
+  font-size: 11.5px;
+  line-height: 1.4;
+  color: #5d7681;
+}
+
+.chk-wrap:has(input:disabled) {
+  opacity: .5;
+  cursor: not-allowed;
+}
+
+.layer-select {
+  margin: 4px 0 2px 26px;
+  width: calc(100% - 26px);
+  font: inherit;
+  font-size: 12px;
+  padding: 3px 6px;
+  border: 1px solid #c9dbe3;
+  border-radius: 8px;
+  background: #fff;
+  color: var(--ink, #12303f)
+}
+
+.flood-img {
+  image-rendering: pixelated
+}
+
+#layers-panel .layer-item:has(#flood-year) {
+  flex-wrap: wrap
+}
+
+#layers-panel #flood-year {
+  display: block;
+  flex: 1 0 100%;
+  width: auto;
+  margin: 2px 0 4px 26px;
+  box-sizing: border-box;
+  max-width: calc(100% - 26px)
+}
+
+.year-chips {
+  flex: 1 0 100%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4px;
+  margin: 2px 0 6px 26px;
+  max-width: calc(100% - 26px)
+}
+
+.year-chips button {
+  font: inherit;
+  font-size: 11px;
+  padding: 3px 0;
+  border: 1px solid #c9dbe3;
+  border-radius: 8px 8px 8px 2px;
+  background: #fff;
+  color: var(--ink, #12303f);
+  cursor: pointer
+}
+
+.year-chips button:first-child {
+  grid-column: span 4
+}
+
+.year-chips button.on {
+  background: var(--water, #1f8aa6);
+  border-color: var(--water, #1f8aa6);
+  color: #fff
+}
 
 
 /* สัญลักษณ์บนแผนที่ (สีตรงกับที่วาดใน app.js) */
-#legend-panel { max-height: 340px; }
-#layers-panel { max-height: calc(100% - 370px); }
-.sym-list { margin-bottom: 4px; }
-.sym { display: flex; align-items: center; gap: 8px; font-size: 12px; margin-bottom: 4px; }
-.sym i { flex-shrink: 0; width: 26px; height: 14px; display: inline-block; }
-.sym-boundary { height: 0 !important; border-top: 3px dashed #d4492e; }
-.sym-bld { background: #fff; border: 1.5px solid #12303f; border-radius: 2px; }
-.sym-water { background: rgba(31, 138, 166, .4); border: 1px solid #1f8aa6; border-radius: 2px; }
-.sym-flood { background: rgba(31, 95, 168, .7); border-radius: 2px; }
-.sym-sec { margin: 6px 0 5px; padding-top: 6px; border-top: 1px solid var(--line); font-size: 11.5px; font-weight: 600; color: #5d7681; }
+#legend-panel {
+  max-height: 340px;
+}
+
+#layers-panel {
+  max-height: calc(100% - 370px);
+}
+
+.sym-list {
+  margin-bottom: 4px;
+}
+
+.sym {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  margin-bottom: 4px;
+}
+
+.sym i {
+  flex-shrink: 0;
+  width: 26px;
+  height: 14px;
+  display: inline-block;
+}
+
+.sym-boundary {
+  height: 0 !important;
+  border-top: 3px dashed #d4492e;
+}
+
+.sym-bld {
+  background: #fff;
+  border: 1.5px solid #12303f;
+  border-radius: 2px;
+}
+
+.sym-water {
+  background: rgba(31, 138, 166, .4);
+  border: 1px solid #1f8aa6;
+  border-radius: 2px;
+}
+
+.sym-flood {
+  background: rgba(31, 95, 168, .7);
+  border-radius: 2px;
+}
+
+.sym-sec {
+  margin: 6px 0 5px;
+  padding-top: 6px;
+  border-top: 1px solid var(--line);
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #5d7681;
+}
 
 /* ==========================================================
    รองรับโทรศัพท์ / หน้าจอสัมผัส
    ========================================================== */
-@supports (height: 100dvh) { html, body, #app { height: 100dvh; } }
-body { -webkit-text-size-adjust: 100%; }
+@supports (height: 100dvh) {
+
+  html,
+  body,
+  #app {
+    height: 100dvh;
+  }
+}
+
+body {
+  -webkit-text-size-adjust: 100%;
+}
 
 /* hover ค้างบนจอสัมผัส: ไม่ให้ปุ่มเติมน้ำค้างหลังแตะ */
 @media (hover: none) {
-  .nav-btn:hover:not(.active) { background-size: 100% 0%; }
+  .nav-btn:hover:not(.active) {
+    background-size: 100% 0%;
+  }
 }
 
-@media (max-width: 640px), (pointer: coarse) and (max-width: 900px) {
+@media (max-width: 640px),
+(pointer: coarse) and (max-width: 900px) {
+
   /* ขอบปลอดภัยของจอ (รอยบาก / แถบระบบ) */
-  .nav-toolbar { top: max(12px, env(safe-area-inset-top)); left: max(12px, env(safe-area-inset-left)); gap: 4px; }
-  .nav-btn { width: 36px; height: 36px; }
-  .nav-btn svg { width: 17px; height: 17px; }
+  .nav-toolbar {
+    top: max(12px, env(safe-area-inset-top));
+    left: max(12px, env(safe-area-inset-left));
+    gap: 4px;
+  }
+
+  .nav-btn {
+    width: 36px;
+    height: 36px;
+  }
+
+  .nav-btn svg {
+    width: 17px;
+    height: 17px;
+  }
+
   /* ปุ่มและช่องกรอกให้แตะง่าย */
-  .side-x { width: 30px; height: 30px; font-size: 13px; }
-  .panel-close { width: 44px; height: 38px; font-size: 15px; }
-  .side-title, .side-head { height: 36px; font-size: 13.5px; }
-  #layers-panel .layer-item { padding: 4px 0; }
-  #layers-panel .chk-box { width: 16px; height: 16px; }
-  #layers-panel .layer-title { font-size: 12.5px; }
-  #layers-panel .zoom-layer-btn { padding: 4px; }
-  #layers-panel .zoom-layer-btn svg { width: 16px; height: 16px; }
-  .year-chips { gap: 4px; }
-  .year-chips button { font-size: 11.5px; padding: 5px 0; }
-  #layers-panel #flood-year, .layer-select { font-size: 16px; padding: 4px 6px; }
-  #search { font-size: 16px; padding: 8px 10px; }
-  .btn-full { padding: 10px; }
-  .bm-card { font-size: 12.5px; padding: 6px; }
-  .bm-thumb { height: 52px; }
-  .layer-hint, .layer-sec { font-size: 11.5px; }
-  .sym, #legend .lg { font-size: 12px; }
+  .side-x {
+    width: 30px;
+    height: 30px;
+    font-size: 13px;
+  }
+
+  .panel-close {
+    width: 44px;
+    height: 38px;
+    font-size: 15px;
+  }
+
+  .side-title,
+  .side-head {
+    height: 36px;
+    font-size: 13.5px;
+  }
+
+  #layers-panel .layer-item {
+    padding: 4px 0;
+  }
+
+  #layers-panel .chk-box {
+    width: 16px;
+    height: 16px;
+  }
+
+  #layers-panel .layer-title {
+    font-size: 12.5px;
+  }
+
+  #layers-panel .zoom-layer-btn {
+    padding: 4px;
+  }
+
+  #layers-panel .zoom-layer-btn svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .year-chips {
+    gap: 4px;
+  }
+
+  .year-chips button {
+    font-size: 11.5px;
+    padding: 5px 0;
+  }
+
+  #layers-panel #flood-year,
+  .layer-select {
+    font-size: 16px;
+    padding: 4px 6px;
+  }
+
+  #search {
+    font-size: 16px;
+    padding: 8px 10px;
+  }
+
+  .btn-full {
+    padding: 10px;
+  }
+
+  .bm-card {
+    font-size: 12.5px;
+    padding: 6px;
+  }
+
+  .bm-thumb {
+    height: 52px;
+  }
+
+  .layer-hint,
+  .layer-sec {
+    font-size: 11.5px;
+  }
+
+  .sym,
+  #legend .lg {
+    font-size: 12px;
+  }
 }
 
 @media (max-width: 640px) {
+
   /* แผงเปิดเต็มความกว้างที่เหลือ ข้างแถบปุ่ม */
-  #layers-panel, .floating-panel {
+  #layers-panel,
+  .floating-panel {
     left: calc(max(12px, env(safe-area-inset-left)) + 36px + 8px);
     right: max(8px, env(safe-area-inset-right));
     top: max(12px, env(safe-area-inset-top));
     width: auto;
   }
-  #layers-panel { max-height: calc(100% - 24px - env(safe-area-inset-top) - env(safe-area-inset-bottom)); }
-  .floating-panel { max-height: calc(100% - 24px - env(safe-area-inset-top) - env(safe-area-inset-bottom)); overflow-y: auto; }
+
+  #layers-panel {
+    max-height: calc(100% - 24px - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+  }
+
+  .floating-panel {
+    max-height: calc(100% - 24px - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+    overflow-y: auto;
+  }
+
   /* Legend ชิดล่างซ้าย พับอยู่ตอนเริ่ม และซ่อนเมื่อมีแผงอื่นเปิด */
   #legend-panel {
     left: max(8px, env(safe-area-inset-left));
@@ -361,14 +977,120 @@ body { -webkit-text-size-adjust: 100%; }
     width: min(200px, calc(100% - 16px));
     max-height: 40%;
   }
+
   #app:has(#layers-panel:not(.hidden)) #legend-panel,
-  #app:has(#floating-panel:not(.hidden)) #legend-panel { display: none; }
-  #toast { bottom: max(56px, calc(env(safe-area-inset-bottom) + 52px)); }
-  .leaflet-popup-content { font-size: 13px; margin: 10px 12px; }
+  #app:has(#floating-panel:not(.hidden)) #legend-panel {
+    display: none;
+  }
+
+  #toast {
+    bottom: max(56px, calc(env(safe-area-inset-bottom) + 52px));
+  }
+
+  .leaflet-popup-content {
+    font-size: 13px;
+    margin: 10px 12px;
+  }
 }
 
 /* จอแนวนอนเตี้ยๆ */
 @media (max-height: 480px) and (max-width: 900px) {
-  #layers-panel, .floating-panel { top: 8px; max-height: calc(100% - 16px); }
-  #legend-panel { max-height: 55%; }
+
+  #layers-panel,
+  .floating-panel {
+    top: 8px;
+    max-height: calc(100% - 16px);
+  }
+
+  #legend-panel {
+    max-height: 55%;
+  }
+}
+
+/* ==========================================================
+   Responsive: แผงเมนูปรับตามขนาดและความสูงของหน้าจอ
+   (มือถือกว้างไม่เกิน 640px ใช้ชุดกฎด้านบนแล้ว)
+   ========================================================== */
+@media (min-width: 641px) {
+
+  /* ความกว้างแผงขยายตามหน้าจอ แต่ไม่แคบหรือกว้างเกินไป */
+  #layers-panel {
+    width: clamp(214px, 22vw, 300px);
+  }
+
+  .floating-panel {
+    width: clamp(214px, 24vw, 300px);
+    max-height: calc(100% - 24px);
+    overflow-y: auto;
+  }
+
+  #legend-panel {
+    width: clamp(188px, 19vw, 250px);
+    max-height: min(340px, 46%);
+  }
+
+  /* ปุ่มปีจัดคอลัมน์ตามความกว้างแผง */
+  .year-chips {
+    grid-template-columns: repeat(auto-fill, minmax(46px, 1fr));
+  }
+
+  .year-chips button:first-child {
+    grid-column: 1 / -1;
+  }
+}
+
+/* จอคอมพิวเตอร์ใหญ่: ตัวอักษรในแผงใหญ่ขึ้นเล็กน้อย */
+@media (min-width: 1400px) {
+
+  #layers-panel .layer-title,
+  #legend .lg {
+    font-size: 13.5px;
+  }
+
+  .year-chips button {
+    font-size: 12px;
+    padding: 4px 0;
+  }
+}
+
+/* จอเตี้ย (แล็ปท็อปจอเล็ก, แท็บเล็ตและมือถือแนวนอน):
+   แผงชั้นข้อมูลใช้ความสูงเต็มที่ และซ่อนกล่องสัญลักษณ์ชั่วคราวขณะเปิดแผงอื่น ไม่ให้ซ้อนกัน */
+@media (min-width: 641px) and (max-height: 760px) {
+  #layers-panel {
+    max-height: calc(100% - 24px);
+  }
+
+  #app:has(#layers-panel:not(.hidden)) #legend-panel,
+  #app:has(#floating-panel:not(.hidden)) #legend-panel {
+    display: none;
+  }
+}
+
+/* จอเตี้ยมาก (มือถือแนวนอน): ปุ่มแถบซ้ายเล็กลงให้พอดีความสูง */
+@media (max-height: 420px) {
+  .nav-toolbar {
+    gap: 3px;
+    top: max(6px, env(safe-area-inset-top));
+  }
+
+  .nav-btn {
+    width: 32px;
+    height: 32px;
+  }
+
+  .nav-btn svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  #layers-panel,
+  .floating-panel {
+    top: max(6px, env(safe-area-inset-top));
+    max-height: calc(100% - 12px);
+  }
+
+  #legend-panel {
+    max-height: 60%;
+    bottom: 24px;
+  }
 }
